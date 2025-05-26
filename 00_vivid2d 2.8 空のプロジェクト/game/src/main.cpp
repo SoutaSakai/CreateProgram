@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 //misaki
+=======
+//misakisexking
+>>>>>>> Stashed changes
 /*!
  *  @file       main.cpp
  *  @brief      エントリーポイント
