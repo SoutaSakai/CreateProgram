@@ -1,4 +1,4 @@
-//misaki
+//misakig
 /*!
  *  @file       main.cpp
  *  @brief      エントリーポイント
