@@ -1,7 +1,7 @@
-//misakisex
+//misakisexking
 /*!
  *  @file       main.cpp
- *  @brief      ƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg
+ *  @brief      ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆ
  *  @author     Kazuya Maruyama
  *				Toshihito Ohashi
  *  @date       2023/05/08
@@ -23,7 +23,7 @@ float angle = 0.0f;
 vivid::Vector2 Scale = { 1.0f,1.0f };
 
 /*!
- *  @brief      •`‰æŠÖ”
+ *  @brief      æç”»é–¢æ•°
  */
 void
 Display(void)
@@ -159,14 +159,14 @@ Display(void)
 }
 
 /*!
- *  @brief      ƒƒCƒ“ŠÖ”
+ *  @brief      ãƒ¡ã‚¤ãƒ³é–¢æ•°
  *
- *  @param[in]  hInst       ƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹
- *  @param[in]  hPrevInst   Win16‘ã‚Ìˆâ•¨
- *  @param[in]  lpCmdLine   ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“•¶š—ñ
- *  @param[in]  nCmdShow    ƒEƒBƒ“ƒh‚Ì•\¦•û–@
+ *  @param[in]  hInst       ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒãƒ³ãƒ‰ãƒ«
+ *  @param[in]  hPrevInst   Win16æ™‚ä»£ã®éºç‰©
+ *  @param[in]  lpCmdLine   ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³æ–‡å­—åˆ—
+ *  @param[in]  nCmdShow    ã‚¦ã‚£ãƒ³ãƒ‰ã®è¡¨ç¤ºæ–¹æ³•
  *
- *  @return     ƒƒCƒ“ŠÖ”‚Ì¬”Û
+ *  @return     ãƒ¡ã‚¤ãƒ³é–¢æ•°ã®æˆå¦
  */
 int WINAPI
 WinMain( _In_ HINSTANCE hInst, _In_opt_ HINSTANCE hPrevInst, _In_ LPSTR lpCmdLine, _In_ int nCmdShow )
@@ -175,15 +175,15 @@ WinMain( _In_ HINSTANCE hInst, _In_opt_ HINSTANCE hPrevInst, _In_ LPSTR lpCmdLin
     (void)lpCmdLine;
     (void)nCmdShow;
 
-    // vividƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»
+    // vividãƒ©ã‚¤ãƒ–ãƒ©ãƒªåˆæœŸåŒ–
     vivid::Initialize( hInst );
 
-    // XV/•`‰æŠÖ”“o˜^
+    // æ›´æ–°/æç”»é–¢æ•°ç™»éŒ²
     vivid::DisplayFunction( Display );
 
-    // ƒQ[ƒ€ƒ‹[ƒv
+    // ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
     vivid::MainLoop( );
 
-    // vividƒ‰ƒCƒuƒ‰ƒŠ‰ğ•ú
+    // vividãƒ©ã‚¤ãƒ–ãƒ©ãƒªè§£æ”¾
     vivid::Finalize( );
 }
