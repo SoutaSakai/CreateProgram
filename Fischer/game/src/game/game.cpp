@@ -1,5 +1,5 @@
 #include "game.h"
-#include "scene_manager\scene_manager.h"
+#include "scenemanager\scenemanager.h"
 
 /**
  *	@brief	プログラム開始時に1度だけ呼ばれる。
@@ -7,7 +7,7 @@
  */
 void Initialize_game(void)
 {
-	SCENE_MANAGER::GetInstance().Initialize();
+	SceneManager::GetInstance().Initialize();
 }
 
 /**
@@ -16,7 +16,7 @@ void Initialize_game(void)
  */
 void Update_game(void)
 {
-	SCENE_MANAGER::GetInstance().Update();
+	SceneManager::GetInstance().Update();
 }
 
 /**
@@ -25,7 +25,7 @@ void Update_game(void)
  */
 void Draw_game(void)
 {
-	SCENE_MANAGER::GetInstance().Draw();
+	SceneManager::GetInstance().Draw();
 }
 
 /**
@@ -33,5 +33,5 @@ void Draw_game(void)
  */
 void Finalize_game(void)
 {
-	SCENE_MANAGER::GetInstance().Finalize();
+	SceneManager::GetInstance().Finalize();
 }

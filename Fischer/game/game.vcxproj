@@ -165,13 +165,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game\game.cpp" />
-    <ClCompile Include="src\game\scene_manager\iscene\scenes\gamemain\fisher\fisher.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fishermanager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\game\scene_manager\iscene\scenes\iscene.cpp" />
-    <ClCompile Include="src\game\scene_manager\iscene\scenes\gamemain\gamemain.cpp" />
-    <ClCompile Include="src\game\scene_manager\iscene\scenes\result\result.cpp" />
-    <ClCompile Include="src\game\scene_manager\scene_manager.cpp" />
-    <ClCompile Include="src\game\scene_manager\iscene\scenes\title\title.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\scenes\iscene.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\scenes\result\result.cpp" />
+    <ClCompile Include="src\game\scenemanager\scenemanager.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\scenes\title\title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vivid2d\vivid2d.vcxproj">
@@ -180,13 +180,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\game.h" />
-    <ClInclude Include="src\game\scene_manager\iscene\scenes\gamemain\fisher\fisher.h" />
-    <ClInclude Include="src\game\scene_manager\iscene\scenes\iscene.h" />
-    <ClInclude Include="src\game\scene_manager\iscene\scenes\gamemain\gamemain.h" />
-    <ClInclude Include="src\game\scene_manager\iscene\scenes\result\result.h" />
-    <ClInclude Include="src\game\scene_manager\scene_manager.h" />
-    <ClInclude Include="src\game\scene_manager\iscene\scenes\title\title.h" />
-    <ClInclude Include="src\game\scene_manager\iscene\scenes\scene_id.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fishermanager.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fisherstate.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\iscene.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\result\result.h" />
+    <ClInclude Include="src\game\scenemanager\scenemanager.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\title\title.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\scene_id.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
