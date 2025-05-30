@@ -11,10 +11,14 @@ GAMEMAIN::GAMEMAIN(void)
 
 void GAMEMAIN::Initialize(void)
 {
+	FisherManager::GetInstance().Initialize();
 }
 
 void GAMEMAIN::Update(void)
 {
+	FisherManager::GetInstance().Update();
+	
+
 #ifdef VIVID_DEBUG
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
 		SceneManager::GetInstance().Change_scene(SCENE_ID::RESULT);
