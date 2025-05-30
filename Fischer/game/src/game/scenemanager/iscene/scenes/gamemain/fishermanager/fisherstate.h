@@ -2,6 +2,7 @@
 
 enum class FISHER_STATE
 {
+	DUMMY,
 	RELUX,
 	CAUTION,
 };

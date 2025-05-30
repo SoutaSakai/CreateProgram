@@ -18,32 +18,28 @@ public:
 
 private:
 
-	//釣り人の人数
-	static const int Max_Fisher;
-
-	//釣り人の座標
+	// 釣り人の人数
+	static const int Max_Fisher = 5;
+	// 釣り人の座標
 	static const vivid::Vector2 Fisher_Pos[];
-
-	//釣り人のサイズ
+	// 釣り人の幅
 	static const float Fisher_WIDTH;
+	// 釣り人の高さ
 	static const float Fisher_HEIGHT;
-
-	//釣り人の間隔
+	// 釣り人の間隔
 	static const float Fisher_Distance;
+	// 釣り人の描画範囲
+	static const vivid::Rect Fisher_Rect;
 
-	//rect
-	vivid::Rect Fisher_Rect[];
+	// 釣り人の状態の管理
+	int Fisher_state[];
 
-
-	FISHER_STATE Fisher1_state;
-	FISHER_STATE Fisher2_state;
-	FISHER_STATE Fisher3_state;
-	FISHER_STATE Fisher4_state;
-	FISHER_STATE Fisher5_state;
-
-	FisherManager(void);
-	FisherManager(const FisherManager& rhs);
-	FisherManager(FisherManager&& rhs);
-	~FisherManager(void);
-	FisherManager& operator=(const FisherManager& rhs);
+	// コンストラクタ
+	FisherManager(void) = default;
+	// デストラクタ
+	~FisherManager(void) = default;
+	// コピーコンストラクタ
+	FisherManager(const FisherManager& rhs) = delete;
+	// ムーブコンストラクタ
+	FisherManager& operator=(const FisherManager& rhs) = delete;
 };
