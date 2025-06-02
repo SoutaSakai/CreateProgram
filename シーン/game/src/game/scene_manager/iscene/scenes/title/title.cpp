@@ -15,7 +15,7 @@ void TITLE::Update(void)
 {
 #ifdef VIVID_DEBUG
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
-		SCENE_MANAGER::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
+		SCENE_MANAGER::GetInstance().Change_scene(SCENE_ID::CHARACTERCELECT);
 #endif
 }
 

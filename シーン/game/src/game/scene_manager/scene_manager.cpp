@@ -1,5 +1,6 @@
 #include "scene_manager.h"
 #include "iscene\scenes\title\title.h"
+#include "iscene\scenes\characterselect\characterselect.h"
 #include "iscene\scenes\gamemain\gamemain.h"
 #include "iscene\scenes\result\result.h"
 
@@ -72,6 +73,9 @@ void SCENE_MANAGER::Change(void)
 	{
 	case SCENE_ID::TITLE:
 		Iscene = new TITLE();
+		break;
+	case SCENE_ID::CHARACTERCELECT:
+		Iscene = new CHARACTERSELECT();
 		break;
 	case SCENE_ID::GAMEMAIN:
 		Iscene = new GAMEMAIN();
