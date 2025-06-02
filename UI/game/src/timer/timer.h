@@ -10,7 +10,7 @@ public:
 
 	void Update(void);
 
-	void Draw(const vivid::Vector2 &position);
+	void Draw(void);
 
 	void Finalize(void);
 

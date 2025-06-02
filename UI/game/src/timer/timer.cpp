@@ -35,42 +35,29 @@ void TIME::Update(void)
 
 }
 
-void TIME::Draw(const vivid::Vector2 &position)
+void TIME::Draw()
 
 {
-	vivid::Rect rect = { };
-
-	
-
+	vivid::Rect rect = { };	
 	vivid::Vector2 pos = {vivid::WINDOW_WIDTH/2.0f,0.0f};
 
-	pos.x -= m_width / 2;
-
-
 	int m_time = timer;
-
-	
-
-	int cnt = 0;
+	float cnt = 0;
 
 	do
 	{
-
-		 m_time/= 10.0f;
-
+		m_time/= 10.0f;
 
 		cnt++;
-		
 
-	} while (m_time / 10 > 0);
+	} while (m_time > 0);
 
-	pos.x += m_width*(cnt / 2);
+	pos.x += m_width*(cnt / 2) - m_width;
 	
 	m_time = timer;
+
 	do
 	{
-	
-
 		int digit = m_time % 10;
 
 		rect.left = digit * m_width;
@@ -82,16 +69,13 @@ void TIME::Draw(const vivid::Vector2 &position)
 		rect.bottom = m_height;
 
 		m_time /= 10.0f;
-
-		
 		
 		vivid::DrawTexture("data\\number.png", pos, 0xffffffff, rect);
-		pos.x -= m_width;
-		
 
-	} while (m_time>0);
+		pos.x -= m_width;		
 
-	DxLib::DrawLine(vivid::WINDOW_WIDTH / 2, 0, vivid::WINDOW_WIDTH / 2, vivid::WINDOW_HEIGHT, 0xffffffff);
+	} while (m_time > 0);
+
 
 
 

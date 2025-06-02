@@ -23,7 +23,7 @@ Display(void)
 {
    
     timer.Update();
-    timer.Draw(vivid::Vector2(vivid::WINDOW_WIDTH/2,0.0f) );
+    timer.Draw();
   
 }
 
