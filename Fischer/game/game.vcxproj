@@ -165,6 +165,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\feedmanager\feedmanager.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fishermanager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\iscene.cpp" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\feedmanager\feedmanager.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fishermanager.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fisherstate.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\iscene.h" />

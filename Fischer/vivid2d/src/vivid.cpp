@@ -378,7 +378,13 @@ Initialize(HINSTANCE hInst)
 
 #ifdef VIVID_DEBUG
     // ウィンドウモードで起動
-    ChangeWindowMode(TRUE);
+//    ChangeWindowMode(TRUE);
+//#else
+    // フルスクリーンモードで起動
+    ChangeWindowMode(FALSE);
+
+    // ゲーム画面の解像度に合わせてフルスクリーンにする
+    SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_NATIVE);
 #else
     // フルスクリーンモードで起動
     ChangeWindowMode(FALSE);

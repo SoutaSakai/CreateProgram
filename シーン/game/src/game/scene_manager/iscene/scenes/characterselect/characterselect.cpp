@@ -20,10 +20,35 @@ void CHARACTERSELECT::Update(void)
 
 void CHARACTERSELECT::Draw(void)
 {
-	vivid::DrawTexture("data\\fence.png", vivid::Vector2(vivid::WINDOW_WIDTH / 2 - 300.0f, 100.0f));
+	vivid::DrawTexture("data\\background.png", vivid::Vector2::ZERO);
+
+	/* 人数分の選択したキャラクターの枠の描画 */
+	for (int i = 0; i < 4; ++i)
+	{
+		// 選択したキャラクターの枠の描画
+		vivid::DrawTexture("data\\playercharacter3.png",
+								vivid::Vector2(vivid::WINDOW_WIDTH / 5 * (i + 1) - 250.0f / 2, vivid::WINDOW_HEIGHT - 300.0f));
+	}
 
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "characterselect", vivid::Vector2(0.0f, 0.0f));
+	for (int i = 0; i < 2; ++i)
+	{
+		if (i == 0)
+		{
+			for (int j = 0; j < 5; ++j)
+			{
+				vivid::DrawTexture("data\\Tuna.png", vivid::Vector2(vivid::WINDOW_WIDTH / 6 * (j + 1) - 220.0f / 2, i * 200.0f + 100.0f));
+			}
+		}
+		else
+		{
+			for (int j = 0; j < 4; ++j)
+			{
+				vivid::DrawTexture("data\\Tuna.png", vivid::Vector2(vivid::WINDOW_WIDTH / 5 * (j + 1) - 220.0f / 2, i * 200.0f + 100.0f));
+			}
+		}
+	}
 #endif
 }
 

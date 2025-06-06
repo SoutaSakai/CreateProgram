@@ -2,7 +2,7 @@
 
 enum class FISHER_STATE
 {
-	RELUX,
-	CAUTION,
-	CAUGHT,
+	RELUX,		// ƒŠƒ‰ƒbƒNƒXó‘Ô
+	CAUTION,	// ’Ž‹ó‘Ô
+	FISHING,	// ’Þ‚è‚ ‚°‚Ä‚¢‚éó‘Ô
 };

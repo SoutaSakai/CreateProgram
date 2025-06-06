@@ -27,8 +27,7 @@ private:
 	static const int Max_Fisher;
 	// 釣り人の状態更新時間
 	static const float Fisher_Time;
-	// 釣り人の座標
-	static const vivid::Vector2 Fisher_Pos[];
+
 	// 釣り人の幅
 	static const float Fisher_WIDTH;
 	// 釣り人の高さ
@@ -43,7 +42,8 @@ private:
 	int Fisher_state[5];
 	// 釣り人の状態更新タイマー
 	float Fisher_timer;
-
+	// 釣り人の座標
+	vivid::Vector2 Fisher_Pos[5];
 
 	// 釣り人の状態をランダムに更新
 	void FisherRandState(void);

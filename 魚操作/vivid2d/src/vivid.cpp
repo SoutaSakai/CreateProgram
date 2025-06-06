@@ -377,10 +377,10 @@ Initialize(HINSTANCE hInst)
     SetWindowSize(g_window_width, g_window_height);
 
 #ifdef VIVID_DEBUG
-    //    // ウィンドウモードで起動
-    //    ChangeWindowMode(true);
-    //#else
-        // フルスクリーンモードで起動
+//    // ウィンドウモードで起動
+//    ChangeWindowMode(true);
+//#else
+    // フルスクリーンモードで起動
     ChangeWindowMode(FALSE);
 
     // ゲーム画面の解像度に合わせてフルスクリーンにする
@@ -1218,6 +1218,22 @@ StopSound(const std::string& file_name)
         return;
 
     StopSoundMem(sound);
+}
+
+/*
+ *  サウンドのボリューム設定
+ */
+void
+vivid::
+SetSoundVolume(const std::string& file_name, int volume)
+{
+    // ロード済みのサウンド検索
+    int sound = FindLoadedSound(file_name);
+
+    if (sound == VIVID_DX_ERROR)
+        return;
+
+    SetVolumeSoundMem(volume, sound);
 }
 
 /*
