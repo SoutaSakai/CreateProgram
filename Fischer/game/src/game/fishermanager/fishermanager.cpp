@@ -28,10 +28,12 @@ void FisherManager::Initialize(void)
 	{
 		Fisher_Pos[i].x = i * (Fisher_WIDTH + Fisher_Distance);
 		Fisher_Pos[i].y = 0.0f;
+
+		FeedManager::GetInstance().CreateFeed(Fisher_Pos[i]);	// 餌の生成
 	}
 
 	// 餌の初期化
-	FeedManager::GetInstance().Initialize();
+	/*FeedManager::GetInstance().Initialize();*/
 
 	// 釣り人の状態をランダムに更新（初期化）
 	FisherRandState();
@@ -62,7 +64,7 @@ void FisherManager::Update(void)
 // 描画
 void FisherManager::Draw(void)
 {
-	/* 判定による釣り人の描画 */
+	/* 状態の判定による釣り人の描画 */
 	for (int i = 0; i < Max_Fisher; i++)
 	{
 		if (Fisher_state[i] == (int)FISHER_STATE::RELUX)
@@ -70,11 +72,20 @@ void FisherManager::Draw(void)
 		else if (Fisher_state[i] == (int)FISHER_STATE::CAUTION)
 			vivid::DrawTexture("data\\cautionfisher.png", Fisher_Pos[i]); // 注視状態の描画
 	}
+
+	// 餌の描画
+	FeedManager::GetInstance().Draw();
 }
 
 // 解放
 void FisherManager::Finalize(void)
 {
+}
+
+// 餌を食べられた時の処理
+void FisherManager::CaughtFeed(void)
+{
+
 }
 
 // 釣り人の状態をランダムに更新

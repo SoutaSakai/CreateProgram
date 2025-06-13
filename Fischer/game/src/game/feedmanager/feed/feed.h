@@ -18,8 +18,11 @@ public:
 
 	bool IsActive(void);
 
+	float GetRadius(void);
+
 private:
-	static const float	Feed_radius;
+	static const float	Feed_width;
+	static const float	Feed_height;
 	static const int	Feed_max;
 
 	vivid::Vector2	Feed_position;

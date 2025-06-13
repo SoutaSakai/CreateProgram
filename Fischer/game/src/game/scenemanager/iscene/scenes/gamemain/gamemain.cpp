@@ -1,6 +1,6 @@
 #include "..\..\..\scenemanager.h"
 #include "gamemain.h"
-#include "fishermanager\fishermanager.h"
+#include "..\..\..\..\fishermanager\fishermanager.h"
 //#include "..\scene_id.h"
 //#include "vivid.h"
 

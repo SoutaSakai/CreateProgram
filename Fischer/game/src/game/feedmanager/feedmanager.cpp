@@ -70,6 +70,8 @@ void FeedManager::Finalize(void)
 
 bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius)
 {
+	// ‚Ç‚Ì‰a‚ðH‚×‚½‚©‚Ì”»’è
+
 	return false;
 }
 
@@ -81,5 +83,9 @@ void FeedManager::CreateFeed(vivid::Vector2 fisher_position)
 
 	if (!feed) return;
 
-	feed->Initialize(fisher_position);
+	vivid::Vector2 Feed_position = { fisher_position.x + 120.0f, fisher_position.y + 465.0f };
+
+	feed->Initialize(Feed_position);
+
+	Feeds.push_back(feed);
 }

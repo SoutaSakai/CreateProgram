@@ -21,6 +21,9 @@ public:
 	// ‰ğ•ú
 	void Finalize(void);
 
+	// ‰a‚ğH‚×‚ç‚ê‚½‚Ìˆ—
+	void CaughtFeed(void);
+
 private:
 
 	// ’Ş‚èl‚Ìl”
