@@ -10,7 +10,7 @@
  *  Copyright (c) 2013-2023, Toshihito Ohashi. All rights reserved.
  */
 
-#include "vivid.h"
+#include "vivid.h"// a
 #include "game\game.h"
 
 /*!
