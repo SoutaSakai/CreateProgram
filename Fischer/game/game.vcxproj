@@ -165,8 +165,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\game\game.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\feedmanager\feedmanager.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fishermanager.cpp" />
+    <ClCompile Include="src\game\feedmanager\feedmanager.cpp" />
+    <ClCompile Include="src\game\feedmanager\feed\feed.cpp" />
+    <ClCompile Include="src\game\fishermanager\fishermanager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\iscene.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.cpp" />
@@ -181,9 +182,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\game\game.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\feedmanager\feedmanager.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fishermanager.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\fishermanager\fisherstate.h" />
+    <ClInclude Include="src\game\feedmanager\feedmanager.h" />
+    <ClInclude Include="src\game\feedmanager\feed\feed.h" />
+    <ClInclude Include="src\game\fishermanager\fishermanager.h" />
+    <ClInclude Include="src\game\fishermanager\fisherstate.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\iscene.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\result\result.h" />

@@ -28,20 +28,19 @@ void FisherManager::Initialize(void)
 	{
 		Fisher_Pos[i].x = i * (Fisher_WIDTH + Fisher_Distance);
 		Fisher_Pos[i].y = 0.0f;
-
-		// 餌の初期化
-		FeedManager::GetInstance().Initialize(Fisher_Pos[i], i);
 	}
+
+	// 餌の初期化
+	FeedManager::GetInstance().Initialize();
 
 	// 釣り人の状態をランダムに更新（初期化）
 	FisherRandState();
-
-
 }
 
 // 更新
 void FisherManager::Update(void)
 {
+	/* 釣り人の更新 */
 	// タイマーが既定時間を超えたときに状態を更新
 	if (Fisher_timer > Fisher_Time)
 	{
@@ -54,6 +53,10 @@ void FisherManager::Update(void)
 
 	// タイマーの更新
 	Fisher_timer += vivid::GetDeltaTime();
+
+
+	/* 餌の更新 */
+	FeedManager::GetInstance().Update();
 }
 
 // 描画

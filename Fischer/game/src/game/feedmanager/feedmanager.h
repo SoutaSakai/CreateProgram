@@ -1,12 +1,15 @@
 #pragma once
+#include <list>
 #include "vivid.h"
+
+class Feed;
 
 class FeedManager
 {
 public:
 	static FeedManager& GetInstance(void);
 
-	void Initialize(vivid::Vector2, int);
+	void Initialize(void);
 
 	void Update(void);
 
@@ -16,13 +19,11 @@ public:
 
 	bool CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius);
 
-	void CreateFeed(void);
+	void CreateFeed(vivid::Vector2);
 
 private:
-	static const float	Feed_radius;
-	static const int	Feed_max;
-
-	vivid::Vector2	Feed_pos[4];
+	using FEED_LIST = std::list <Feed*>;
+	FEED_LIST		Feeds;
 
 	FeedManager(void) = default;
 	~FeedManager(void) = default;
