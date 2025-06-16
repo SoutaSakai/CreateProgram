@@ -83,7 +83,7 @@ void FeedManager::CreateFeed(vivid::Vector2 fisher_position)
 
 	if (!feed) return;
 
-	vivid::Vector2 Feed_position = { fisher_position.x + 120.0f, fisher_position.y + 465.0f };
+	vivid::Vector2 Feed_position = { fisher_position.x + 115.0f, fisher_position.y + 465.0f };
 
 	feed->Initialize(Feed_position);
 
