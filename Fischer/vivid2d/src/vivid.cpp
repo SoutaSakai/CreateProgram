@@ -377,15 +377,15 @@ Initialize(HINSTANCE hInst)
     SetWindowSize(g_window_width, g_window_height);
 
 #ifdef VIVID_DEBUG
-    // ウィンドウモードで起動
-//    ChangeWindowMode(TRUE);
-//#else
+    //ウィンドウモードで起動
+    ChangeWindowMode(TRUE);
+#else
     // フルスクリーンモードで起動
     ChangeWindowMode(FALSE);
 
     // ゲーム画面の解像度に合わせてフルスクリーンにする
     SetFullScreenResolutionMode(DX_FSRESOLUTIONMODE_NATIVE);
-#else
+//#else
     // フルスクリーンモードで起動
     ChangeWindowMode(FALSE);
 

@@ -1,28 +1,63 @@
 #include "playermanager.h"
-#include "..\feedmanager\feedmanager.h"
-#include "..\fishermanager\fishermanager.h"
 
-PlayerManager& PlayerManager::GetInstance(void)
+
+
+playermanager& playermanager::GetInstance(void)
 {
-	static PlayerManager	instance;
+	static playermanager instance;
 
 	return instance;
 }
 
-void PlayerManager::Initialize(void)
+void playermanager::GetUseCharacter(CHARACTER_ID Character, int PlayerNo, int CharacterNo)
 {
+	UseCharacter[PlayerNo][CharacterNo] = Character;
 }
 
-void PlayerManager::Update(void)
+void playermanager::Initialize(const int MaxPlayer)
 {
-	if (FeedManager::GetInstance().CheckHit(vivid::Vector2(135.0f, 480.0f), 40.0f) && vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Q))
-		FisherManager::GetInstance().CaughtFeed();
+	this->MaxPlayer = MaxPlayer;
+	m_RoundCount = 0;
+
+	DeviceID[0] = vivid::controller::DEVICE_ID::PLAYER1;
+	DeviceID[1] = vivid::controller::DEVICE_ID::PLAYER2;
+	DeviceID[2] = vivid::controller::DEVICE_ID::PLAYER3;
+	DeviceID[3] = vivid::controller::DEVICE_ID::PLAYER4;
+
+	float distance = vivid::WINDOW_WIDTH / (this->MaxPlayer + 1);
+
+	for (int i = 0; i < this->MaxPlayer; i++)
+	{
+		player[i] = new Player();
+
+		player[i]->InUseCharacter(UseCharacter[i][0], UseCharacter[i][1], UseCharacter[i][2]);
+
+		player[i]->Initialize(DeviceID[i], distance * (i + 1));
+	}
 }
 
-void PlayerManager::Draw(void)
+void playermanager::Update(void)
 {
+	for (int i = 0; i < MaxPlayer; i++)
+	{
+		player[i]->Update();
+	}
 }
 
-void PlayerManager::Finalize(void)
+void playermanager::Draw(void)
 {
+	for (int i = 0; i < MaxPlayer; i++)
+	{
+		player[i]->Draw();
+	}
 }
+
+void playermanager::Finalize(void)
+{
+	for (int i = 0; i < MaxPlayer; i++)
+	{
+		player[i]->Finalize();
+	}
+}
+
+

@@ -1,9 +1,21 @@
 #include "..\..\..\scenemanager.h"
 #include "gamemain.h"
 #include "..\..\..\..\fishermanager\fishermanager.h"
+#include"../../../../charactermanager/charactermanager.h"
+#include"../../../../charactermanager/characterID.h"
+#include"../../../../playermanager/playermanager.h"
 //#include "..\scene_id.h"
 //#include "vivid.h"
 
+//‰¼
+static const int MaxPlyer = 1;
+
+CHARACTER_ID UseCharacter[MaxPlyer][3] =
+{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,
+	{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}*/
+};
 
 GAMEMAIN::GAMEMAIN(void)
 {
@@ -12,11 +24,24 @@ GAMEMAIN::GAMEMAIN(void)
 void GAMEMAIN::Initialize(void)
 {
 	FisherManager::GetInstance().Initialize();
+
+	//‰¼
+	for (int i = 0; i < MaxPlyer; i++)
+	{
+		for (int k = 0; k < 3; k++)
+		{
+			playermanager::GetInstance().GetUseCharacter(UseCharacter[i][k], i, k);
+		}
+	}
+
+	playermanager::GetInstance().Initialize(MaxPlyer);
 }
 
 void GAMEMAIN::Update(void)
 {
 	FisherManager::GetInstance().Update();
+
+	playermanager::GetInstance().Update();
 	
 
 #ifdef VIVID_DEBUG
@@ -28,6 +53,8 @@ void GAMEMAIN::Update(void)
 void GAMEMAIN::Draw(void)
 {
 	FisherManager::GetInstance().Draw();
+
+	playermanager::GetInstance().Draw();
 
 
 #ifdef VIVID_DEBUG
