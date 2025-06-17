@@ -41,6 +41,7 @@ public:
 
 	void Finalize(void);
 
+	
 
 private:
 	vivid::controller::DEVICE_ID m_PlayerID;

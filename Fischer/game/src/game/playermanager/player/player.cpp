@@ -283,3 +283,4 @@ void Player::Finalize(void)
 	//使い終わったらダミーを入れる
 	UseCharacter[CharaNo] = CHARACTER_ID::DUMMY;
 }
+
