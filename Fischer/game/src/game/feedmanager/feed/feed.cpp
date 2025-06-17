@@ -37,5 +37,10 @@ bool Feed::IsActive(void)
 
 float Feed::GetRadius(void)
 {
-	return Feed_width / 2.0f;
+	return Feed_height / 2.0f;
+}
+
+vivid::Vector2 Feed::GetCenterPos(void)
+{
+	return Feed_position + vivid::Vector2(18.0f, 20.0f);
 }

@@ -70,13 +70,18 @@ void FeedManager::Finalize(void)
 
 bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius)
 {
-	// ‚Ç‚Ì‰a‚ðH‚×‚½‚©‚Ì”»’è
+	bool check = false;
+
+		// it‚Ì‰a‚Ì”ÍˆÍ“à‚©‚Ì”»’è
+		check = (*it)->GetRadius() + mouth_radius > sqrt(pow((*it)->GetCenterPos().x - mouth_center_pos.x, 2) + pow((*it)->GetCenterPos().y - mouth_center_pos.y, 2));
 
 	return false;
 }
 
-void FeedManager::CreateFeed(vivid::Vector2 fisher_position)
+void FeedManager::CreateFeed(vivid::Vector2 fisher_position, int max_fisher)
 {
+	if (Feeds.size() >= max_fisher) return;
+
 	Feed*	feed = nullptr;
 
 	feed = new Feed();

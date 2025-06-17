@@ -29,7 +29,7 @@ void FisherManager::Initialize(void)
 		Fisher_Pos[i].x = i * (Fisher_WIDTH + Fisher_Distance);
 		Fisher_Pos[i].y = 0.0f;
 
-		FeedManager::GetInstance().CreateFeed(Fisher_Pos[i]);	// ‰a‚Ì¶¬
+		FeedManager::GetInstance().CreateFeed(Fisher_Pos[i], Max_Fisher);	// ‰a‚Ì¶¬
 	}
 
 	// ‰a‚Ì‰Šú‰»

@@ -18,7 +18,11 @@ public:
 
 	bool IsActive(void);
 
+	void InActive(void);
+
 	float GetRadius(void);
+
+	vivid::Vector2 GetCenterPos(void);
 
 private:
 	static const float	Feed_width;

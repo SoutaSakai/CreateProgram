@@ -78,8 +78,8 @@ const float CharacterManager::TunaHEIGHT = 80;
 const float CharacterManager::TunaSpeed = 7;
 const vivid::Rect CharacterManager::TunaRect = { 0,0,TunaWIDTH ,TunaHEIGHT };
 const std::string CharacterManager::TunaFilePath = "data\\Tuna.png";
-const vivid::Vector2 CharacterManager::TunaMouthPos = { 0,0 };
-const float CharacterManager::TunaMouthRadius = 0;
+const vivid::Vector2 CharacterManager::TunaMouthPos = { 130.0f,40.0f };
+const float CharacterManager::TunaMouthRadius = 25.0f;
 
 
 CharacterManager& CharacterManager::GetInstance(void)
@@ -330,7 +330,7 @@ std::string CharacterManager::CharacterFilePath(CHARACTER_ID Character)
 	}
 }
 
-vivid::Vector2 CharacterManager::CharacterMouthPos(CHARACTER_ID Character)
+vivid::Vector2 CharacterManager::CharacterMouthPos(CHARACTER_ID Character, vivid::Vector2 Character_position)
 {
 	switch (Character)
 	{
@@ -370,7 +370,7 @@ vivid::Vector2 CharacterManager::CharacterMouthPos(CHARACTER_ID Character)
 		break;
 
 	case CHARACTER_ID::TUNA:
-		return TunaMouthPos;
+		return  Character_position + TunaMouthPos;
 		break;
 
 	default:

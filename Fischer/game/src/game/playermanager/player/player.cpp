@@ -4,6 +4,11 @@
 #include<DxLib.h>
 //<===
 
+//追加コード===>
+#include "..\..\feedmanager\feedmanager.h"
+#include "..\..\charactermanager\charactermanager.h"
+//<===
+
 const float Player::WaterHEIGHT = 165;
 
 Player::Player()
@@ -237,10 +242,28 @@ void Player::Keyboard(void)
 			default:
 				break;
 			}
-
 		}
-
 	}
+
+	//追加コード===>
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LSHIFT))
+	{
+
+		FeedManager::FEED_LIST::iterator it = Feeds.begin();
+		FEED_LIST::iterator end = Feeds.end();
+
+
+		// どの餌を食べたかの判定
+		while (it != end)
+		{
+			FeedManager::GetInstance().CheckHit(CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos), CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]));
+
+			++it;
+		}
+	}
+	//<===
+
+
 	//<===
 }
 

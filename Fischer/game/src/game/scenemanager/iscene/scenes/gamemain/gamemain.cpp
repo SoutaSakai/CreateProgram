@@ -39,10 +39,10 @@ void GAMEMAIN::Initialize(void)
 
 void GAMEMAIN::Update(void)
 {
-	FisherManager::GetInstance().Update();
 
 	playermanager::GetInstance().Update();
 	
+	FisherManager::GetInstance().Update();
 
 #ifdef VIVID_DEBUG
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))

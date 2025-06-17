@@ -175,7 +175,7 @@
     <ClCompile Include="src\game\playermanager\skil\Tuna\Tuna.cpp" />
     <ClCompile Include="src\game\playermanager\skil\Turtle\Turtle.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\iscene.cpp" />
+    <ClCompile Include="src\game\scenemanager\iscene\iscene.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\result\result.cpp" />
     <ClCompile Include="src\game\scenemanager\scenemanager.cpp" />
@@ -199,7 +199,7 @@
     <ClInclude Include="src\game\playermanager\skil\Elsctriceel\Elsctriceel.h" />
     <ClInclude Include="src\game\playermanager\skil\Tuna\Tuna.h" />
     <ClInclude Include="src\game\playermanager\skil\Turtle\Turtle.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\iscene.h" />
+    <ClInclude Include="src\game\scenemanager\iscene\iscene.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\result\result.h" />
     <ClInclude Include="src\game\scenemanager\scenemanager.h" />

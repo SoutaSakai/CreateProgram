@@ -19,7 +19,7 @@ public:
 
 	bool CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius);
 
-	void CreateFeed(vivid::Vector2);
+	void CreateFeed(vivid::Vector2, int);
 
 private:
 	using FEED_LIST = std::list <Feed*>;
