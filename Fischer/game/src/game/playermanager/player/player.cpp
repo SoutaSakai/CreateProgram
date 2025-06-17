@@ -284,3 +284,8 @@ void Player::Finalize(void)
 	UseCharacter[CharaNo] = CHARACTER_ID::DUMMY;
 }
 
+void Player::Setting(void)
+{
+
+}
+

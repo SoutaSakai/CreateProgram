@@ -34,6 +34,14 @@ void playermanager::Initialize(const int MaxPlayer)
 
 		player[i]->Initialize(DeviceID[i], distance * (i + 1));
 	}
+
+	//‰¼
+	player[0]->Setting();
+	player[1]->Setting();
+	player[2]->Setting();
+	player[3]->Setting();
+
+
 }
 
 void playermanager::Update(void)
