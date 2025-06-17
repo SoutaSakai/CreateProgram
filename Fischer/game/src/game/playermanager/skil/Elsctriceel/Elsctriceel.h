@@ -8,6 +8,8 @@ public:
 	void Initialize(void);
 	void Update(vivid::Vector2 Pos);
 
+	void GetPointer(bool* sflag, bool* cflag);
+
 private:
 
 	static const float SkilSize;
@@ -15,4 +17,6 @@ private:
 
 	float Timer;
 
+	bool* SFlag;
+	bool* CFlag;
 };

@@ -6,7 +6,9 @@ class Turtle
 public:
 
 	void Initialize(void);
-	void Skil(vivid::Vector2 Pos);
+	void Update(vivid::Vector2 Pos);
+
+	void GetPointer(bool* sflag, bool* cflag);
 
 private:
 
@@ -15,4 +17,6 @@ private:
 
 	float Timer;
 
+	bool* SFlag;
+	bool* CFlag;
 };

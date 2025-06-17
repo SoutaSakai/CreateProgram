@@ -41,7 +41,7 @@ public:
 
 	void Finalize(void);
 
-	void Setting(void);
+	void Setting(vivid::Vector2 pos,float scale ,float angle,bool skilflag);
 
 private:
 	vivid::controller::DEVICE_ID m_PlayerID;
@@ -73,7 +73,8 @@ private:
 
 	//スキルクラス
 	Tuna* tuna;
-
+	Elsctriceel* elsctriceel;
+	Turtle* turtle;
 
 };
 

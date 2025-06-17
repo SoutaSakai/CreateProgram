@@ -1,0 +1,5 @@
+﻿  Turtle.cpp
+C:\Users\GamePG\Desktop\坂井颯太\GitHub\Fischer\game\src\game\playermanager\skil\Turtle\Turtle.cpp(19,51): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\GamePG\Desktop\坂井颯太\GitHub\Fischer\game\src\game\playermanager\skil\Turtle\Turtle.cpp(19,32): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\GamePG\Desktop\坂井颯太\GitHub\Fischer\game\src\game\playermanager\skil\Turtle\Turtle.cpp(19,25): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  game.vcxproj -> C:\Users\GamePG\Desktop\坂井颯太\GitHub\Fischer\project\x64\Debug\game.exe

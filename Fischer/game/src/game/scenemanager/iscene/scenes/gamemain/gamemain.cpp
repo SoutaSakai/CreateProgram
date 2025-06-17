@@ -39,6 +39,8 @@ void GAMEMAIN::Initialize(void)
 
 void GAMEMAIN::Update(void)
 {
+	vivid::DrawTexture("data\\seabackground.png", vivid::Vector2(0, 165));
+
 	FisherManager::GetInstance().Update();
 
 	playermanager::GetInstance().Update();
@@ -52,6 +54,7 @@ void GAMEMAIN::Update(void)
 
 void GAMEMAIN::Draw(void)
 {
+
 	FisherManager::GetInstance().Draw();
 
 	playermanager::GetInstance().Draw();

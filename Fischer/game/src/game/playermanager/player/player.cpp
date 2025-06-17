@@ -11,7 +11,11 @@ Player::Player()
 	, Scale(vivid::Vector2(1.0f, 1.0f))
 	, SkilFlag(false)
 	, ControlFlag(true)
+
 	, tuna(nullptr)
+	,elsctriceel(nullptr)
+	,turtle(nullptr)
+
 	, Angle(0)
 {
 	for (int i = 0; i < 3; i++)
@@ -26,6 +30,12 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 	m_PlayerID = Player_ID;
 
 	this->ChangeRound();
+
+	//仮
+	elsctriceel = new Elsctriceel();
+	elsctriceel->Initialize();
+	turtle = new Turtle();
+	turtle->Initialize();
 }
 
 void Player::Update(void)
@@ -49,6 +59,9 @@ void Player::Update(void)
 		case CHARACTER_ID::DUMMY:
 			break;
 		case CHARACTER_ID::ELSCTRICEEL:
+			if (elsctriceel != nullptr)
+				elsctriceel->Update(vivid::Vector2(CharacterPos.x + CharaWIDTH / 2,
+												   CharacterPos.y + CharaHEIGHT / 2));
 			break;
 		case CHARACTER_ID::PORCUPINEFISH:
 			break;
@@ -59,6 +72,9 @@ void Player::Update(void)
 		case CHARACTER_ID::MIRRORMORAYELL:
 			break;
 		case CHARACTER_ID::TURTLE:
+			if (turtle != nullptr)
+				turtle->Update(vivid::Vector2(CharacterPos.x + CharaWIDTH / 2,
+											CharacterPos.y + CharaHEIGHT / 2));
 			break;
 		case CHARACTER_ID::OCTOPUS:
 			break;
@@ -211,6 +227,7 @@ void Player::Keyboard(void)
 			case CHARACTER_ID::DUMMY:
 				break;
 			case CHARACTER_ID::ELSCTRICEEL:
+
 				break;
 			case CHARACTER_ID::PORCUPINEFISH:
 				break;
@@ -270,10 +287,10 @@ void Player::Draw()
 	vivid::DrawTexture(CharaFilePath, CharacterPos, 0xffffffff, CharaRect, Anchor, Scale, Angle);
 
 	//確認コード===>
-	vivid::DrawText(40, std::to_string(ControlFlag), vivid::Vector2(0.0f, 0.0f));
+	/*vivid::DrawText(40, std::to_string(ControlFlag), vivid::Vector2(0.0f, 0.0f));
 	vivid::DrawText(40, std::to_string(CharacterPos.y), vivid::Vector2(0.0f, 40.0f));
 
-	DxLib::DrawLine(0, 165, vivid::WINDOW_WIDTH, 165, 0xffff000000);
+	DxLib::DrawLine(0, 165, vivid::WINDOW_WIDTH, 165, 0xffff000000);*/
 
 	//<===
 }
@@ -284,8 +301,11 @@ void Player::Finalize(void)
 	UseCharacter[CharaNo] = CHARACTER_ID::DUMMY;
 }
 
-void Player::Setting(void)
+void Player::Setting(vivid::Vector2 pos, float scale, float angle, bool skilflag)
 {
-
+	CharacterPos = pos;
+	Scale.x = scale;
+	Angle = angle * (3.14 / 180);
+	SkilFlag = skilflag;
 }
 
