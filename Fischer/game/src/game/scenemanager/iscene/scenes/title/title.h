@@ -1,14 +1,21 @@
 #pragma once
-#include "..\iscene.h"
+#include "..\..\iscene.h"
 
-class TITLE : public IScene
+class Title : public IScene
 {
 public:
-	TITLE(void);
-	~TITLE(void) = default;
+	Title(void);
+	~Title(void) = default;
 
 	void Initialize(void) override;
 	void Update(void) override;
 	void Draw(void) override;
 	void Finalize(void) override;
+
+private:
+
+	// 仮にボタンの座標とサイズを設定（例: x=100, y=300, width=200, height=50）
+	static const vivid::Vector2		button_position;
+	static const float				button_width;
+	static const float				button_height;
 };

@@ -106,7 +106,7 @@ void Player::ChangeRound(void)
 	CharaSpeed = CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]);
 	CharaRect = CharacterManager::GetInstance().CharacterRect(UseCharacter[CharaNo]);
 	CharaFilePath = CharacterManager::GetInstance().CharacterFilePath(UseCharacter[CharaNo]);
-	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo]);
+	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos);
 	CharaMouthRadius = CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]);
 
 	//座標挿入
@@ -246,21 +246,21 @@ void Player::Keyboard(void)
 	}
 
 	//追加コード===>
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LSHIFT))
-	{
+	//if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LSHIFT))
+	//{
 
-		FeedManager::FEED_LIST::iterator it = Feeds.begin();
-		FEED_LIST::iterator end = Feeds.end();
+	//	FeedManager::FEED_LIST::iterator it = Feeds.begin();
+	//	FEED_LIST::iterator end = Feeds.end();
 
 
-		// どの餌を食べたかの判定
-		while (it != end)
-		{
-			FeedManager::GetInstance().CheckHit(CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos), CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]));
+	//	// どの餌を食べたかの判定
+	//	while (it != end)
+	//	{
+	//		FeedManager::GetInstance().CheckHit(CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos), CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]));
 
-			++it;
-		}
-	}
+	//		++it;
+	//	}
+	//}
 	//<===
 
 

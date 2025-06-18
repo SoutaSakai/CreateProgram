@@ -71,7 +71,7 @@ void SceneManager::Change(void)
 	switch (Next_scene_id)
 	{
 	case SCENE_ID::TITLE:
-		Iscene = new TITLE();
+		Iscene = new Title();
 		break;
 	case SCENE_ID::GAMEMAIN:
 		Iscene = new GAMEMAIN();

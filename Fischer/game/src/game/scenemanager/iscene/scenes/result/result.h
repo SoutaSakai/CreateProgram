@@ -1,5 +1,5 @@
 #pragma once
-#include "..\iscene.h"
+#include "..\..\iscene.h"
 
 class RESULT : public IScene
 {

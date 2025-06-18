@@ -70,10 +70,10 @@ void FeedManager::Finalize(void)
 
 bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius)
 {
-	bool check = false;
+	//bool check = false;
 
-		// it‚Ì‰a‚Ì”ÍˆÍ“à‚©‚Ì”»’è
-		check = (*it)->GetRadius() + mouth_radius > sqrt(pow((*it)->GetCenterPos().x - mouth_center_pos.x, 2) + pow((*it)->GetCenterPos().y - mouth_center_pos.y, 2));
+	//	// it‚Ì‰a‚Ì”ÍˆÍ“à‚©‚Ì”»’è
+	//	check = (*it)->GetRadius() + mouth_radius > sqrt(pow((*it)->GetCenterPos().x - mouth_center_pos.x, 2) + pow((*it)->GetCenterPos().y - mouth_center_pos.y, 2));
 
 	return false;
 }
