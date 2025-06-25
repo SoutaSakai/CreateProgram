@@ -36,10 +36,10 @@ void playermanager::Initialize(const int MaxPlayer)
 	}
 
 	//‰¼
-	player[0]->Setting(vivid::Vector2(160,400),-1,-30,false);
+	/*player[0]->Setting(vivid::Vector2(160,400),-1,-30,false);
 	player[1]->Setting(vivid::Vector2(270, 580), -1, 40, true);
 	player[2]->Setting(vivid::Vector2(900, 390), -1, 30, false);
-	player[3]->Setting(vivid::Vector2(790, 270), -1, 0, true);
+	player[3]->Setting(vivid::Vector2(790, 270), -1, 0, true);*/
 
 
 }

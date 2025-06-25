@@ -5,11 +5,7 @@
 
 #include"../playermanager.h"
 
-//スキルインクルード
-#include"../Skil/Tuna/Tuna.h"
-#include"../Skil/Elsctriceel/Elsctriceel.h"
-#include"../Skil/Turtle/Turtle.h"
-
+#include"../../skilmanager/skilmanager.h"
 
 class Player
 {
@@ -68,13 +64,6 @@ private:
 	bool ControlFlag;			//プレイヤーが操作できるかどうか
 
 	static const float WaterHEIGHT;
-
-
-
-	//スキルクラス
-	Tuna* tuna;
-	Elsctriceel* elsctriceel;
-	Turtle* turtle;
 
 };
 

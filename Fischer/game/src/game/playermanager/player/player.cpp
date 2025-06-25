@@ -12,10 +12,6 @@ Player::Player()
 	, SkilFlag(false)
 	, ControlFlag(true)
 
-	, tuna(nullptr)
-	,elsctriceel(nullptr)
-	,turtle(nullptr)
-
 	, Angle(0)
 {
 	for (int i = 0; i < 3; i++)
@@ -31,11 +27,6 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 
 	this->ChangeRound();
 
-	//仮
-	elsctriceel = new Elsctriceel();
-	elsctriceel->Initialize();
-	turtle = new Turtle();
-	turtle->Initialize();
 }
 
 void Player::Update(void)
@@ -59,9 +50,9 @@ void Player::Update(void)
 		case CHARACTER_ID::DUMMY:
 			break;
 		case CHARACTER_ID::ELSCTRICEEL:
-			if (elsctriceel != nullptr)
+			/*if (elsctriceel != nullptr)
 				elsctriceel->Update(vivid::Vector2(CharacterPos.x + CharaWIDTH / 2,
-												   CharacterPos.y + CharaHEIGHT / 2));
+												   CharacterPos.y + CharaHEIGHT / 2));*/
 			break;
 		case CHARACTER_ID::PORCUPINEFISH:
 			break;
@@ -72,17 +63,17 @@ void Player::Update(void)
 		case CHARACTER_ID::MIRRORMORAYELL:
 			break;
 		case CHARACTER_ID::TURTLE:
-			if (turtle != nullptr)
+			/*if (turtle != nullptr)
 				turtle->Update(vivid::Vector2(CharacterPos.x + CharaWIDTH / 2,
-											CharacterPos.y + CharaHEIGHT / 2));
+											CharacterPos.y + CharaHEIGHT / 2));*/
 			break;
 		case CHARACTER_ID::OCTOPUS:
 			break;
 		case CHARACTER_ID::POINTUNA:
 			break;
 		case CHARACTER_ID::TUNA:
-			if(tuna != nullptr)
-				CharacterPos = tuna->Update(CharacterPos, Angle, Scale.x);
+			/*if(tuna != nullptr)
+				CharacterPos = tuna->Update(CharacterPos, Angle, Scale.x);*/
 			break;
 		default:
 			break;
@@ -112,13 +103,17 @@ void Player::ChangeRound(void)
 		CharaNo = rand() % 3;
 	} while (UseCharacter[CharaNo] == CHARACTER_ID::DUMMY);
 
-	CharaWIDTH = CharacterManager::GetInstance().CharacterWIDTH(UseCharacter[CharaNo]);
-	CharaHEIGHT = CharacterManager::GetInstance().CharacterHEIGHT(UseCharacter[CharaNo]);
-	CharaSpeed = CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]);
-	CharaRect = CharacterManager::GetInstance().CharacterRect(UseCharacter[CharaNo]);
-	CharaFilePath = CharacterManager::GetInstance().CharacterFilePath(UseCharacter[CharaNo]);
-	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo]);
-	CharaMouthRadius = CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]);
+	CharaWIDTH =		CharacterManager::GetInstance().CharacterWIDTH(UseCharacter[CharaNo]);
+	CharaHEIGHT =		CharacterManager::GetInstance().CharacterHEIGHT(UseCharacter[CharaNo]);
+	CharaSpeed =		CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]);
+	CharaRect =			CharacterManager::GetInstance().CharacterRect(UseCharacter[CharaNo]);
+	CharaFilePath =		CharacterManager::GetInstance().CharacterFilePath(UseCharacter[CharaNo]);
+	CharaMouthPos =		CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo]);
+	CharaMouthRadius =	CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]);
+
+	//スキルのオブジェクト
+	SkilManager::Getinstance().CreateObj(CharaNo, UseCharacter[CharaNo]);
+
 
 	//座標挿入
 	CharacterPos.x -= CharaWIDTH / 2;
@@ -244,12 +239,12 @@ void Player::Keyboard(void)
 			case CHARACTER_ID::POINTUNA:
 				break;
 			case CHARACTER_ID::TUNA:
-			if (tuna == nullptr) { tuna = new Tuna(); }
+			/*if (tuna == nullptr) { tuna = new Tuna(); }
 
 			SkilFlag = true;
 			ControlFlag = false;
 			tuna->Initialize();
-			tuna->GetPointer(&SkilFlag, &ControlFlag);
+			tuna->GetPointer(&SkilFlag, &ControlFlag);*/
 				break;
 			default:
 				break;

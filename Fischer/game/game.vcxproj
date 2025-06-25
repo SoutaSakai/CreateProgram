@@ -171,9 +171,10 @@
     <ClCompile Include="src\game\fishermanager\fishermanager.cpp" />
     <ClCompile Include="src\game\playermanager\playermanager.cpp" />
     <ClCompile Include="src\game\playermanager\player\player.cpp" />
-    <ClCompile Include="src\game\playermanager\skil\Elsctriceel\Elsctriceel.cpp" />
-    <ClCompile Include="src\game\playermanager\skil\Tuna\Tuna.cpp" />
-    <ClCompile Include="src\game\playermanager\skil\Turtle\Turtle.cpp" />
+    <ClCompile Include="src\game\skilmanager\skilmanager.cpp" />
+    <ClCompile Include="src\game\skilmanager\skil\Elsctriceel\Elsctriceel.cpp" />
+    <ClCompile Include="src\game\skilmanager\skil\Tuna\Tuna.cpp" />
+    <ClCompile Include="src\game\skilmanager\skil\Turtle\Turtle.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\iscene.cpp" />
     <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.cpp" />
@@ -196,9 +197,10 @@
     <ClInclude Include="src\game\fishermanager\fisherstate.h" />
     <ClInclude Include="src\game\playermanager\playermanager.h" />
     <ClInclude Include="src\game\playermanager\player\player.h" />
-    <ClInclude Include="src\game\playermanager\skil\Elsctriceel\Elsctriceel.h" />
-    <ClInclude Include="src\game\playermanager\skil\Tuna\Tuna.h" />
-    <ClInclude Include="src\game\playermanager\skil\Turtle\Turtle.h" />
+    <ClInclude Include="src\game\skilmanager\skilmanager.h" />
+    <ClInclude Include="src\game\skilmanager\skil\Elsctriceel\Elsctriceel.h" />
+    <ClInclude Include="src\game\skilmanager\skil\Tuna\Tuna.h" />
+    <ClInclude Include="src\game\skilmanager\skil\Turtle\Turtle.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\iscene.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\result\result.h" />
