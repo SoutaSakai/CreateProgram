@@ -1,14 +1,17 @@
 #pragma once
 #include "..\..\iscene.h"
 
-class GAMEMAIN : public IScene
+class Gamemain : public IScene
 {
 public:
-	GAMEMAIN(void);
-	~GAMEMAIN(void) = default;
+	Gamemain(void);
+	~Gamemain(void) = default;
 
 	void Initialize(void) override;
 	void Update(void) override;
 	void Draw(void) override;
 	void Finalize(void) override;
+
+private:
+	static const float		water_surface;
 };

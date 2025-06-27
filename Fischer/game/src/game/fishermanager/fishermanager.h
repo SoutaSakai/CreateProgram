@@ -27,26 +27,26 @@ public:
 private:
 
 	// 釣り人の人数
-	static const int Max_Fisher;
+	static const int Max;
 	// 釣り人の状態更新時間
-	static const float Fisher_Time;
+	static const float Change_time;
 
 	// 釣り人の幅
-	static const float Fisher_WIDTH;
+	static const float Width;
 	// 釣り人の高さ
-	static const float Fisher_HEIGHT;
+	static const float Height;
 	// 釣り人の間隔
-	static const float Fisher_Distance;
+	static const float Distance;
 	// 釣り人の描画範囲
-	static const vivid::Rect Fisher_Rect;
+	static const vivid::Rect Rect;
 
 
 	// 釣り人の状態の管理
-	int Fisher_state[5];
+	int State[5];
 	// 釣り人の状態更新タイマー
-	float Fisher_timer;
+	float Timer;
 	// 釣り人の座標
-	vivid::Vector2 Fisher_Pos[5];
+	vivid::Vector2 Position[5];
 
 	// 釣り人の状態をランダムに更新
 	void FisherRandState(void);

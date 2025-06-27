@@ -27,6 +27,11 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 {
 	CharacterPos.x = Xpos;
 
+	for (int i = 0; i < 4; ++i)
+	{
+		Hit_feed[i] = false;
+	}
+
 	//デバイスIDを入れる
 	m_PlayerID = Player_ID;
 
@@ -76,6 +81,12 @@ void Player::Update(void)
 		default:
 			break;
 		}
+	}
+
+	// 各餌との判定
+	for (int i = 0; i < 4; ++i)
+	{
+		Hit_feed[i] = FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i);		
 	}
 }
 
@@ -161,7 +172,21 @@ void Player::CharacterStick(void)
 
 void Player::Keyboard(void)
 {
-
+	//追加コード===>
+	// 餌を食べる
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LSHIFT))
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			if (Hit_feed[i])
+			{
+				// 当たっていた時
+			}
+		}
+	}
+	//<===
+	// 
+	// 
 	//確認コード===>
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::D))
 	{
@@ -244,26 +269,6 @@ void Player::Keyboard(void)
 			}
 		}
 	}
-
-	//追加コード===>
-	//if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LSHIFT))
-	//{
-
-	//	FeedManager::FEED_LIST::iterator it = Feeds.begin();
-	//	FEED_LIST::iterator end = Feeds.end();
-
-
-	//	// どの餌を食べたかの判定
-	//	while (it != end)
-	//	{
-	//		FeedManager::GetInstance().CheckHit(CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos), CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]));
-
-	//		++it;
-	//	}
-	//}
-	//<===
-
-
 	//<===
 }
 
@@ -292,6 +297,7 @@ void Player::Draw()
 
 	vivid::DrawTexture(CharaFilePath, CharacterPos, 0xffffffff, CharaRect, Anchor, Scale, Angle);
 
+#ifdef VIVID_DEBUG
 	//確認コード===>
 	vivid::DrawText(40, std::to_string(ControlFlag), vivid::Vector2(0.0f, 0.0f));
 	vivid::DrawText(40, std::to_string(CharacterPos.y), vivid::Vector2(0.0f, 40.0f));
@@ -299,6 +305,7 @@ void Player::Draw()
 	DxLib::DrawLine(0, 165, vivid::WINDOW_WIDTH, 165, 0xffff000000);
 
 	//<===
+#endif
 }
 
 void Player::Finalize(void)

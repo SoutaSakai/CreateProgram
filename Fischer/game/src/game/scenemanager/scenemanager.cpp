@@ -1,5 +1,6 @@
 #include "scenemanager.h"
 #include "iscene\scenes\title\title.h"
+#include "iscene\scenes\characterselect\characterselect.h"
 #include "iscene\scenes\gamemain\gamemain.h"
 #include "iscene\scenes\result\result.h"
 
@@ -73,11 +74,14 @@ void SceneManager::Change(void)
 	case SCENE_ID::TITLE:
 		Iscene = new Title();
 		break;
+	case SCENE_ID::CHARACTERSELECT:
+		Iscene = new CharacterSelect();
+		break;
 	case SCENE_ID::GAMEMAIN:
-		Iscene = new GAMEMAIN();
+		Iscene = new Gamemain();
 		break;
 	case SCENE_ID::RESULT:
-		Iscene = new RESULT();
+		Iscene = new Result();
 		break;
 	}
 
@@ -121,70 +125,3 @@ SceneManager& SceneManager::operator=(const SceneManager& rhs)
 
 	return *this;
 }
-
-
-/*#include "vivid.h"
-#include "scenemanager.h"
-#include "scenes\title\title.h"
-#include "scenes\gamemain\gamemain.h"
-#include "scenes\result\result.h"
-
-TITLE		title;
-GAMEMAIN	gamemain;
-RESULT		result;
-
-
-SCENE_MANAGER::SCENE_MANAGER(void)
-	: Current_scene(Scene_id::DUMMY)
-{
-}
-
-void SCENE_MANAGER::Initialize(void)
-{
-	Change_scene(Scene_id::TITLE);
-}
-
-void SCENE_MANAGER::Update(void)
-{
-	switch (Current_scene)
-	{
-	case Scene_id::DUMMY:
-		break;
-	case Scene_id::TITLE:
-		title.Update();
-		break;
-	case Scene_id::GAMEMAIN:
-		gamemain.Update();
-		break;
-	case Scene_id::RESULT:
-		result.Update();
-		break;
-	}
-}
-
-void SCENE_MANAGER::Draw(void)
-{
-	switch (Current_scene)
-	{
-	case Scene_id::DUMMY:
-		break;
-	case Scene_id::TITLE:
-		title.Draw();
-		break;
-	case Scene_id::GAMEMAIN:
-		gamemain.Draw();
-		break;
-	case Scene_id::RESULT:
-		result.Draw();
-		break;
-	}
-}
-
-void SCENE_MANAGER::Finalize(void)
-{
-}
-
-void SCENE_MANAGER::Change_scene(Scene_id next_scene)
-{
-	Current_scene = next_scene;
-}*/

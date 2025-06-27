@@ -31,7 +31,9 @@ private:
 	int m_RoundCount;
 
 	Player* player[(int)vivid::controller::DEVICE_ID::MAX];
+
 	CHARACTER_ID UseCharacter[(int)vivid::controller::DEVICE_ID::MAX][3];
+
 	vivid::controller::DEVICE_ID DeviceID[(int)vivid::controller::DEVICE_ID::MAX];
 
 	vivid::Vector2 StartPos[4];

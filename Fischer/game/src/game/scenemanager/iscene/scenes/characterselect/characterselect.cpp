@@ -1,11 +1,11 @@
-#include "..\..\..\scene_manager.h"
+#include "..\..\..\scenemanager.h"
 #include "characterselect.h"
 
-CHARACTERSELECT::CHARACTERSELECT(void)
+CharacterSelect::CharacterSelect(void)
 {
 }
 
-void CHARACTERSELECT::Initialize(void)
+void CharacterSelect::Initialize(void)
 {
 	for (int i = 0; i < 9; ++i)
 	{
@@ -22,15 +22,16 @@ void CHARACTERSELECT::Initialize(void)
 	select_position[0] = vivid::Vector2{ vivid::WINDOW_WIDTH / 6 - 220.0f / 2, 100.0f };
 }
 
-void CHARACTERSELECT::Update(void)
+void CharacterSelect::Update(void)
 {
-#ifdef VIVID_DEBUG
+//#ifdef VIVID_DEBUG
+	// ZƒL[‚ÅƒV[ƒ“•ÏX
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
-		SCENE_MANAGER::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
-#endif
+		SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
+//#endif
 }
 
-void CHARACTERSELECT::Draw(void)
+void CharacterSelect::Draw(void)
 {
 	// ”wŒi‚Ì•`‰æ
 	vivid::DrawTexture("data\\background.png", vivid::Vector2::ZERO);
@@ -49,7 +50,7 @@ void CHARACTERSELECT::Draw(void)
 
 		// ‘I‘ð‚µ‚½ƒLƒƒƒ‰ƒNƒ^[‚Ì˜giŠâj‚Ì•`‰æ
 		vivid::DrawTexture("data\\rock.png",
-								vivid::Vector2(vivid::WINDOW_WIDTH / 5 * (i + 1) - 250.0f / 2, vivid::WINDOW_HEIGHT - 300.0f), 0xffffffff, rect, vivid::Vector2(125.0f, 150.0f), scale,0.0f);
+			vivid::Vector2(vivid::WINDOW_WIDTH / 5 * (i + 1) - 250.0f / 2, vivid::WINDOW_HEIGHT - 300.0f), 0xffffffff, rect, vivid::Vector2(125.0f, 150.0f), scale, 0.0f);
 	}
 	// ƒLƒƒƒ‰‘I‘ð˜g‚Ì•`‰æ
 	vivid::DrawTexture("data\\box.png", select_position[0]);
@@ -68,6 +69,6 @@ void CHARACTERSELECT::Draw(void)
 #endif
 }
 
-void CHARACTERSELECT::Finalize(void)
+void CharacterSelect::Finalize(void)
 {
 }

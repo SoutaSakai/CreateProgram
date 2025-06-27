@@ -15,73 +15,48 @@ void FeedManager::Initialize()
 void FeedManager::Update(void)
 {
 	// 各餌オブジェクトの更新
-	FEED_LIST::iterator	it = Feeds.begin();
-	FEED_LIST::iterator	end = Feeds.end();
-
-	while (it != end)
+	for (int i = 0; i < 4; ++i)
 	{
 		// 不活性なデータの削除
-		if (!(*it)->IsActive())
+		if (!Active_flag[i])
 		{
-			(*it)->Finalize();
-
-			delete (*it);
-
-			it = Feeds.erase(it);
+			Feeds[i]->Finalize();
 
 			continue;
 		}
 
-		(*it)->Update();
-
-		++it;
+		Feeds[i]->Update();
 	}
 }
 
 void FeedManager::Draw(void)
 {
-	FEED_LIST::iterator it = Feeds.begin();
-	FEED_LIST::iterator end = Feeds.end();
-
-	while (it != end)
+	for (int i = 0; i < 4; ++i)
 	{
-		(*it)->Draw();
-
-		++it;
+		Feeds[i]->Draw();
 	}
 }
 
 void FeedManager::Finalize(void)
 {
-	FEED_LIST::iterator it = Feeds.begin();
-	FEED_LIST::iterator end = Feeds.end();
-
-	while (it != end)
+	for (int i = 0; i < 4; ++i)
 	{
-		(*it)->Finalize();
-
-		delete (*it);
-
-		++it;
+		Feeds[i]->Finalize();
 	}
-
-	Feeds.clear();
 }
 
-bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius)
+bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius, int number)
 {
-	//bool check = false;
+	bool check = false;
+	
+	// 口が餌の範囲内かの判定
+	check = Feeds[number]->GetRadius() + mouth_radius > sqrt(pow(Feeds[number]->GetCenterPos().x - mouth_center_pos.x, 2) + pow(Feeds[number]->GetCenterPos().y - mouth_center_pos.y, 2));
 
-	//	// itの餌の範囲内かの判定
-	//	check = (*it)->GetRadius() + mouth_radius > sqrt(pow((*it)->GetCenterPos().x - mouth_center_pos.x, 2) + pow((*it)->GetCenterPos().y - mouth_center_pos.y, 2));
-
-	return false;
+	return check;
 }
 
-void FeedManager::CreateFeed(vivid::Vector2 fisher_position, int max_fisher)
+void FeedManager::CreateFeed(vivid::Vector2 fisher_position, int max_fisher, int number)
 {
-	if (Feeds.size() >= max_fisher) return;
-
 	Feed*	feed = nullptr;
 
 	feed = new Feed();
@@ -92,5 +67,5 @@ void FeedManager::CreateFeed(vivid::Vector2 fisher_position, int max_fisher)
 
 	feed->Initialize(Feed_position);
 
-	Feeds.push_back(feed);
+	Feeds[number] = feed;
 }

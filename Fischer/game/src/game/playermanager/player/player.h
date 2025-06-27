@@ -69,7 +69,9 @@ private:
 
 	static const float WaterHEIGHT;
 
-
+	//追加コード===>
+	bool Hit_feed[4];	// 餌とのアタリ判定の結果
+	//<===
 
 	//スキルクラス
 	Tuna* tuna;

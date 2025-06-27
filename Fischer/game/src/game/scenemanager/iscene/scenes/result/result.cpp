@@ -3,29 +3,30 @@
 #include "result.h"
 #include "vivid.h"
 
-RESULT::RESULT(void)
+Result::Result(void)
 {
 }
 
-void RESULT::Initialize(void)
+void Result::Initialize(void)
 {
 }
 
-void RESULT::Update(void)
+void Result::Update(void)
 {
-#ifdef VIVID_DEBUG
+//#ifdef VIVID_DEBUG
+	// Zキーでシーン変更
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
 		SceneManager::GetInstance().Change_scene(SCENE_ID::TITLE);
-#endif
+//#endif
 }
 
-void RESULT::Draw(void)
+void Result::Draw(void)
 {
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
 #endif
 }
 
-void RESULT::Finalize(void)
+void Result::Finalize(void)
 {
 }

@@ -20,38 +20,32 @@ void Title::Update(void)
 	namespace keyboard = vivid::keyboard;
 	namespace mouse = vivid::mouse;
 
-	// Zキーでシーン変更
-	if (keyboard::Trigger(keyboard::KEY_ID::Z))
-		SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
-
 	// マウスクリックでボタン領域を判定してシーン変更
-	vivid::Point mp = mouse::GetCursorPos();
-	
+	vivid::Point mp = mouse::GetCursorPos();	
 
 	if (mouse::Trigger(mouse::BUTTON_ID::LEFT))
 	{
 		if (mp.x >= button_position.x && mp.x <= button_position.x + button_width &&
 			mp.y >= button_position.y && mp.y <= button_position.y + button_height)
 		{
-			SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
+			SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
 		}
 	}
 
-#ifdef VIVID_DEBUG
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
-		SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
-#endif
+//#ifdef VIVID_DEBUG
+	// Zキーでシーン変更
+	if (keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
+		SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
+//#endif
 }
 
 void Title::Draw(void)
 {
-#ifdef VIVID_DEBUG
 	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawTexture("data\\c.png", vivid::Vector2(270.0f, 150.0f));
-	vivid::DrawTexture("data\\button.png", vivid::Vector2(32.0f, 430.0f));
-	vivid::DrawTexture("data\\button.png", vivid::Vector2(420.0f, 430.0f));
-	vivid::DrawTexture("data\\button.png", vivid::Vector2(810.0f, 430.0f));
-#endif
+	vivid::DrawTexture("data\\titlelogo.png", vivid::Vector2(270.0f, 150.0f));
+	vivid::DrawTexture("data\\button.png", vivid::Vector2(32.0f, 450.0f));
+	vivid::DrawTexture("data\\button.png", vivid::Vector2(420.0f, 450.0f));
+	vivid::DrawTexture("data\\button.png", vivid::Vector2(810.0f, 450.0f));
 
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "title", vivid::Vector2(0.0f, 0.0f));

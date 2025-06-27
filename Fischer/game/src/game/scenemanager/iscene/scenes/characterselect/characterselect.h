@@ -1,12 +1,12 @@
 #pragma once
-#include "..\iscene.h"
+#include "..\..\iscene.h"
 #include "vivid.h"
 
-class CHARACTERSELECT : public IScene
+class CharacterSelect : public IScene
 {
 public:
-	CHARACTERSELECT(void);
-	~CHARACTERSELECT(void) = default;
+	CharacterSelect(void);
+	~CharacterSelect(void) = default;
 
 	void Initialize(void) override;
 	void Update(void) override;

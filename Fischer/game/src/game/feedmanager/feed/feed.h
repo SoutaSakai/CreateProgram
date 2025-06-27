@@ -18,17 +18,17 @@ public:
 
 	bool IsActive(void);
 
-	void InActive(void);
+	void InActive(bool);
 
 	float GetRadius(void);
 
 	vivid::Vector2 GetCenterPos(void);
 
 private:
-	static const float	Feed_width;
-	static const float	Feed_height;
-	static const int	Feed_max;
+	static const float	Width;
+	static const float	Height;
+	static const int	Max_feed;
 
-	vivid::Vector2	Feed_position;
-	bool			Feed_active_flag;
+	vivid::Vector2	Position;
+	bool			Active_flag;
 };

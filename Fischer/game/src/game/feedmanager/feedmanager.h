@@ -17,13 +17,15 @@ public:
 
 	void Finalize(void);
 
-	bool CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius);
+	bool CheckHit(vivid::Vector2, float, int);
 
-	void CreateFeed(vivid::Vector2, int);
+	void CreateFeed(vivid::Vector2, int, int);
+
+
 
 private:
-	using FEED_LIST = std::list <Feed*>;
-	FEED_LIST		Feeds;
+	Feed*	Feeds[5];
+	bool	Active_flag[5];
 
 	FeedManager(void) = default;
 	~FeedManager(void) = default;

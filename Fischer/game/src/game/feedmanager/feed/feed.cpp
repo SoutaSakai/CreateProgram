@@ -1,20 +1,20 @@
 #include "feed.h"
 
-const float	Feed::Feed_width	= 36.0f;
-const float	Feed::Feed_height	= 40.0f;
-const int	Feed::Feed_max		= 4;
+const float	Feed::Width		= 36.0f;
+const float	Feed::Height	= 40.0f;
+const int	Feed::Max_feed	= 5;
 
 Feed::Feed(void)
-	: Feed_position(vivid::Vector2(0.0f,0.0f))
-	, Feed_active_flag(true)
+	: Position(vivid::Vector2(0.0f,0.0f))
+	, Active_flag(true)
 {
 }
 
 void Feed::Initialize(const vivid::Vector2& current_pos)
 {
-	Feed_position.x = current_pos.x;
-	Feed_position.y = current_pos.y;
-	Feed_active_flag = true;
+	Position.x = current_pos.x;
+	Position.y = current_pos.y;
+	Active_flag = true;
 }
 
 void Feed::Update(void)
@@ -23,7 +23,7 @@ void Feed::Update(void)
 
 void Feed::Draw(void)
 {
-	vivid::DrawTexture("data\\ball.png", Feed_position);
+	vivid::DrawTexture("data\\ball.png", Position);
 }
 
 void Feed::Finalize(void)
@@ -32,15 +32,20 @@ void Feed::Finalize(void)
 
 bool Feed::IsActive(void)
 {
-	return Feed_active_flag;
+	return Active_flag;
+}
+
+void Feed::InActive(bool active)
+{
+	Active_flag = active;
 }
 
 float Feed::GetRadius(void)
 {
-	return Feed_height / 2.0f;
+	return Height / 2.0f;
 }
 
 vivid::Vector2 Feed::GetCenterPos(void)
 {
-	return Feed_position + vivid::Vector2(18.0f, 20.0f);
+	return Position + vivid::Vector2(18.0f, 20.0f);
 }

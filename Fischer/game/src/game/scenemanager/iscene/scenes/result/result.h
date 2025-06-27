@@ -1,11 +1,11 @@
 #pragma once
 #include "..\..\iscene.h"
 
-class RESULT : public IScene
+class Result : public IScene
 {
 public:
-	RESULT(void);
-	~RESULT(void) = default;
+	Result(void);
+	~Result(void) = default;
 
 	void Initialize(void) override;
 	void Update(void) override;
