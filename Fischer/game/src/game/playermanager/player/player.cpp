@@ -27,6 +27,10 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 
 	this->ChangeRound();
 
+	//skilflag,controlflag‚ð“n‚·
+	SkilManager::Getinstance().GiveSkilFlagPt(m_PlayerID, &SkilFlag);
+	SkilManager::Getinstance().GiveControlFlagPt(m_PlayerID, &ControlFlag);
+
 }
 
 void Player::Update(void)
@@ -161,7 +165,7 @@ void Player::CharacterStick(void)
 		Angle = atan2(ControllerPos.y * -1, ControllerPos.x * -1);
 
 	}
-
+	
 
 }
 

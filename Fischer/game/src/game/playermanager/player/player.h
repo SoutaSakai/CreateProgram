@@ -11,7 +11,7 @@ class Player
 {
 public:
 	Player();
-
+	 
 	void Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos);
 
 	void Update(void);

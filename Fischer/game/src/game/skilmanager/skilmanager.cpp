@@ -75,6 +75,20 @@ void SkilManager::Draw(void)
 {
 }
 
+void SkilManager::Finalize(void)
+{
+}
+
+void SkilManager::GiveSkilFlagPt(vivid::controller::DEVICE_ID PlayerNumber, bool* skilflag)
+{
+	m_SkilFlagPt[(int)PlayerNumber] = skilflag;
+}
+
+void SkilManager::GiveControlFlagPt(vivid::controller::DEVICE_ID PlayerNumber, bool* Ccontrolflag)
+{
+	m_ControlFlagPt[(int)PlayerNumber] = Ccontrolflag;
+}
+
 void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 {
 	switch (Character)

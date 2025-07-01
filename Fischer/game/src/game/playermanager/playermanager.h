@@ -26,13 +26,16 @@ private:
 
 	playermanager(void) = default;
 
-	int MaxPlayer;
+	int MaxPlayer;		//プレイヤーの最大数
 
-	int m_RoundCount;
+	int m_RoundCount;	//ラウンドのカウンタ
 
-	Player* player[(int)vivid::controller::DEVICE_ID::MAX];
-	CHARACTER_ID UseCharacter[(int)vivid::controller::DEVICE_ID::MAX][3];
-	vivid::controller::DEVICE_ID DeviceID[(int)vivid::controller::DEVICE_ID::MAX];
+	bool SkilFlag[(int)vivid::controller::DEVICE_ID::MAX];				//スキルのフラグ
+	bool ControlFlag[(int)vivid::controller::DEVICE_ID::MAX];			//プレイヤーが操作できるかどうか
+
+	Player* player[(int)vivid::controller::DEVICE_ID::MAX];							//プレイヤーのオブジェクト生成
+	CHARACTER_ID UseCharacter[(int)vivid::controller::DEVICE_ID::MAX][3];			//プレイヤーの使うキャラクター
+	vivid::controller::DEVICE_ID DeviceID[(int)vivid::controller::DEVICE_ID::MAX];	//デバイスID格納変数
 
 	vivid::Vector2 StartPos[4];
 };
