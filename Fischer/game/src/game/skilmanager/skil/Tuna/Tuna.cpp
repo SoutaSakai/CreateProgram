@@ -6,10 +6,12 @@ const float Tuna::BlinkTime = 1;
 const int Tuna::BlinkCount = 10;
 
 
-void Tuna::Initialize(void)
+void Tuna::Initialize(int playernumber)
 {
 	Timer = 0.0f;
 	Count = 0;
+
+	m_PlayerNumber = playernumber;
 }
 
 vivid::Vector2 Tuna::Update(vivid::Vector2 Pos, float Angle, float ScaleX)
@@ -36,15 +38,14 @@ vivid::Vector2 Tuna::Update(vivid::Vector2 Pos, float Angle, float ScaleX)
 
 	if (Count >= BlinkCount)
 	{
-		*SFlag = false;
-		*CFlag = true;
+		/**SFlag = false;
+		*CFlag = true;*/
+
+		playermanager::GetInstance().ChangeSkilFlag(m_PlayerNumber);
+		playermanager::GetInstance().ChangeControlFlag(m_PlayerNumber);
 	}
 
 	return Pos;
 }
 
-void Tuna::GetPointer(bool* sflag, bool* cflag)
-{
-	this->SFlag = sflag;
-	this->CFlag = cflag;
-}
+

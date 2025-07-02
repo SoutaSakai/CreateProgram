@@ -20,12 +20,6 @@ public:
 	void Draw(void);
 	void Finalize(void);
 
-	//スキルフラグのポインタを受け取る
-	void GiveSkilFlagPt(vivid::controller::DEVICE_ID PlayerNumber, bool* skilflag);
-
-	//コントロールフラグのポインタを受け取る
-	void GiveControlFlagPt(vivid::controller::DEVICE_ID PlayerNumber, bool* Ccontrolflag);
-
 	//				何playerか？、使うキャラ1つ、ラウンド開始時に呼び出す
 	void CreateObj(int PlayerNumber,CHARACTER_ID Character);
 
@@ -33,16 +27,8 @@ public:
 
 private:
 
-	static const int MAXPlayer = 4;
-
-	//スキルフラグのポインタ変数
-	//コントロールフラグのポインタ変数
-	//Player.cpp ==> Skilmanager.cpp
-	bool* m_SkilFlagPt[MAXPlayer];
-	bool* m_ControlFlagPt[MAXPlayer];
-
-	Elsctriceel*	elsctriceel[MAXPlayer];
-	Tuna*			tuna[MAXPlayer];
-	Turtle*			turtle[MAXPlayer];
+	Elsctriceel*	elsctriceel[(int)vivid::controller::DEVICE_ID::MAX];
+	Tuna*			tuna[(int)vivid::controller::DEVICE_ID::MAX];
+	Turtle*			turtle[(int)vivid::controller::DEVICE_ID::MAX];
 
 };

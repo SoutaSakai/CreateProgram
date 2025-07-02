@@ -33,6 +33,10 @@ void playermanager::Initialize(const int MaxPlayer)
 		player[i]->InUseCharacter(UseCharacter[i][0], UseCharacter[i][1], UseCharacter[i][2]);
 
 		player[i]->Initialize(DeviceID[i], distance * (i + 1));
+
+		//Flagの初期化
+		m_SkilFlag[i] = false;
+		m_ControlFlag[i] = true;
 	}
 
 	//仮
@@ -58,6 +62,13 @@ void playermanager::Draw(void)
 	{
 		player[i]->Draw();
 	}
+
+	//確認コード ==>
+
+	vivid::DrawText(40, std::to_string(m_SkilFlag[0]), vivid::Vector2(0.0f, 0.0f),0xffffffff);
+	vivid::DrawText(40, std::to_string(m_ControlFlag[0]), vivid::Vector2(0.0f, 40.0f), 0xffffffff);
+
+	//<==
 }
 
 void playermanager::Finalize(void)

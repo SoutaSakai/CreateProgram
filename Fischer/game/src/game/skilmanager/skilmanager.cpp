@@ -32,7 +32,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character)
 	case CHARACTER_ID::POINTUNA:
 		break;
 	case CHARACTER_ID::TUNA:
-		tuna[PlayerNumber]->Initialize();
+		tuna[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	default:
 		break;
@@ -79,16 +79,6 @@ void SkilManager::Finalize(void)
 {
 }
 
-void SkilManager::GiveSkilFlagPt(vivid::controller::DEVICE_ID PlayerNumber, bool* skilflag)
-{
-	m_SkilFlagPt[(int)PlayerNumber] = skilflag;
-}
-
-void SkilManager::GiveControlFlagPt(vivid::controller::DEVICE_ID PlayerNumber, bool* Ccontrolflag)
-{
-	m_ControlFlagPt[(int)PlayerNumber] = Ccontrolflag;
-}
-
 void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 {
 	switch (Character)
@@ -123,10 +113,10 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 
 void SkilManager::DeleteObj(void)
 {
-	for (int i = 0; i < MAXPlayer; i++)
+	/*for (int i = 0; i < MAXPlayer; i++)
 	{
 		if (elsctriceel[i] != nullptr)	delete elsctriceel[i];
 		if (turtle[i] != nullptr)		delete turtle[i];
 		if (tuna[i] != nullptr)			delete tuna[i];
-	}
+	}*/
 }
