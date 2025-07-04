@@ -7,7 +7,12 @@
 #include"skil/Elsctriceel/Elsctriceel.h"
 #include"skil/Tuna/Tuna.h"
 #include"skil/Turtle/Turtle.h"
+#include"skil/Porcupinefish/Porcupinefish.h"
 
+class Elsctriceel;
+class Tuna;
+class Turtle;
+class Porcupinefish;
 
 class SkilManager
 {
@@ -15,7 +20,7 @@ public:
 
 	static SkilManager& Getinstance(void);
 
-	void Initialize(int PlayerNumber, CHARACTER_ID Character);
+	void Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Vector2 pos);
 	vivid::Vector2 Update(int PlayerNumber, CHARACTER_ID Character,vivid::Vector2 Pos,float Angle,float ScaleX);
 	void Draw(void);
 	void Finalize(void);
@@ -27,8 +32,9 @@ public:
 
 private:
 
-	Elsctriceel*	elsctriceel[(int)vivid::controller::DEVICE_ID::MAX];
-	Tuna*			tuna[(int)vivid::controller::DEVICE_ID::MAX];
-	Turtle*			turtle[(int)vivid::controller::DEVICE_ID::MAX];
+	Elsctriceel*		elsctriceel[(int)vivid::controller::DEVICE_ID::MAX];
+	Tuna*				tuna[(int)vivid::controller::DEVICE_ID::MAX];
+	Turtle*				turtle[(int)vivid::controller::DEVICE_ID::MAX];
+	Porcupinefish*		porcupinefish[(int)vivid::controller::DEVICE_ID::MAX];
 
 };

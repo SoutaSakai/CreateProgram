@@ -26,9 +26,12 @@ public:
 	bool GetSkilFlag(int playernumber) const { return m_SkilFlag[playernumber]; }
 	bool GetControlFlag(int playernumber) const { return m_ControlFlag[playernumber]; }
 
-	//SkilFlag‚ÆControlFlag‚Ì“à—e‚ð”½“]‚³‚¹‚é
-	void ChangeSkilFlag(int playernumber) { m_SkilFlag[playernumber] = !m_SkilFlag[playernumber]; }
-	void ChangeControlFlag(int playernumber) { m_ControlFlag[playernumber] = !m_ControlFlag[playernumber]; }
+	//SkilFlag‚ÆControlFlag‚Ì“à—e‚ð•Ï‚¦‚é
+	void ChangeSkilFlagTrue(int playernumber) { m_SkilFlag[playernumber] = true; }
+	void ChangeControlFlagTrue(int playernumber) { m_ControlFlag[playernumber] = true; }
+
+	void ChangeSkilFlagFalse(int playernumber){ m_SkilFlag[playernumber] = false; }
+	void ChangeControlFlagFalse(int playernumber) { m_ControlFlag[playernumber] = false; }
 
 private:
 

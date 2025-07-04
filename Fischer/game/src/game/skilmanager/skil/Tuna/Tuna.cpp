@@ -41,8 +41,8 @@ vivid::Vector2 Tuna::Update(vivid::Vector2 Pos, float Angle, float ScaleX)
 		/**SFlag = false;
 		*CFlag = true;*/
 
-		playermanager::GetInstance().ChangeSkilFlag(m_PlayerNumber);
-		playermanager::GetInstance().ChangeControlFlag(m_PlayerNumber);
+		playermanager::GetInstance().ChangeSkilFlagFalse(m_PlayerNumber);
+		playermanager::GetInstance().ChangeControlFlagTrue(m_PlayerNumber);
 	}
 
 	return Pos;

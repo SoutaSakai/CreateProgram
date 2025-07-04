@@ -7,16 +7,17 @@ SkilManager& SkilManager::Getinstance(void)
 	return Instance;
 }
 
-void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character)
+void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Vector2 pos)
 {
 	switch (Character)
 	{
 	case CHARACTER_ID::DUMMY:
 		break;
 	case CHARACTER_ID::ELSCTRICEEL:
-		elsctriceel[PlayerNumber]->Initialize();
+		elsctriceel[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	case CHARACTER_ID::PORCUPINEFISH:
+		porcupinefish[PlayerNumber]->Initialize(PlayerNumber,pos);
 		break;
 	case CHARACTER_ID::SHARK:
 		break;
@@ -25,7 +26,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character)
 	case CHARACTER_ID::MIRRORMORAYELL:
 		break;
 	case CHARACTER_ID::TURTLE:
-		turtle[PlayerNumber]->Initialize();
+		turtle[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	case CHARACTER_ID::OCTOPUS:
 		break;
@@ -47,8 +48,12 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 	case CHARACTER_ID::ELSCTRICEEL:
 		elsctriceel[PlayerNumber]->Update(Pos);
+		return Pos;
 		break;
+
 	case CHARACTER_ID::PORCUPINEFISH:
+		porcupinefish[PlayerNumber]->Update();
+		return Pos;
 		break;
 	case CHARACTER_ID::SHARK:
 		break;
@@ -58,7 +63,9 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 	case CHARACTER_ID::TURTLE:
 		turtle[PlayerNumber]->Update(Pos);
+		return Pos;
 		break;
+
 	case CHARACTER_ID::OCTOPUS:
 		break;
 	case CHARACTER_ID::POINTUNA:
@@ -66,6 +73,7 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 	case CHARACTER_ID::TUNA:
 		return tuna[PlayerNumber]->Update(Pos,Angle,ScaleX);
 		break;
+
 	default:
 		break;
 	}
@@ -89,6 +97,7 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 		if (elsctriceel[PlayerNumber] == nullptr)elsctriceel[PlayerNumber] = new Elsctriceel();
 		break;
 	case CHARACTER_ID::PORCUPINEFISH:
+		if (porcupinefish[PlayerNumber] == nullptr)porcupinefish[PlayerNumber] = new Porcupinefish();
 		break;
 	case CHARACTER_ID::SHARK:
 		break;

@@ -41,7 +41,7 @@ void Player::Update(void)
 	this->CheckWall();
 
 	//スキルの更新
-	if ( playermanager::GetInstance().GetSkilFlag((int)m_PlayerID));
+	if ( playermanager::GetInstance().GetSkilFlag((int)m_PlayerID))
 	{
 		CharacterPos = SkilManager::Getinstance().Update((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Angle, Scale.x);
 	}
@@ -183,20 +183,20 @@ void Player::Keyboard(void)
 
 		if ( !playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
 
-			//Flagをtrueにする
-			playermanager::GetInstance().ChangeSkilFlag((int)m_PlayerID);
+			//SkilFlagをtrueにする
+			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
 
 			//ControlFlagをfalseにする	==> 一部キャラだけ
 			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
 			{
-				playermanager::GetInstance().ChangeControlFlag((int)m_PlayerID);
+				playermanager::GetInstance().ChangeControlFlagFalse((int)m_PlayerID);
 			}
 
 			//オブジェクトを作る
 			SkilManager::Getinstance().CreateObj((int)m_PlayerID, UseCharacter[CharaNo]);
 
 			//初期化する
-			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo]);
+			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos);
 		}
 
 	}
