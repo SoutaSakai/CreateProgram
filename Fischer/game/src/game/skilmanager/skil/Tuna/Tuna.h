@@ -1,14 +1,14 @@
 #pragma once
 #include"vivid.h"
 
+#include"../../../playermanager/playermanager.h"
+
 class Tuna
 {
 public:
 
-	void Initialize(void);
+	void Initialize(int playernumber);
 	vivid::Vector2 Update(vivid::Vector2 Pos, float Angle, float ScaleX);
-
-	void GetPointer(bool* sflag, bool* cflag);
 
 private:
 
@@ -16,10 +16,8 @@ private:
 	static const float BlinkTime;		//ブリンクにかかる時間
 	static const int BlinkCount;		//ブリンクを何回に分けるか
 
-	bool* SFlag;
-	bool* CFlag;
-
 	float Timer;
 	int Count;
 
+	int m_PlayerNumber;
 };

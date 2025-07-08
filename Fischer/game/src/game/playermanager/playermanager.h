@@ -22,17 +22,36 @@ public:
 	void InRoundCount(int RoundCount) { m_RoundCount = RoundCount; }
 	int  GetRoundCount(void) { return 1/*m_RoundCount*/; }
 
+	//SkilFlagとControlFlagを返す
+	bool GetSkilFlag(int playernumber) const { return m_SkilFlag[playernumber]; }
+	bool GetControlFlag(int playernumber) const { return m_ControlFlag[playernumber]; }
+
+	//SkilFlagとControlFlagの内容を変える
+	void ChangeSkilFlagTrue(int playernumber) { m_SkilFlag[playernumber] = true; }
+	void ChangeControlFlagTrue(int playernumber) { m_ControlFlag[playernumber] = true; }
+
+	void ChangeSkilFlagFalse(int playernumber){ m_SkilFlag[playernumber] = false; }
+	void ChangeControlFlagFalse(int playernumber) { m_ControlFlag[playernumber] = false; }
+
 private:
 
 	playermanager(void) = default;
 
-	int MaxPlayer;
+	int MaxPlayer;		//プレイヤーの最大数
 
-	int m_RoundCount;
+	int m_RoundCount;	//ラウンドのカウンタ
 
-	Player* player[(int)vivid::controller::DEVICE_ID::MAX];
-	CHARACTER_ID UseCharacter[(int)vivid::controller::DEVICE_ID::MAX][3];
-	vivid::controller::DEVICE_ID DeviceID[(int)vivid::controller::DEVICE_ID::MAX];
+	bool SkilFlag[(int)vivid::controller::DEVICE_ID::MAX];				//スキルのフラグ
+	bool ControlFlag[(int)vivid::controller::DEVICE_ID::MAX];			//プレイヤーが操作できるかどうか
+
+	Player* player[(int)vivid::controller::DEVICE_ID::MAX];							//プレイヤーのオブジェクト生成
+	CHARACTER_ID UseCharacter[(int)vivid::controller::DEVICE_ID::MAX][3];			//プレイヤーの使うキャラクター
+	vivid::controller::DEVICE_ID DeviceID[(int)vivid::controller::DEVICE_ID::MAX];	//デバイスID格納変数
 
 	vivid::Vector2 StartPos[4];
+
+	//SkilFlag ==> スキルを使ている状態
+	//ControlFlag ==> 操作できるかどうか
+	bool m_SkilFlag[(int)vivid::controller::DEVICE_ID::MAX];
+	bool m_ControlFlag[(int)vivid::controller::DEVICE_ID::MAX];
 };

@@ -11,7 +11,7 @@ class Player
 {
 public:
 	Player();
-
+	 
 	void Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos);
 
 	void Update(void);
@@ -59,9 +59,6 @@ private:
 	vivid::Vector2 Anchor;			//characterの中心
 	float Angle;					//characterの角度
 	vivid::Vector2 Scale;			//characterの拡大率
-
-	bool SkilFlag;				//スキルのフラグ
-	bool ControlFlag;			//プレイヤーが操作できるかどうか
 
 	static const float WaterHEIGHT;
 

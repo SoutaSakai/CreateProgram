@@ -1,14 +1,15 @@
 #pragma once
 #include"vivid.h"
 
+#include"../../../charactermanager/charactermanager.h"
+#include"../../../playermanager/playermanager.h"
+
 class Turtle
 {
 public:
 
-	void Initialize(void);
+	void Initialize(int playernumber);
 	void Update(vivid::Vector2 Pos);
-
-	void GetPointer(bool* sflag, bool* cflag);
 
 private:
 
@@ -17,6 +18,5 @@ private:
 
 	float Timer;
 
-	bool* SFlag;
-	bool* CFlag;
+	int m_PlayerNumber;
 };

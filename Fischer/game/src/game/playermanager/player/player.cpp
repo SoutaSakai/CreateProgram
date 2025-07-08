@@ -9,8 +9,6 @@ const float Player::WaterHEIGHT = 165;
 Player::Player()
 	: CharacterPos(vivid::Vector2(0, 165))
 	, Scale(vivid::Vector2(1.0f, 1.0f))
-	, SkilFlag(false)
-	, ControlFlag(true)
 
 	, Angle(0)
 {
@@ -31,7 +29,7 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 
 void Player::Update(void)
 {
-	if (ControlFlag)
+	if ( playermanager::GetInstance().GetControlFlag((int)m_PlayerID))
 	{
 		this->Controller();
 
@@ -43,41 +41,9 @@ void Player::Update(void)
 	this->CheckWall();
 
 	//スキルの更新
-	if (SkilFlag)
+	if ( playermanager::GetInstance().GetSkilFlag((int)m_PlayerID))
 	{
-		switch (UseCharacter[playermanager::GetInstance().GetRoundCount() - 1])
-		{
-		case CHARACTER_ID::DUMMY:
-			break;
-		case CHARACTER_ID::ELSCTRICEEL:
-			/*if (elsctriceel != nullptr)
-				elsctriceel->Update(vivid::Vector2(CharacterPos.x + CharaWIDTH / 2,
-												   CharacterPos.y + CharaHEIGHT / 2));*/
-			break;
-		case CHARACTER_ID::PORCUPINEFISH:
-			break;
-		case CHARACTER_ID::SHARK:
-			break;
-		case CHARACTER_ID::LIONFISH:
-			break;
-		case CHARACTER_ID::MIRRORMORAYELL:
-			break;
-		case CHARACTER_ID::TURTLE:
-			/*if (turtle != nullptr)
-				turtle->Update(vivid::Vector2(CharacterPos.x + CharaWIDTH / 2,
-											CharacterPos.y + CharaHEIGHT / 2));*/
-			break;
-		case CHARACTER_ID::OCTOPUS:
-			break;
-		case CHARACTER_ID::POINTUNA:
-			break;
-		case CHARACTER_ID::TUNA:
-			/*if(tuna != nullptr)
-				CharacterPos = tuna->Update(CharacterPos, Angle, Scale.x);*/
-			break;
-		default:
-			break;
-		}
+		CharacterPos = SkilManager::Getinstance().Update((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Angle, Scale.x);
 	}
 }
 
@@ -161,7 +127,7 @@ void Player::CharacterStick(void)
 		Angle = atan2(ControllerPos.y * -1, ControllerPos.x * -1);
 
 	}
-
+	
 
 }
 
@@ -215,10 +181,15 @@ void Player::Keyboard(void)
 	{
 		vivid::DrawText(40, "Space", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
 
-		if (!SkilFlag) {
+		if ( !playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
 
-			switch (UseCharacter[CharaNo])
+			//SkilFlagをtrueにする
+			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
+
+			//ControlFlagをfalseにする	==> 一部キャラだけ
+			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
 			{
+<<<<<<< HEAD
 			case CHARACTER_ID::DUMMY:
 				break;
 			case CHARACTER_ID::ELSCTRICEEL:
@@ -251,8 +222,16 @@ void Player::Keyboard(void)
 				break;
 			default:
 				break;
+=======
+				playermanager::GetInstance().ChangeControlFlagFalse((int)m_PlayerID);
+>>>>>>> 615c34916ced96174630f884514b58980e5f2080
 			}
 
+			//オブジェクトを作る
+			SkilManager::Getinstance().CreateObj((int)m_PlayerID, UseCharacter[CharaNo]);
+
+			//初期化する
+			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos);
 		}
 
 	}
@@ -304,6 +283,5 @@ void Player::Setting(vivid::Vector2 pos, float scale, float angle, bool skilflag
 	CharacterPos = pos;
 	Scale.x = scale;
 	Angle = angle * (3.14 / 180);
-	SkilFlag = skilflag;
 }
 
