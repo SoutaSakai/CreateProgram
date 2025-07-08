@@ -9,23 +9,33 @@ class FeedManager
 public:
 	static FeedManager& GetInstance(void);
 
+	// 初期化
 	void Initialize(void);
 
+	// 更新
 	void Update(void);
 
+	// 描画
 	void Draw(void);
 
+	// 解放
 	void Finalize(void);
 
+	// プレイヤーの口とのアタリ判定
 	bool CheckHit(vivid::Vector2, float, int);
 
-	void CreateFeed(vivid::Vector2, int, int);
+	// 餌の生成
+	void Create(vivid::Vector2, int, int);
 
-
+	// 餌の削除
+	void Destroy(int);
 
 private:
-	Feed*	Feeds[5];
-	bool	Active_flag[5];
+	static const vivid::Vector2	m_range;	// 釣り人から餌までの距離
+	static const int	m_max;				// 餌の最大値
+
+	Feed*	m_Feeds[5];			// 餌のオブジェクト配列
+	bool	m_ActiveFlag[5];	// アクティブフラグ
 
 	FeedManager(void) = default;
 	~FeedManager(void) = default;

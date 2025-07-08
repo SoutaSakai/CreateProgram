@@ -83,11 +83,11 @@ void Player::Update(void)
 		}
 	}
 
-	// Še‰a‚Æ‚Ì”»’è
-	for (int i = 0; i < 4; ++i)
-	{
-		Hit_feed[i] = FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i);		
-	}
+	//// Še‰a‚Æ‚Ì”»’è
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	Hit_feed[i] = FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i);		
+	//}
 }
 
 void Player::InUseCharacter(CHARACTER_ID first, CHARACTER_ID second, CHARACTER_ID third)
@@ -178,9 +178,10 @@ void Player::Keyboard(void)
 	{
 		for (int i = 0; i < 4; ++i)
 		{
-			if (Hit_feed[i])
+			if (FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i))
 			{
 				// “–‚½‚Á‚Ä‚¢‚½Žž
+				FeedManager::GetInstance().Destroy(i);
 			}
 		}
 	}

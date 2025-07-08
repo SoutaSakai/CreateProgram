@@ -8,27 +8,34 @@ public:
 	Feed(void);
 	~Feed(void) = default;
 
+	// 初期化
 	void Initialize(const vivid::Vector2&);
 
+	// 更新
 	void Update(void);
 
+	// 描画
 	void Draw(void);
 
+	// 解放
 	void Finalize(void);
 
+	// アクティブフラグを返す
 	bool IsActive(void);
 
+	// アクティブフラグに代入
 	void InActive(bool);
 
+	// 半径を返す
 	float GetRadius(void);
 
+	// 中心座標を返す
 	vivid::Vector2 GetCenterPos(void);
 
 private:
-	static const float	Width;
-	static const float	Height;
-	static const int	Max_feed;
+	static const float	m_width;	// 幅
+	static const float	m_height;	// 高さ
 
-	vivid::Vector2	Position;
-	bool			Active_flag;
+	vivid::Vector2	m_Position;		// 位置
+	bool			m_ActiveFlag;	// アクティブフラグ
 };

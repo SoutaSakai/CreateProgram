@@ -1,51 +1,59 @@
 #include "feed.h"
 
-const float	Feed::Width		= 36.0f;
-const float	Feed::Height	= 40.0f;
-const int	Feed::Max_feed	= 5;
+const float	Feed::m_width	= 36.0f;
+const float	Feed::m_height	= 40.0f;
 
+// コンストラクタ
 Feed::Feed(void)
-	: Position(vivid::Vector2(0.0f,0.0f))
-	, Active_flag(true)
+	: m_Position(vivid::Vector2(0.0f,0.0f))
+	, m_ActiveFlag(true)
 {
 }
 
+// 初期化
 void Feed::Initialize(const vivid::Vector2& current_pos)
 {
-	Position.x = current_pos.x;
-	Position.y = current_pos.y;
-	Active_flag = true;
+	m_Position.x = current_pos.x;
+	m_Position.y = current_pos.y;
+	m_ActiveFlag = true;
 }
 
+// 更新
 void Feed::Update(void)
 {
 }
 
+// 描画
 void Feed::Draw(void)
 {
-	vivid::DrawTexture("data\\ball.png", Position);
+	vivid::DrawTexture("data\\ball.png", m_Position);
 }
 
+// 解放
 void Feed::Finalize(void)
 {
 }
 
+// アクティブフラグを返す
 bool Feed::IsActive(void)
 {
-	return Active_flag;
+	return m_ActiveFlag;
 }
 
+// アクティブフラグに代入
 void Feed::InActive(bool active)
 {
-	Active_flag = active;
+	m_ActiveFlag = active;
 }
 
+// 半径を返す
 float Feed::GetRadius(void)
 {
-	return Height / 2.0f;
+	return m_height / 2.0f;
 }
 
+// 中心座標を返す
 vivid::Vector2 Feed::GetCenterPos(void)
 {
-	return Position + vivid::Vector2(18.0f, 20.0f);
+	return m_Position + vivid::Vector2(18.0f, 20.0f);
 }
