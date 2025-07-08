@@ -181,7 +181,7 @@ void Player::Keyboard(void)
 	{
 		vivid::DrawText(40, "Space", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
 
-		if ( !playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
+		if (!playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
 
 			//SkilFlagをtrueにする
 			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
@@ -189,42 +189,7 @@ void Player::Keyboard(void)
 			//ControlFlagをfalseにする	==> 一部キャラだけ
 			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
 			{
-<<<<<<< HEAD
-			case CHARACTER_ID::DUMMY:
-				break;
-			case CHARACTER_ID::ELSCTRICEEL:
-
-				break;
-			case CHARACTER_ID::PORCUPINEFISH:
-				break;
-			case CHARACTER_ID::SHARK:
-				break;
-			case CHARACTER_ID::LIONFISH:
-				break;
-			case CHARACTER_ID::MIRRORMORAYELL:
-				break;
-			case CHARACTER_ID::TURTLE:
-				break;
-			case CHARACTER_ID::OCTOPUS:
-				break;
-			case CHARACTER_ID::POINTUNA:
-				break;
-			case CHARACTER_ID::TUNA:
-			/*if (tuna == nullptr) { tuna = new Tuna(); }
-
-			SkilFlag = true;
-			ControlFlag = false;
-			tuna->Initialize();
-			tuna->GetPointer(&SkilFlag, &ControlFlag);*/
-
-
-
-				break;
-			default:
-				break;
-=======
 				playermanager::GetInstance().ChangeControlFlagFalse((int)m_PlayerID);
->>>>>>> 615c34916ced96174630f884514b58980e5f2080
 			}
 
 			//オブジェクトを作る
@@ -232,8 +197,8 @@ void Player::Keyboard(void)
 
 			//初期化する
 			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos);
-		}
 
+		}
 	}
 	//<===
 }
