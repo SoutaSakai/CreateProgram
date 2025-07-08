@@ -245,6 +245,9 @@ void Player::Keyboard(void)
 			ControlFlag = false;
 			tuna->Initialize();
 			tuna->GetPointer(&SkilFlag, &ControlFlag);*/
+
+
+
 				break;
 			default:
 				break;
