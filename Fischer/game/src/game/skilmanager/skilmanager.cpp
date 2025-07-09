@@ -7,7 +7,7 @@ SkilManager& SkilManager::Getinstance(void)
 	return Instance;
 }
 
-void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Vector2 pos)
+void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Vector2 pos, vivid::Vector2 scale)
 {
 	switch (Character)
 	{
@@ -29,6 +29,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Ve
 		turtle[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	case CHARACTER_ID::OCTOPUS:
+		octopus[PlayerNumber]->Initialize(PlayerNumber, pos, scale);
 		break;
 	case CHARACTER_ID::POINTUNA:
 		break;
@@ -67,6 +68,8 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 
 	case CHARACTER_ID::OCTOPUS:
+		octopus[PlayerNumber]->Update();
+		return Pos;
 		break;
 	case CHARACTER_ID::POINTUNA:
 		break;
@@ -109,6 +112,7 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 		if (turtle[PlayerNumber] == nullptr)turtle[PlayerNumber] = new Turtle();
 		break;
 	case CHARACTER_ID::OCTOPUS:
+		if (octopus[PlayerNumber] == nullptr)octopus[PlayerNumber] = new COctopus();
 		break;
 	case CHARACTER_ID::POINTUNA:
 		break;

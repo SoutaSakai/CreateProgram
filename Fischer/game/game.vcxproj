@@ -173,6 +173,7 @@
     <ClCompile Include="src\game\playermanager\player\player.cpp" />
     <ClCompile Include="src\game\skilmanager\skilmanager.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Elsctriceel\Elsctriceel.cpp" />
+    <ClCompile Include="src\game\skilmanager\skil\Octopus\Octopus.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Porcupinefish\Porcupinefish.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Tuna\Tuna.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Turtle\Turtle.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="src\game\playermanager\player\player.h" />
     <ClInclude Include="src\game\skilmanager\skilmanager.h" />
     <ClInclude Include="src\game\skilmanager\skil\Elsctriceel\Elsctriceel.h" />
+    <ClInclude Include="src\game\skilmanager\skil\Octopus\Octopus.h" />
     <ClInclude Include="src\game\skilmanager\skil\Porcupinefish\Porcupinefish.h" />
     <ClInclude Include="src\game\skilmanager\skil\Tuna\Tuna.h" />
     <ClInclude Include="src\game\skilmanager\skil\Turtle\Turtle.h" />

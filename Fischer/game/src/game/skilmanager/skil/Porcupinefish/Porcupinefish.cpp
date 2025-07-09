@@ -4,46 +4,36 @@ const int		Porcupinefish::m_MaxSpine = 6;
 const float		Porcupinefish::m_SpineSpeed = 8;
 const float		Porcupinefish::m_SpineAngle = 15;
 
-const int		Porcupinefish::m_width = 30;
-const int		Porcupinefish::m_height = 45;
+const int		Porcupinefish::m_Spinewidth = 30;
+const int		Porcupinefish::m_Spineheight = 45;
 
 void Porcupinefish::Initialize(int playernumber, vivid::Vector2 pos)
 {
 	m_PlayerNumber = playernumber;
 
 	m_SpineRect.left = 0;
-	m_SpineRect.right = m_SpineRect.left + m_width;
+	m_SpineRect.right = m_SpineRect.left + m_Spinewidth;
 	m_SpineRect.top = 0;
-	m_SpineRect.bottom = m_SpineRect.top + m_height;
+	m_SpineRect.bottom = m_SpineRect.top + m_Spineheight;
 
-	m_Anchor = vivid::Vector2(m_width /2, m_height / 2);
-
-	////êjÇÃêîï™ÇÃîzóÒÇçÏÇÈ
-	//vivid::Vector2 Pos[m_MaxSpine];
-	//SpinePos = Pos;
-
-	/*float angle[m_MaxSpine];
-	Angle = angle;*/
-
-	bool Flag[m_MaxSpine];
-	SpineFlag = Flag;
+	m_Anchor = vivid::Vector2(m_Spinewidth /2, m_Spineheight / 2);
 
 	for (int i = 0; i < m_MaxSpine; i++)
 	{
 		//èâä˙âª
-		SpinePos[i].x = pos.x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::PORCUPINEFISH) / 2;
-		SpinePos[i].y = pos.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::PORCUPINEFISH) / 2;
+		m_SpinePos[i].x = pos.x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::PORCUPINEFISH) / 2 - m_Spinewidth / 2;
+		m_SpinePos[i].y = pos.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::PORCUPINEFISH) / 2 - m_Spineheight / 2;
 
-		SpineFlag[i] = true;
+		m_SpineFlag[i] = true;
 
 		//äpìxÇÃèâä˙âª
 		if (i < m_MaxSpine / 2)
 		{
-			Angle[i] = 0 - m_SpineAngle + i * m_SpineAngle;
+			m_Angle[i] = 0 - m_SpineAngle + i * m_SpineAngle;
 		}
 		else
 		{
-			Angle[i] = 180 - m_SpineAngle + (i - 3) * m_SpineAngle;
+			m_Angle[i] = 180 - m_SpineAngle + (i - 3) * m_SpineAngle;
 		}
 
 	}
@@ -51,13 +41,29 @@ void Porcupinefish::Initialize(int playernumber, vivid::Vector2 pos)
 
 void Porcupinefish::Update()
 {
-	vivid::DrawText(40, std::to_string(SpinePos[1].x), vivid::Vector2(vivid::WINDOW_WIDTH / 2, vivid::WINDOW_HEIGHT / 2), 0xffffffff);
-
 	for (int i = 0; i < m_MaxSpine; i++)
 	{
-		SpinePos[i].x = cos(Angle[i]  * 3.14 / 180.0f) * m_SpineSpeed + SpinePos[i].x;
-		SpinePos[i].y = sin(Angle[i]  * 3.14 / 180.0f) * m_SpineSpeed + SpinePos[i].y;
+		//flagÇ™trueÇÃêjÇæÇØìÆÇ©Ç∑
+		if (m_SpineFlag[i])
+		{
+			m_SpinePos[i].x = cos(m_Angle[i] * 3.14 / 180.0f) * m_SpineSpeed + m_SpinePos[i].x;
+			m_SpinePos[i].y = sin(m_Angle[i] * 3.14 / 180.0f) * m_SpineSpeed + m_SpinePos[i].y;
 
-		vivid::DrawTexture("data\\Spine.png", SpinePos[i], 0xffffffff, m_SpineRect,m_Anchor,Angle[i]);
+			vivid::DrawTexture("data\\Spine.png", m_SpinePos[i], 0xffffffff, m_SpineRect, m_Anchor, (m_Angle[i] + 90) * 3.14 / 180.0f);
+		}
+
+		//âÊñ äOîªíË
+		if (m_SpinePos[i].x + m_Spinewidth < 0 || vivid::WINDOW_WIDTH < m_SpinePos[i].x ||
+			m_SpinePos[i].y + m_Spineheight < 0 || vivid::WINDOW_HEIGHT < m_SpinePos[i].y)
+		{
+			m_SpineFlag[i] = false;
+		}
 	}
+
+	//Ç∑Ç◊ÇƒÇÃêjÇ™âÊñ äOÇ…èoÇΩÇÁ
+	if (!m_SpineFlag[0] && !m_SpineFlag[1] && !m_SpineFlag[2] && !m_SpineFlag[3] && !m_SpineFlag[4] && !m_SpineFlag[5])
+	{
+		playermanager::GetInstance().ChangeSkilFlagFalse(m_PlayerNumber);
+	}
+	
 }

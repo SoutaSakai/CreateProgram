@@ -38,8 +38,6 @@ vivid::Vector2 Tuna::Update(vivid::Vector2 Pos, float Angle, float ScaleX)
 
 	if (Count >= BlinkCount)
 	{
-		/**SFlag = false;
-		*CFlag = true;*/
 
 		playermanager::GetInstance().ChangeSkilFlagFalse(m_PlayerNumber);
 		playermanager::GetInstance().ChangeControlFlagTrue(m_PlayerNumber);

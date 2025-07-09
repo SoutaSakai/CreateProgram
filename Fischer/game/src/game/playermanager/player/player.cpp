@@ -196,7 +196,7 @@ void Player::Keyboard(void)
 			SkilManager::Getinstance().CreateObj((int)m_PlayerID, UseCharacter[CharaNo]);
 
 			//‰Šú‰»‚·‚é
-			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos);
+			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos,Scale);
 
 		}
 	}
