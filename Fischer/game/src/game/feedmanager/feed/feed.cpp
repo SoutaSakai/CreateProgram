@@ -32,6 +32,7 @@ void Feed::Draw(void)
 // 解放
 void Feed::Finalize(void)
 {
+	m_Position = vivid::Vector2(0.0f, 0.0f);
 }
 
 // アクティブフラグを返す
@@ -56,4 +57,9 @@ float Feed::GetRadius(void)
 vivid::Vector2 Feed::GetCenterPos(void)
 {
 	return m_Position + vivid::Vector2(18.0f, 20.0f);
+}
+
+float Feed::GetPos(void)
+{
+	return m_Position.y;
 }

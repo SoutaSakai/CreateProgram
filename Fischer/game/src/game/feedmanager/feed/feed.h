@@ -32,6 +32,8 @@ public:
 	// ’†SÀ•W‚ğ•Ô‚·
 	vivid::Vector2 GetCenterPos(void);
 
+	float GetPos(void);
+
 private:
 	static const float	m_width;	// •
 	static const float	m_height;	// ‚‚³

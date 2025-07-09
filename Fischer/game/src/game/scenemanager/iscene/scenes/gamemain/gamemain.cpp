@@ -46,11 +46,11 @@ void Gamemain::Update(void)
 	playermanager::GetInstance().Update();
 	
 
-//#ifdef VIVID_DEBUG
+#ifdef VIVID_DEBUG
 	// Zキーでシーン変更
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
 		SceneManager::GetInstance().Change_scene(SCENE_ID::RESULT);
-//#endif
+#endif
 }
 
 void Gamemain::Draw(void)

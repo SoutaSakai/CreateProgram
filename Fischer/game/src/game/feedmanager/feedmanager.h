@@ -10,7 +10,7 @@ public:
 	static FeedManager& GetInstance(void);
 
 	// 初期化
-	void Initialize(void);
+	void Initialize(int);
 
 	// 更新
 	void Update(void);
@@ -25,19 +25,18 @@ public:
 	bool CheckHit(vivid::Vector2, float, int);
 
 	// 餌の生成
-	void Create(vivid::Vector2, int, int);
+	void Create(vivid::Vector2, int);
 
 	// 餌の削除
 	void Destroy(int);
 
 private:
 	static const vivid::Vector2	m_range;	// 釣り人から餌までの距離
-	static const int	m_max;				// 餌の最大値
 
 	Feed*	m_Feeds[5];			// 餌のオブジェクト配列
-	bool	m_ActiveFlag[5];	// アクティブフラグ
+	int		m_max;				// 餌の最大値
 
-	FeedManager(void) = default;
+	FeedManager(void);
 	~FeedManager(void) = default;
 	FeedManager(const FeedManager& rhs) = delete;
 	FeedManager& operator=(const FeedManager& rhs) = delete;

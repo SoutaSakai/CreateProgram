@@ -7,6 +7,7 @@
 //追加コード===>
 #include "..\..\feedmanager\feedmanager.h"
 #include "..\..\charactermanager\charactermanager.h"
+#include "..\..\fishermanager\fishermanager.h"
 //<===
 
 const float Player::WaterHEIGHT = 165;
@@ -27,10 +28,12 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 {
 	CharacterPos.x = Xpos;
 
-	for (int i = 0; i < 4; ++i)
-	{
-		Hit_feed[i] = false;
-	}
+	//追加コード===>
+	//for (int i = 0; i < 4; ++i)
+	//{
+	//	Hit_feed[i] = false;
+	//}
+	//<===
 
 	//デバイスIDを入れる
 	m_PlayerID = Player_ID;
@@ -112,17 +115,18 @@ void Player::ChangeRound(void)
 		CharaNo = rand() % 3;
 	} while (UseCharacter[CharaNo] == CHARACTER_ID::DUMMY);
 
+
 	CharaWIDTH = CharacterManager::GetInstance().CharacterWIDTH(UseCharacter[CharaNo]);
 	CharaHEIGHT = CharacterManager::GetInstance().CharacterHEIGHT(UseCharacter[CharaNo]);
+	//座標挿入
+	CharacterPos.x -= CharaWIDTH / 2;
+	CharacterPos.y = vivid::WINDOW_HEIGHT - CharaHEIGHT;
 	CharaSpeed = CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]);
 	CharaRect = CharacterManager::GetInstance().CharacterRect(UseCharacter[CharaNo]);
 	CharaFilePath = CharacterManager::GetInstance().CharacterFilePath(UseCharacter[CharaNo]);
 	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos);
 	CharaMouthRadius = CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]);
 
-	//座標挿入
-	CharacterPos.x -= CharaWIDTH / 2;
-	CharacterPos.y = vivid::WINDOW_HEIGHT - CharaHEIGHT;
 
 	Anchor = vivid::Vector2(CharaWIDTH / 2, CharaHEIGHT / 2);
 }
@@ -173,10 +177,12 @@ void Player::CharacterStick(void)
 void Player::Keyboard(void)
 {
 	//追加コード===>
+	int FisherMax = FisherManager::GetInstance().GetMax();
+
 	// 餌を食べる
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LSHIFT))
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::R))
 	{
-		for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < FisherMax; ++i)
 		{
 			if (FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i))
 			{
@@ -186,8 +192,7 @@ void Player::Keyboard(void)
 		}
 	}
 	//<===
-	// 
-	// 
+	 
 	//確認コード===>
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::D))
 	{

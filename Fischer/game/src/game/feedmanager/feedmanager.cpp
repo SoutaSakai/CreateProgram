@@ -2,7 +2,6 @@
 #include "feed/feed.h"
 
 const vivid::Vector2	FeedManager::m_range = { 115.0f, 465.0f };		// 釣り人から餌までの距離
-const int				FeedManager::m_max = 5;							// 餌の最大値
 
 FeedManager& FeedManager::GetInstance(void)
 {
@@ -12,20 +11,28 @@ FeedManager& FeedManager::GetInstance(void)
 }
 
 // 初期化
-void FeedManager::Initialize()
+void FeedManager::Initialize(int max)
 {
+	m_max = max;
 }
 
 // 更新
 void FeedManager::Update(void)
 {
+	if (m_max <= 0)	return;
+
 	// 各餌オブジェクトの更新
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < m_max; i++)
 	{
 		// 不活性なデータの削除
 		if (!m_Feeds[i]->IsActive())
 		{
 			m_Feeds[i]->Finalize();
+
+			//vivid::DrawText(40, std::to_string(m_Feeds[i]->GetPos()), vivid::Vector2(100.0f, 0.0f));
+
+			//Feed* feed = nullptr;
+			//m_Feeds[i] = feed;
 
 			continue;
 		}
@@ -38,7 +45,10 @@ void FeedManager::Update(void)
 // 描画
 void FeedManager::Draw(void)
 {
-	for (int i = 0; i < 4; ++i)
+	if (m_max <= 0)	return;
+
+	// 各餌オブジェクトの描画
+	for (int i = 0; i < m_max; i++)
 	{
 		m_Feeds[i]->Draw();
 	}
@@ -47,7 +57,10 @@ void FeedManager::Draw(void)
 // 解放
 void FeedManager::Finalize(void)
 {
-	for (int i = 0; i < 4; ++i)
+	if (m_max <= 0)	return;
+
+	// 各餌オブジェクトの解放
+	for (int i = 0; i < m_max; i++)
 	{
 		m_Feeds[i]->Finalize();
 	}
@@ -63,7 +76,7 @@ bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius, 
 }
 
 // 餌の生成
-void FeedManager::Create(vivid::Vector2 fisher_position, int max_fisher, int number)
+void FeedManager::Create(vivid::Vector2 fisher_position, int number)
 {
 	Feed*	feed = nullptr;
 
@@ -81,5 +94,10 @@ void FeedManager::Create(vivid::Vector2 fisher_position, int max_fisher, int num
 void FeedManager::Destroy(int number)
 {
 	m_Feeds[number]->InActive(false);
+}
+
+FeedManager::FeedManager(void)
+	: m_max(0)
+{
 }
 

@@ -2,12 +2,7 @@
 #include "..\feedmanager\feedmanager.h"
 
 const int FisherManager::m_max		= 5;		// 釣り人の人数
-const float FisherManager::m_width	= 150.0f;	// 釣り人の幅
-const float FisherManager::m_height = 720.0f;	// 釣り人の高さ
-const float FisherManager::m_distance			// 釣り人の間隔
-				= (vivid::WINDOW_WIDTH - m_width * m_max) / (m_max - 1);
 const float FisherManager::m_change_time	= 4.0f;						// 釣り人の状態更新時間
-const vivid::Rect FisherManager::m_rect		= { 0,0,m_width,m_height };	// 釣り人の描画範囲
 
 // インスタンスを取得
 FisherManager& FisherManager::GetInstance(void)
@@ -23,6 +18,9 @@ void FisherManager::Initialize(void)
 	// 釣り人の状態更新タイマーの初期化
 	m_Timer = 0;
 
+	// FeedManagerの初期化
+	FeedManager::GetInstance().Initialize(m_max);
+
 	// 釣り人と餌の位置の初期化
 	for (int i = 0; i < m_max; ++i)
 	{
@@ -30,7 +28,7 @@ void FisherManager::Initialize(void)
 		m_Position[i].y = 0.0f;
 
 		// 餌の生成
-		FeedManager::GetInstance().Create(m_Position[i], m_max, i);
+		FeedManager::GetInstance().Create(m_Position[i], i);
 	}
 
 	// 餌の初期化
@@ -82,10 +80,10 @@ void FisherManager::Finalize(void)
 {
 }
 
-// 餌を食べられた時の処理
-void FisherManager::CaughtFeed(void)
+// 釣り人の最大値を返す
+int FisherManager::GetMax(void)
 {
-
+	return m_max;
 }
 
 // 釣り人の状態をランダムに更新

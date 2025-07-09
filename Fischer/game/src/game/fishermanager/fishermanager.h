@@ -21,33 +21,16 @@ public:
 	// 解放
 	void Finalize(void);
 
-	// 餌を食べられた時の処理
-	void CaughtFeed(void);
+	// 釣り人の人数を返す
+	int GetMax(void);
 
 private:
-	// 釣り人の状態をランダムに更新
-	void FisherRandState(void);
+	void FisherRandState(void);			// 釣り人の状態をランダムに更新
 
-	// 釣り人の人数
-	static const int m_max;
-	// 釣り人の状態更新時間
-	static const float m_change_time;
-	// 釣り人の幅
-	static const float m_width;
-	// 釣り人の高さ
-	static const float m_height;
-	// 釣り人の間隔
-	static const float m_distance;
-	// 釣り人の描画範囲
-	static const vivid::Rect m_rect;
+	static const int			m_max;			// 釣り人の人数
+	static const float			m_change_time;	// 釣り人の状態更新時間
 
-	// 釣り人の状態の管理
-	int m_State[5];
-	// 釣り人の状態更新タイマー
-	float m_Timer;
-	// 釣り人の座標
-	vivid::Vector2 m_Position[5];
-
+	float			m_Timer;			// 釣り人の状態更新タイマー
 
 	// コンストラクタ
 	FisherManager(void) = default;
