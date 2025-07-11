@@ -9,12 +9,14 @@
 #include"skil/Turtle/Turtle.h"
 #include"skil/Porcupinefish/Porcupinefish.h"
 #include"skil/Octopus/Octopus.h"
+#include"skil/Mirrormoray/Mirrormoray.h"
 
 class Elsctriceel;
 class Tuna;
 class Turtle;
 class Porcupinefish;
 class COctopus;
+class CMirrormoray;
 
 class SkilManager
 {
@@ -39,5 +41,6 @@ private:
 	Turtle*				turtle[(int)vivid::controller::DEVICE_ID::MAX];
 	Porcupinefish*		porcupinefish[(int)vivid::controller::DEVICE_ID::MAX];
 	COctopus*			octopus[(int)vivid::controller::DEVICE_ID::MAX];
+	CMirrormoray*		mirrormoray[(int)vivid::controller::DEVICE_ID::MAX];
 
 };

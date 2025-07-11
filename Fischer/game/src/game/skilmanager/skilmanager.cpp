@@ -24,6 +24,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Ve
 	case CHARACTER_ID::LIONFISH:
 		break;
 	case CHARACTER_ID::MIRRORMORAYELL:
+		mirrormoray[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	case CHARACTER_ID::TURTLE:
 		turtle[PlayerNumber]->Initialize(PlayerNumber);
@@ -61,6 +62,8 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 	case CHARACTER_ID::LIONFISH:
 		break;
 	case CHARACTER_ID::MIRRORMORAYELL:
+		mirrormoray[PlayerNumber]->Update(Pos, Angle, ScaleX);
+		return Pos;
 		break;
 	case CHARACTER_ID::TURTLE:
 		turtle[PlayerNumber]->Update(Pos);
@@ -107,6 +110,7 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 	case CHARACTER_ID::LIONFISH:
 		break;
 	case CHARACTER_ID::MIRRORMORAYELL:
+		if (mirrormoray[PlayerNumber] == nullptr)mirrormoray[PlayerNumber] = new CMirrormoray();
 		break;
 	case CHARACTER_ID::TURTLE:
 		if (turtle[PlayerNumber] == nullptr)turtle[PlayerNumber] = new Turtle();
