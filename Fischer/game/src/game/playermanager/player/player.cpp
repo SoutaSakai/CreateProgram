@@ -43,6 +43,8 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 
 void Player::Update(void)
 {
+	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos);
+
 	if (ControlFlag)
 	{
 		this->Controller();
@@ -162,13 +164,11 @@ void Player::CharacterStick(void)
 	{
 		Scale.x = 1.0f;
 		Angle = atan2(ControllerPos.y, ControllerPos.x);
-
 	}
 	else if (ControllerPos.x < 0)
 	{
 		Scale.x = -1.0f;
 		Angle = atan2(ControllerPos.y * -1, ControllerPos.x * -1);
-
 	}
 
 
@@ -307,6 +307,8 @@ void Player::Draw()
 	//確認コード===>
 	vivid::DrawText(40, std::to_string(ControlFlag), vivid::Vector2(0.0f, 0.0f));
 	vivid::DrawText(40, std::to_string(CharacterPos.y), vivid::Vector2(0.0f, 40.0f));
+	vivid::DrawText(40, std::to_string(CharaMouthPos.x), vivid::Vector2(0.0f, 80.0f));
+	vivid::DrawText(40, std::to_string(CharaMouthPos.y), vivid::Vector2(1000.0f, 80.0f));
 
 	DxLib::DrawLine(0, 165, vivid::WINDOW_WIDTH, 165, 0xffff000000);
 

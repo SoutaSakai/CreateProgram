@@ -37,14 +37,15 @@ void Gamemain::Initialize(void)
 	}
 
 	playermanager::GetInstance().Initialize(MaxPlyer);
+
 }
 
 void Gamemain::Update(void)
 {
-	FisherManager::GetInstance().Update();
 
-	playermanager::GetInstance().Update();
+	FisherManager::GetInstance().Update();
 	
+	playermanager::GetInstance().Update();
 
 #ifdef VIVID_DEBUG
 	// Zキーでシーン変更

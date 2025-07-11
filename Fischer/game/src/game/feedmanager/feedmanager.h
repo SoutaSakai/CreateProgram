@@ -30,11 +30,13 @@ public:
 	// 餌の削除
 	void Destroy(int);
 
-private:
-	static const vivid::Vector2	m_range;	// 釣り人から餌までの距離
+	// 位置の設定
+	void SetPosition(vivid::Vector2, int);
 
-	Feed*	m_Feeds[5];			// 餌のオブジェクト配列
-	int		m_max;				// 餌の最大値
+private:
+	Feed	*m_Feeds;			// 餌のオブジェクト配列
+	int		m_Max;				// 餌の最大値
+	vivid::Vector2	m_Range;	// 釣り人から餌までの距離
 
 	FeedManager(void);
 	~FeedManager(void) = default;

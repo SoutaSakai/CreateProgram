@@ -1,8 +1,9 @@
 #include "fishermanager.h"
 #include "..\feedmanager\feedmanager.h"
 
-const int FisherManager::m_max		= 5;		// 釣り人の人数
-const float FisherManager::m_change_time	= 4.0f;						// 釣り人の状態更新時間
+const float			FisherManager::m_width = 150.0f;		// 釣り人の幅
+const float			FisherManager::m_height = 720.0f;		// 釣り人の高さ
+const float			FisherManager::m_change_time = 4.0f;	// 釣り人の状態更新時間
 
 // インスタンスを取得
 FisherManager& FisherManager::GetInstance(void)
@@ -15,27 +16,41 @@ FisherManager& FisherManager::GetInstance(void)
 // 初期化
 void FisherManager::Initialize(void)
 {
+	// 釣り人の人数
+	m_Max = 5;
+
+	// 餌管理クラスの初期化
+	FeedManager::GetInstance().Initialize(m_Max);
+
+	// 釣り人のオブジェクト配列の最大値設定
+	m_Fishers = new Fisher[m_Max];
+
+	// 釣り人の間隔
+	m_Distance = (vivid::WINDOW_WIDTH - m_width * m_Max) / (m_Max - 1);
+
+	// 釣り人と餌の位置の初期化
+	for (int i = 0; i < m_Max; ++i)
+	{
+		// 釣り人のX座標の計算
+		float XPos = i * (m_width + m_Distance);
+
+		// 釣り人の初期化
+		m_Fishers[i].Initialize(XPos);
+
+		FeedManager::GetInstance().SetPosition(vivid::Vector2(XPos, 0.0f), i);
+
+		//// 餌の生成
+		//FeedManager::GetInstance().Create(m_Fishers[i].GetPosition(), i);
+	}
+
 	// 釣り人の状態更新タイマーの初期化
 	m_Timer = 0;
 
-	// FeedManagerの初期化
-	FeedManager::GetInstance().Initialize(m_max);
-
-	// 釣り人と餌の位置の初期化
-	for (int i = 0; i < m_max; ++i)
-	{
-		m_Position[i].x = i * (m_width + m_distance);
-		m_Position[i].y = 0.0f;
-
-		// 餌の生成
-		FeedManager::GetInstance().Create(m_Position[i], i);
-	}
-
-	// 餌の初期化
-	/*FeedManager::GetInstance().Initialize();*/
-
 	// 釣り人の状態をランダムに更新（初期化）
-	FisherRandState();
+	for (int i = 0; i < m_Max; ++i)
+	{
+		m_Fishers[i].FisherRandState();
+	}
 }
 
 // 更新
@@ -48,14 +63,18 @@ void FisherManager::Update(void)
 		// タイマーのリセット
 		m_Timer = 0.0f;
 
-		// 状態の更新
-		FisherRandState();
+		// 乱数による状態の更新
+		for (int i = 0; i < m_Max; ++i)
+		{
+			// 状態の更新
+			m_Fishers[i].FisherRandState();
+		}
 	}
 	
 	// タイマーの更新
 	m_Timer += vivid::GetDeltaTime();
 
-	/* 餌の更新 */
+	// 餌の更新
 	FeedManager::GetInstance().Update();
 }
 
@@ -63,12 +82,9 @@ void FisherManager::Update(void)
 void FisherManager::Draw(void)
 {
 	/* 状態の判定による釣り人の描画 */
-	for (int i = 0; i < m_max; i++)
+	for (int i = 0; i < m_Max; i++)
 	{
-		if (m_State[i] == (int)FISHER_STATE::RELUX)
-			vivid::DrawTexture("data\\reluxfisher.png", m_Position[i]);	// リラックス状態の描画
-		else if (m_State[i] == (int)FISHER_STATE::CAUTION)
-			vivid::DrawTexture("data\\cautionfisher.png", m_Position[i]); // 注視状態の描画
+		m_Fishers[i].Draw();
 	}
 
 	// 餌の描画
@@ -83,21 +99,17 @@ void FisherManager::Finalize(void)
 // 釣り人の最大値を返す
 int FisherManager::GetMax(void)
 {
-	return m_max;
+	return m_Max;
 }
 
-// 釣り人の状態をランダムに更新
-void FisherManager::FisherRandState(void)
+// 釣り人の幅を返す
+float FisherManager::GetWidth(void)
 {
-	/* 乱数による状態の更新 */
-	for (int i = 0; i < m_max; ++i)
-	{
-		// 乱数を得る
-		int random = rand() % 100 + 1;
+	return m_width;
+}
 
-		if (random > 0 && random <= 50)
-			m_State[i] = (int)FISHER_STATE::RELUX;		// リラックス状態に更新
-		else if (random > 50 && random <= 100)
-			m_State[i] = (int)FISHER_STATE::CAUTION;	// 注視状態に更新
-	}
+// 釣り人の高さを返す
+float FisherManager::GetHeight(void)
+{
+	return m_height;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "vivid.h"
+#include "fisher/fisher.h"
 #include "fisherstate.h"
 
 class FisherManager
@@ -24,13 +25,22 @@ public:
 	// 釣り人の人数を返す
 	int GetMax(void);
 
-private:
-	void FisherRandState(void);			// 釣り人の状態をランダムに更新
+	// 釣り人の幅を返す
+	float GetWidth(void);
 
-	static const int			m_max;			// 釣り人の人数
+	// 釣り人の高さを返す
+	float GetHeight(void);
+
+private:
+	static const float	m_width;				// 釣り人の幅
+	static const float	m_height;				// 釣り人の高さ
 	static const float			m_change_time;	// 釣り人の状態更新時間
 
+	int				m_Max;				// 釣り人の人数
 	float			m_Timer;			// 釣り人の状態更新タイマー
+	float			m_Distance;			// 釣り人の間隔
+
+	Fisher			*m_Fishers;			// 釣り人のオブジェクト配列
 
 	// コンストラクタ
 	FisherManager(void) = default;
