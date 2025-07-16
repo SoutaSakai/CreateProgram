@@ -1,9 +1,9 @@
 #pragma once
 #include"vivid.h"
-#include"../../Charactermanager/CharacterID.h"
-#include"../../Charactermanager/Charactermanager.h"
+#include"../../Character_manager/CharacterID.h"
+#include"../../Character_manager/Character_manager.h"
 
-#include"../playermanager.h"
+#include"../player_manager.h"
 
 //スキルインクルード
 #include"../Skil/Tuna/Tuna.h"
@@ -69,9 +69,9 @@ private:
 
 	static const float WaterHEIGHT;
 
-	////追加コード===>
-	//bool Hit_feed[4];	// 餌とのアタリ判定の結果
-	////<===
+	//追加コード===>
+	static const float MouthDis;
+	//<===
 
 	//スキルクラス
 	Tuna* tuna;

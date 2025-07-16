@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vivid.h"
+#include "feed_id.h"
 
 class Feed
 {
@@ -32,6 +33,7 @@ public:
 	// 中心座標を返す
 	vivid::Vector2 GetCenterPos(void);
 
+	// 位置を返す
 	float GetPos(void);
 
 private:
@@ -40,4 +42,5 @@ private:
 
 	vivid::Vector2	m_Position;		// 位置
 	bool			m_ActiveFlag;	// アクティブフラグ
+	FEED_ID			m_Id;			// 種類
 };

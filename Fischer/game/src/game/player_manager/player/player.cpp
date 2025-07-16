@@ -5,12 +5,16 @@
 //<===
 
 //追加コード===>
-#include "..\..\feedmanager\feedmanager.h"
-#include "..\..\charactermanager\charactermanager.h"
-#include "..\..\fishermanager\fishermanager.h"
+#include "..\..\feed_manager\feed_manager.h"
+#include "..\..\character_manager\character_manager.h"
+#include "..\..\fisher_manager\fisher_manager.h"
 //<===
 
 const float Player::WaterHEIGHT = 165;
+
+//追加コード===>
+const float Player::MouthDis = 55.0f;
+//<===
 
 Player::Player()
 	: CharacterPos(vivid::Vector2(0, 165))
@@ -43,7 +47,26 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 
 void Player::Update(void)
 {
-	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos);
+	//追加コード===>
+	// キャラの中心位置
+	vivid::Vector2 CharaCenterPos = CharacterPos + vivid::Vector2(CharaWIDTH / 2, CharaHEIGHT / 2);
+
+	float x = 0;
+	float y = 0;
+
+	if (Scale.x >= 0)
+	{
+		x = cos(Angle);
+		y = sin(Angle);
+	}
+	else
+	{
+		x = cos(Angle + 180.0f * 3.14f / 180.0f);
+		y = sin(Angle + 180.0f * 3.14f / 180.0f);
+	}
+
+	CharaMouthPos = CharaCenterPos + vivid::Vector2(x * MouthDis, y * MouthDis);
+	//<===
 
 	if (ControlFlag)
 	{
@@ -126,7 +149,7 @@ void Player::ChangeRound(void)
 	CharaSpeed = CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]);
 	CharaRect = CharacterManager::GetInstance().CharacterRect(UseCharacter[CharaNo]);
 	CharaFilePath = CharacterManager::GetInstance().CharacterFilePath(UseCharacter[CharaNo]);
-	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo], CharacterPos);
+	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo]);
 	CharaMouthRadius = CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]);
 
 
@@ -182,10 +205,13 @@ void Player::Keyboard(void)
 	// 餌を食べる
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::R))
 	{
+		vivid::DrawText(40, "R", vivid::Vector2(200.0f, 0.0f));
 		for (int i = 0; i < FisherMax; ++i)
 		{
 			if (FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i))
 			{
+				vivid::DrawText(40, std::to_string(i), vivid::Vector2(300.0f, 0.0f));
+
 				// 当たっていた時
 				FeedManager::GetInstance().Destroy(i);
 			}

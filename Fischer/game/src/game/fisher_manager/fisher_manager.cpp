@@ -1,5 +1,5 @@
-#include "fishermanager.h"
-#include "..\feedmanager\feedmanager.h"
+#include "fisher_manager.h"
+#include "..\feed_manager\feed_manager.h"
 
 const float			FisherManager::m_width = 150.0f;		// ’Ş‚èl‚Ì•
 const float			FisherManager::m_height = 720.0f;		// ’Ş‚èl‚Ì‚‚³
@@ -37,6 +37,7 @@ void FisherManager::Initialize(void)
 		// ’Ş‚èl‚Ì‰Šú‰»
 		m_Fishers[i].Initialize(XPos);
 
+		// ‰a‚Ì‰Šú‰»
 		FeedManager::GetInstance().SetPosition(vivid::Vector2(XPos, 0.0f), i);
 
 		//// ‰a‚Ì¶¬

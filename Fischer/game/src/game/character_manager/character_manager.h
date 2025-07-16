@@ -13,7 +13,7 @@ public:
 	float			CharacterSpeed(CHARACTER_ID Character);			//キャラクターのスピードを返す
 	vivid::Rect		CharacterRect(CHARACTER_ID Character);			//キャラクターのRectを返す
 	std::string		CharacterFilePath(CHARACTER_ID Character);		//キャラクターのファイルパスを返す
-	vivid::Vector2	CharacterMouthPos(CHARACTER_ID Character, vivid::Vector2);		//キャラクターの口の位置を返す
+	vivid::Vector2	CharacterMouthPos(CHARACTER_ID Character);		//キャラクターの口の位置を返す
 	float			CharacterMouthRadius(CHARACTER_ID Character);	//キャラクターの口の半径を返す
 
 

@@ -32,9 +32,9 @@ public:
 	float GetHeight(void);
 
 private:
-	static const float	m_width;				// 釣り人の幅
-	static const float	m_height;				// 釣り人の高さ
-	static const float			m_change_time;	// 釣り人の状態更新時間
+	static const float	m_width;		// 釣り人の幅
+	static const float	m_height;		// 釣り人の高さ
+	static const float	m_change_time;	// 釣り人の状態更新時間
 
 	int				m_Max;				// 釣り人の人数
 	float			m_Timer;			// 釣り人の状態更新タイマー

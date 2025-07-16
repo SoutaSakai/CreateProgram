@@ -330,7 +330,7 @@ std::string CharacterManager::CharacterFilePath(CHARACTER_ID Character)
 	}
 }
 
-vivid::Vector2 CharacterManager::CharacterMouthPos(CHARACTER_ID Character, vivid::Vector2 CharacterPosition)
+vivid::Vector2 CharacterManager::CharacterMouthPos(CHARACTER_ID Character)
 {
 	switch (Character)
 	{
@@ -370,7 +370,7 @@ vivid::Vector2 CharacterManager::CharacterMouthPos(CHARACTER_ID Character, vivid
 		break;
 
 	case CHARACTER_ID::TUNA:
-		return  CharacterPosition + TunaMouthPos;
+		return  TunaMouthPos;
 		break;
 
 	default:

@@ -164,24 +164,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\game\charactermanager\charactermanager.cpp" />
-    <ClCompile Include="src\game\fishermanager\fisher\fisher.cpp" />
+    <ClCompile Include="src\game\character_manager\character_manager.cpp" />
+    <ClCompile Include="src\game\fisher_manager\fisher\fisher.cpp" />
     <ClCompile Include="src\game\game.cpp" />
-    <ClCompile Include="src\game\feedmanager\feedmanager.cpp" />
-    <ClCompile Include="src\game\feedmanager\feed\feed.cpp" />
-    <ClCompile Include="src\game\fishermanager\fishermanager.cpp" />
-    <ClCompile Include="src\game\playermanager\playermanager.cpp" />
-    <ClCompile Include="src\game\playermanager\player\player.cpp" />
-    <ClCompile Include="src\game\playermanager\skil\Elsctriceel\Elsctriceel.cpp" />
-    <ClCompile Include="src\game\playermanager\skil\Tuna\Tuna.cpp" />
-    <ClCompile Include="src\game\playermanager\skil\Turtle\Turtle.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\characterselect\characterselect.cpp" />
+    <ClCompile Include="src\game\feed_manager\feed_manager.cpp" />
+    <ClCompile Include="src\game\feed_manager\feed\feed.cpp" />
+    <ClCompile Include="src\game\fisher_manager\fisher_manager.cpp" />
+    <ClCompile Include="src\game\player_manager\player_manager.cpp" />
+    <ClCompile Include="src\game\player_manager\player\player.cpp" />
+    <ClCompile Include="src\game\player_manager\skil\Elsctriceel\Elsctriceel.cpp" />
+    <ClCompile Include="src\game\player_manager\skil\Tuna\Tuna.cpp" />
+    <ClCompile Include="src\game\player_manager\skil\Turtle\Turtle.cpp" />
+    <ClCompile Include="src\game\scene_manager\iscene\scenes\characterselect\characterselect.cpp" />
+    <ClCompile Include="src\game\score_manager\score_manager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\iscene.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\result\result.cpp" />
-    <ClCompile Include="src\game\scenemanager\scenemanager.cpp" />
-    <ClCompile Include="src\game\scenemanager\iscene\scenes\title\title.cpp" />
+    <ClCompile Include="src\game\scene_manager\iscene\iscene.cpp" />
+    <ClCompile Include="src\game\scene_manager\iscene\scenes\gamemain\gamemain.cpp" />
+    <ClCompile Include="src\game\scene_manager\iscene\scenes\result\result.cpp" />
+    <ClCompile Include="src\game\scene_manager\scene_manager.cpp" />
+    <ClCompile Include="src\game\scene_manager\iscene\scenes\title\title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\vivid2d\vivid2d.vcxproj">
@@ -189,26 +190,28 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\game\charactermanager\characterID.h" />
-    <ClInclude Include="src\game\charactermanager\charactermanager.h" />
-    <ClInclude Include="src\game\fishermanager\fisher\fisher.h" />
+    <ClInclude Include="src\game\character_manager\characterID.h" />
+    <ClInclude Include="src\game\character_manager\character_manager.h" />
+    <ClInclude Include="src\game\feed_manager\feed\feed_id.h" />
+    <ClInclude Include="src\game\fisher_manager\fisher\fisher.h" />
     <ClInclude Include="src\game\game.h" />
-    <ClInclude Include="src\game\feedmanager\feedmanager.h" />
-    <ClInclude Include="src\game\feedmanager\feed\feed.h" />
-    <ClInclude Include="src\game\fishermanager\fishermanager.h" />
-    <ClInclude Include="src\game\fishermanager\fisherstate.h" />
-    <ClInclude Include="src\game\playermanager\playermanager.h" />
-    <ClInclude Include="src\game\playermanager\player\player.h" />
-    <ClInclude Include="src\game\playermanager\skil\Elsctriceel\Elsctriceel.h" />
-    <ClInclude Include="src\game\playermanager\skil\Tuna\Tuna.h" />
-    <ClInclude Include="src\game\playermanager\skil\Turtle\Turtle.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\iscene.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\characterselect\characterselect.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\gamemain\gamemain.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\result\result.h" />
-    <ClInclude Include="src\game\scenemanager\scenemanager.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\title\title.h" />
-    <ClInclude Include="src\game\scenemanager\iscene\scenes\scene_id.h" />
+    <ClInclude Include="src\game\feed_manager\feed_manager.h" />
+    <ClInclude Include="src\game\feed_manager\feed\feed.h" />
+    <ClInclude Include="src\game\fisher_manager\fisher_manager.h" />
+    <ClInclude Include="src\game\fisher_manager\fisherstate.h" />
+    <ClInclude Include="src\game\player_manager\player_manager.h" />
+    <ClInclude Include="src\game\player_manager\player\player.h" />
+    <ClInclude Include="src\game\player_manager\skil\Elsctriceel\Elsctriceel.h" />
+    <ClInclude Include="src\game\player_manager\skil\Tuna\Tuna.h" />
+    <ClInclude Include="src\game\player_manager\skil\Turtle\Turtle.h" />
+    <ClInclude Include="src\game\scene_manager\iscene\iscene.h" />
+    <ClInclude Include="src\game\scene_manager\iscene\scenes\characterselect\characterselect.h" />
+    <ClInclude Include="src\game\scene_manager\iscene\scenes\gamemain\gamemain.h" />
+    <ClInclude Include="src\game\scene_manager\iscene\scenes\result\result.h" />
+    <ClInclude Include="src\game\scene_manager\scene_manager.h" />
+    <ClInclude Include="src\game\scene_manager\iscene\scenes\title\title.h" />
+    <ClInclude Include="src\game\scene_manager\iscene\scenes\scene_id.h" />
+    <ClInclude Include="src\game\score_manager\score_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

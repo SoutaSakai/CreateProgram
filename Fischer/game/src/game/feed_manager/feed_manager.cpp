@@ -1,4 +1,4 @@
-#include "feedmanager.h"
+#include "feed_manager.h"
 #include "feed/feed.h"
 
 FeedManager& FeedManager::GetInstance(void)
@@ -26,18 +26,13 @@ void FeedManager::Update(void)
 	// 各餌オブジェクトの更新
 	for (int i = 0; i < m_Max; i++)
 	{
-		//// 不活性なデータの削除
-		//if (!m_Feeds[i].IsActive())
-		//{
-		//	m_Feeds[i].Finalize();
+		// 不活性なデータの初期化
+		if (!m_Feeds[i].IsActive())
+		{
+			m_Feeds[i].Finalize();
 
-		//	//vivid::DrawText(40, std::to_string(m_Feeds[i]->GetPos()), vivid::Vector2(100.0f, 0.0f));
-
-		//	//Feed* feed = nullptr;
-		//	//m_Feeds[i] = feed;
-
-		//	continue;
-		//}
+			continue;
+		}
 
 		// 餌の更新
 		m_Feeds[i].Update();
@@ -66,6 +61,8 @@ void FeedManager::Finalize(void)
 	for (int i = 0; i < m_Max; i++)
 	{
 		m_Feeds[i].Finalize();
+
+		delete[] m_Feeds;
 	}
 }
 
