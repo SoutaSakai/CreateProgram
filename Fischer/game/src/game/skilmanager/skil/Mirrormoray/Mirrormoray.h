@@ -29,7 +29,7 @@ private:
 	vivid::Rect				m_Rect;			//表示範囲
 	std::string				m_FilePath;		//ファイルパス
 	vivid::Vector2			m_Anchor;
-	float					m_Angle;		//角度
+	vivid::Vector2			m_Angle;		//角度
 
 	int m_PlayerNumber;
 
