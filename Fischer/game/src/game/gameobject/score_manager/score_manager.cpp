@@ -18,20 +18,8 @@ void ScoreManager::Initialize(void)
 	for (int i = 0; i < max_player; i++)
 	{
 		ppos[i] = 0;
-	}
-
-	for (int i = 0; i < max_player; i++)
-	{
 		score[i] = 0;
-	}
-
-	for (int i = 0; i < max_player; i++)
-	{
 		m_score[i] = 0;
-	}
-
-	for (int i = 0; i < max_player; i++)
-	{
 
 		if (i <= 1)
 		{
@@ -41,7 +29,6 @@ void ScoreManager::Initialize(void)
 		{
 			Score_pos[i].x = (i + 2) * (vivid::WINDOW_WIDTH / 6);
 		}
-
 	}
 
 	m_rect = { 0,0,450,100 };
@@ -131,7 +118,7 @@ void ScoreManager::Draw(void)
 
 		if (keyboard::Button(keyboard::KEY_ID::RETURN))//RETURN‚ÍƒGƒ“ƒ^[
 		{
-			SCENE_MANAGER::GetInstance().Change_scene(SCENE_ID::RESULT);
+			SceneManager::GetInstance().Change_scene(SCENE_ID::RESULT);
 		}
 	}
 

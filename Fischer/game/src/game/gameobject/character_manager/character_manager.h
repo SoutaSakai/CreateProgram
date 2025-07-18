@@ -1,6 +1,6 @@
 #pragma once
 #include"vivid.h"
-#include"../Charactermanager/CharacterID.h"
+#include"../Character_manager/CharacterID.h"
 
 class CharacterManager
 {

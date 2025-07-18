@@ -1,5 +1,5 @@
 #include "game.h"
-#include "scenemanager\scenemanager.h"
+#include "scene_manager\scene_manager.h"
 
 /**
  *	@brief	プログラム開始時に1度だけ呼ばれる。

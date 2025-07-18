@@ -1,4 +1,4 @@
-#include "Charactermanager.h"
+#include "Character_manager.h"
 
 //Elsctriceel		“d‹C‚¤‚È‚¬
 const float CharacterManager::ElsctriceelWIDTH = 200;

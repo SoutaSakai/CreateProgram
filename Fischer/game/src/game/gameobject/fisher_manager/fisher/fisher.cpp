@@ -1,6 +1,6 @@
 #include "fisher.h"
-#include "..\..\fishermanager\fishermanager.h"
-#include "..\..\feedmanager\feedmanager.h"
+#include "..\..\fisher_manager\fisher_manager.h"
+#include "..\..\feed_manager\feed_manager.h"
 #include "..\fisherstate.h"
 
 

@@ -1,4 +1,4 @@
-#include "scenemanager.h"
+#include "scene_manager.h"
 #include "iscene\scenes\title\title.h"
 #include "iscene\scenes\characterselect\characterselect.h"
 #include "iscene\scenes\gamemain\gamemain.h"
