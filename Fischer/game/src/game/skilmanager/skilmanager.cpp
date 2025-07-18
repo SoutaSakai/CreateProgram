@@ -22,6 +22,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Ve
 	case CHARACTER_ID::SHARK:
 		break;
 	case CHARACTER_ID::LIONFISH:
+		lionfish[PlayerNumber]->Intialize(PlayerNumber, pos);
 		break;
 	case CHARACTER_ID::MIRRORMORAYELL:
 		mirrormoray[PlayerNumber]->Initialize(PlayerNumber);
@@ -57,14 +58,19 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		porcupinefish[PlayerNumber]->Update();
 		return Pos;
 		break;
+
 	case CHARACTER_ID::SHARK:
 		break;
 	case CHARACTER_ID::LIONFISH:
+		lionfish[PlayerNumber]->Update();
+		return Pos;
 		break;
+
 	case CHARACTER_ID::MIRRORMORAYELL:
 		mirrormoray[PlayerNumber]->Update(Pos, Angle, ScaleX);
 		return Pos;
 		break;
+
 	case CHARACTER_ID::TURTLE:
 		turtle[PlayerNumber]->Update(Pos);
 		return Pos;
@@ -74,8 +80,10 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		octopus[PlayerNumber]->Update();
 		return Pos;
 		break;
+
 	case CHARACTER_ID::POINTUNA:
 		break;
+
 	case CHARACTER_ID::TUNA:
 		return tuna[PlayerNumber]->Update(Pos,Angle,ScaleX);
 		break;
@@ -108,6 +116,7 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 	case CHARACTER_ID::SHARK:
 		break;
 	case CHARACTER_ID::LIONFISH:
+		if (lionfish[PlayerNumber] == nullptr)lionfish[PlayerNumber] = new CLionFish();
 		break;
 	case CHARACTER_ID::MIRRORMORAYELL:
 		if (mirrormoray[PlayerNumber] == nullptr)mirrormoray[PlayerNumber] = new CMirrormoray();

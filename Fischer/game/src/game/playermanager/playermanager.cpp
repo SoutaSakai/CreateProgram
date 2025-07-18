@@ -54,6 +54,12 @@ void playermanager::Update(void)
 	{
 		player[i]->Update();
 	}
+
+	//ƒXƒLƒ‹‚Ì“–‚½‚è”»’è
+	if (m_SkilFlag[0] == true)
+	{
+
+	}
 }
 
 void playermanager::Draw(void)

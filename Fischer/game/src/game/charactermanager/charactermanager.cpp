@@ -2,7 +2,7 @@
 
 //Elsctriceel		“d‹C‚¤‚È‚¬
 const float CharacterManager::ElsctriceelWIDTH = 200;
-const float CharacterManager::ElsctriceelHEIGHT = 30;
+const float CharacterManager::ElsctriceelHEIGHT = 130;
 const float CharacterManager::ElsctriceelSpeed = 7;
 const vivid::Rect CharacterManager::ElsctriceelRect = { 0,0,ElsctriceelWIDTH,ElsctriceelHEIGHT };
 const std::string CharacterManager::ElsctriceelFilePath = "data\\Elsctriceel.png";
