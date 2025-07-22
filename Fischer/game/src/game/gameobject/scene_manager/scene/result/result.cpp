@@ -1,4 +1,4 @@
-#include "..\..\..\scene_manager.h"
+#include "..\..\scene_manager.h"
 #include "..\scene_id.h"
 #include "result.h"
 #include "vivid.h"
@@ -125,7 +125,7 @@ void Result::Draw(void)
 
 	vivid::Rect rect = { 0,0,0,0 };
 
-
+	int Digit[max_player];
 
 	for (int i = 0; i < max_player; i++)
 	{
@@ -141,9 +141,9 @@ void Result::Draw(void)
 
 		do
 		{
-			m_digit[i] = m_point[i] % 10;
+			Digit[i] = m_point[i] % 10;
 
-			rect.left = m_digit[i] * m_width;
+			rect.left = Digit[i] * m_width;
 
 			rect.right = rect.left + m_width;
 

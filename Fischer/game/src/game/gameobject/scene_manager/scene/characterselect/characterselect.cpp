@@ -1,4 +1,4 @@
-#include "..\..\..\scene_manager.h"
+#include "..\..\scene_manager.h"
 #include "characterselect.h"
 
 CharacterSelect::CharacterSelect(void)

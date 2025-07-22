@@ -1,5 +1,5 @@
 #pragma once
-#include "..\..\scene.h"
+#include "..\scene.h"
 #include "vivid.h"
 
 class CharacterSelect : public IScene

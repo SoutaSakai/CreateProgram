@@ -1,8 +1,8 @@
 #include "scene_manager.h"
-#include "scene\scenes\title\title.h"
-#include "scene\scenes\characterselect\characterselect.h"
-#include "scene\scenes\gamemain\gamemain.h"
-#include "scene\scenes\result\result.h"
+#include "scene\title\title.h"
+#include "scene\characterselect\characterselect.h"
+#include "scene\gamemain\gamemain.h"
+#include "scene\result\result.h"
 
 // クラスオブジェクトの取得
 SceneManager& SceneManager::GetInstance(void)
