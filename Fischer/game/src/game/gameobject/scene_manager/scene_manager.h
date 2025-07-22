@@ -1,6 +1,6 @@
 #pragma once
 #include "vivid.h"
-#include "iscene\scenes\scene_id.h"
+#include "scene\scenes\scene_id.h"
 
 class IScene;
 

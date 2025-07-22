@@ -1,4 +1,4 @@
-#include "iscene.h"
+#include "scene.h"
 
 IScene::IScene(void)
 {

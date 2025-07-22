@@ -3,8 +3,6 @@
 #include "../time_manager/time_manager.h"
 #include"../scene_manager/scene_manager.h"
 
-
-
 class ScoreManager
 {
 public:
@@ -12,35 +10,28 @@ public:
 
 	void Initialize(void);
 
-
 	void Update(void);
 
 	void Draw(void);
 
-
 	void Finalize(void);
 
-
 	int GetScore(int);
-
-
-
 
 private:
 	static const int m_width;			//画像サイズの幅
 	static const int m_height;			//画像サイズの高さ
-	static const int max_player = 4;	//プレイヤーの人数
-	static const int point;				//ポイント
+	static const int m_max_player = 4;	//プレイヤーの人数
+	static const int m_point;			//ポイントの加算値、減算値
 
-	int m_Score[max_player];			//スコア保持
-	int m_TempScore[max_player];		//スコアの仮の変数
-	int m_PlayerPosition[max_player];	//プレイヤー位置
+	int m_Score[m_max_player];			//スコア保持
+	int m_PlayerPosition[m_max_player];	//プレイヤー位置
 
-	vivid::Rect m_rect;						//ボタンの範囲
-	vivid::Vector2 m_anchor;				//ボタンの基準点
-	vivid::Vector2 m_scale;					//ボタンの拡大率
-	vivid::Vector2 m_button_pos;			//ボタンの位置
-	vivid::Vector2 Score_pos[max_player];	//スコアの位置
+	vivid::Rect m_Rect;								//ボタンの描画範囲
+	vivid::Vector2 m_Anchor;						//ボタンの基準点
+	vivid::Vector2 m_Scale;							//ボタンの拡大率
+	vivid::Vector2 m_ButtonPosition;				//ボタンの位置
+	vivid::Vector2 m_ScorePosition[m_max_player];	//スコアの位置
 
 	ScoreManager(void) = default;
 	~ScoreManager(void) = default;

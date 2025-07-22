@@ -20,29 +20,24 @@ public:
 
 	bool GetFlag(void);//start_flagを返す関数
 
-
+	bool Finish(void);
 
 private:
 
-	vivid::Rect rect;
-
 	static const float m_number_width;		//数字の幅
-
-	static const  float m_number_height;	//数字の高さ
-
+	static const float m_number_height;		//数字の高さ
 	static const float m_word_width;		//「Time」文字列の幅
-
 	static const float m_word_height;		//「Time」文字列の高さ
 
-	float StartTimer;
 
-	float Timer;
+	float m_StartTimer;
+	float m_Timer;
 
-	vivid::Vector2 Start_pos;//スタートのポジション
+	vivid::Vector2 m_StartPosition;//スタートのポジション
+	vivid::Rect m_Rect;
 
-	bool Draw_flag;
-
-	bool start_flag;
+	bool m_DrawFlag;
+	bool m_StartFlag;
 
 	Time(void) = default;
 
