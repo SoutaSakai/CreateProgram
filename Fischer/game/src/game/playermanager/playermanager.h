@@ -17,6 +17,10 @@ public:
 	void Initialize(const int MaxPlayer);
 	void Update(void);
 	void Draw(void);
+
+	//ƒXƒLƒ‹‚Ì“–‚½‚è”»’è
+	void CheckHitSkil(void);
+
 	void Finalize(void);
 
 	void InRoundCount(int RoundCount) { m_RoundCount = RoundCount; }

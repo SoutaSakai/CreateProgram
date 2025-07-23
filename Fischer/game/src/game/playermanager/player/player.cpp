@@ -35,7 +35,8 @@ void Player::Update(void)
 
 		this->CharacterStick();
 
-		this->Keyboard();
+		if((int)m_PlayerID == 0)
+			this->Keyboard();
 	}
 
 	this->CheckWall();

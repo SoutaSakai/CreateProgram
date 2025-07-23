@@ -39,6 +39,17 @@ public:
 
 	void Setting(vivid::Vector2 pos,float scale ,float angle,bool skilflag);
 
+	//今のラウンドの使ってるキャラクターIDを渡す
+	CHARACTER_ID GetUseCharacter(void) const { return UseCharacter[CharaNo]; }
+	//プレイヤーの座標を渡す
+	vivid::Vector2 GetPlayerPosition(void) const { return CharacterPos; }
+	//プレイヤーの角度を渡す
+	float GetPlayerAngle(void) const { return Angle; }
+	//プレイヤーの横幅と立幅を渡す
+	float GetPlayerWidth(void) const { return CharaWIDTH; }
+	float GetPlayerHeight(void) const { return CharaHEIGHT; }
+	
+
 private:
 	vivid::controller::DEVICE_ID m_PlayerID;
 

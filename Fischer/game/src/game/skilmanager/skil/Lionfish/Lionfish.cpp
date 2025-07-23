@@ -1,8 +1,8 @@
 #include "Lionfish.h"
 
 const std::string		CLionFish::m_filepath		= "data\\smoke.png";
-const int				CLionFish::m_width			= 180;
-const int				CLionFish::m_height			= 180;
+const int				CLionFish::m_width			= 200;
+const int				CLionFish::m_height			= 200;
 
 const vivid::Rect		CLionFish::m_rect			= { 0,0,m_width,m_height };
 const vivid::Vector2	CLionFish::m_anchor			= vivid::Vector2(m_width / 2,m_height / 2);
