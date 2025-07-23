@@ -200,6 +200,7 @@
     <ClInclude Include="src\game\gameobject\feed_manager\feed\feed.h" />
     <ClInclude Include="src\game\gameobject\fisher_manager\fisher_manager.h" />
     <ClInclude Include="src\game\gameobject\fisher_manager\fisherstate.h" />
+    <ClInclude Include="src\game\gameobject\gameobject.h" />
     <ClInclude Include="src\game\gameobject\player_manager\player_manager.h" />
     <ClInclude Include="src\game\gameobject\player_manager\player\player.h" />
     <ClInclude Include="src\game\gameobject\player_manager\skil\Elsctriceel\Elsctriceel.h" />
