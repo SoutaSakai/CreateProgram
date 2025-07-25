@@ -32,7 +32,7 @@ void Feed::Draw(void)
 {
 	switch (m_Id)
 	{
-	case FEED_ID::LURE:		vivid::DrawTexture("data\\feed.png", m_Position);
+	case FEED_ID::LURE:		vivid::DrawTexture("data\\feed_lure.png", m_Position);
 	case FEED_ID::WORM:		vivid::DrawTexture("data\\feed_worm.png", m_Position);
 	case FEED_ID::MEET:		vivid::DrawTexture("data\\feed_meet.png", m_Position);
 	case FEED_ID::GOLD:		vivid::DrawTexture("data\\feed_gold.png", m_Position);

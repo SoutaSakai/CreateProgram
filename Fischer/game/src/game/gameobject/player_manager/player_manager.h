@@ -2,7 +2,7 @@
 #include"vivid.h"
 
 #include"Player/Player.h"
-#include"../Charactermanager/CharacterID.h"
+#include"../character_manager/CharacterID.h"
 
 class Player;
 
