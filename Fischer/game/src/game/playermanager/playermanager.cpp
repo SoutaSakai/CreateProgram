@@ -112,12 +112,15 @@ void playermanager::CheckHitSkil(void)
 						//ç∂è„
 						edgePosition.x = cos(targetAngle + 180 * (3.14 / 180) + edge) * diagonal + targetCenterPos.x;
 						edgePosition.y = sin(targetAngle + 180 * (3.14 / 180) + edge) * diagonal + targetCenterPos.y;
-						if (atan2((CenterPosition.y - edgePosition.y) * (CenterPosition.y - edgePosition.y),
-							(CenterPosition.x - edgePosition.x) * (CenterPosition.x - edgePosition.x)) <= radius)
+						if (atan2(	(CenterPosition.y - edgePosition.y) * (CenterPosition.y - edgePosition.y),
+									(CenterPosition.x - edgePosition.x) * (CenterPosition.x - edgePosition.x)) <= radius)
+						{
+							vivid::DrawText(40, "attateru", vivid::Vector2(vivid::WINDOW_WIDTH / 2, vivid::WINDOW_HEIGHT - 40), 0xfffffff);
+						}
+						else
 						{
 
 						}
-						else
 
 					}
 				}
