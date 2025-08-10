@@ -21,6 +21,9 @@ public:
 	//‰ð•ú
 	void Finalize(void);
 
+	//ƒXƒLƒ‹‚Ì“–‚½‚è”»’è
+	void CheckHitSkill(void);
+
 private:
 
 	static const float			m_AbilityTime;	//Œø‰ÊŽžŠÔ

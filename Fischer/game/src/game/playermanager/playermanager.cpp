@@ -71,68 +71,68 @@ void playermanager::Draw(void)
 	//<==
 }
 
-void playermanager::CheckHitSkil(void)
-{
-	vivid::Vector2 CenterPosition;		//スキルの基準点
-	float			radius;				//スキルの半径
-
-	for (int i = 0; i < MaxPlayer; i++)
-	{
-		//スキルの当たり判定
-		if (m_SkilFlag[i] == true)
-		{
-			switch (player[i]->GetUseCharacter())
-			{
-			case CHARACTER_ID::ELSCTRICEEL:
-				/*CenterPosition	= SkilManager::Getinstance().ElsctriceelCenterPosition(i);
-				radius			= SkilManager::Getinstance().ElsctriceelSikllSize(i);*/
-
-				for (int t = 0; t < MaxPlayer; t++)
-				{
-					if (t != i)
-					{
-						//比較対象の使ってるキャラクター
-						CHARACTER_ID targetChara = player[t]->GetUseCharacter();
-						//比較対象の中心座標
-						vivid::Vector2 targetCenterPos = player[t]->GetPlayerPosition()
-							+ vivid::Vector2(CharacterManager::GetInstance().CharacterWIDTH(targetChara) / 2, CharacterManager::GetInstance().CharacterHEIGHT(targetChara) / 2);
-						//比較対象の角度
-						float targetAngle = player[t]->GetPlayerAngle();
-						//四つ角の角度
-						int width  = player[t]->GetPlayerWidth();
-						int height = player[t]->GetPlayerHeight();
-						float edge = atan2(height - height / 2, width - width / 2) * (3.14 / 180);
-						//対角線の長さ
-						float dx = width - width / 2;
-						float dy = height - height / 2;
-						float diagonal = atan2(dy * dy, dx * dx);
-
-						vivid::Vector2 edgePosition;
-						//四つ角がスキルの範囲内かどうか
-						//左上
-						edgePosition.x = cos(targetAngle + 180 * (3.14 / 180) + edge) * diagonal + targetCenterPos.x;
-						edgePosition.y = sin(targetAngle + 180 * (3.14 / 180) + edge) * diagonal + targetCenterPos.y;
-						if (atan2(	(CenterPosition.y - edgePosition.y) * (CenterPosition.y - edgePosition.y),
-									(CenterPosition.x - edgePosition.x) * (CenterPosition.x - edgePosition.x)) <= radius)
-						{
-							vivid::DrawText(40, "attateru", vivid::Vector2(vivid::WINDOW_WIDTH / 2, vivid::WINDOW_HEIGHT - 40), 0xfffffff);
-						}
-						else
-						{
-
-						}
-
-					}
-				}
-
-				break;
-
-			default:
-				break;
-			}
-		}
-	}
-}
+//void playermanager::CheckHitSkil(void)
+//{
+//	vivid::Vector2 CenterPosition;		//スキルの基準点
+//	float			radius;				//スキルの半径
+//
+//	for (int i = 0; i < MaxPlayer; i++)
+//	{
+//		//スキルの当たり判定
+//		if (m_SkilFlag[i] == true)
+//		{
+//			switch (player[i]->GetUseCharacter())
+//			{
+//			case CHARACTER_ID::ELSCTRICEEL:
+//				/*CenterPosition	= SkilManager::Getinstance().ElsctriceelCenterPosition(i);
+//				radius			= SkilManager::Getinstance().ElsctriceelSikllSize(i);*/
+//
+//				for (int t = 0; t < MaxPlayer; t++)
+//				{
+//					if (t != i)
+//					{
+//						//比較対象の使ってるキャラクター
+//						CHARACTER_ID targetChara = player[t]->GetUseCharacter();
+//						//比較対象の中心座標
+//						vivid::Vector2 targetCenterPos = player[t]->GetPlayerPosition()
+//							+ vivid::Vector2(CharacterManager::GetInstance().CharacterWIDTH(targetChara) / 2, CharacterManager::GetInstance().CharacterHEIGHT(targetChara) / 2);
+//						//比較対象の角度
+//						float targetAngle = player[t]->GetPlayerAngle();
+//						//四つ角の角度
+//						int width  = player[t]->GetPlayerWidth();
+//						int height = player[t]->GetPlayerHeight();
+//						float edge = atan2(height - height / 2, width - width / 2) * (3.14 / 180);
+//						//対角線の長さ
+//						float dx = width - width / 2;
+//						float dy = height - height / 2;
+//						float diagonal = atan2(dy * dy, dx * dx);
+//
+//						vivid::Vector2 edgePosition;
+//						//四つ角がスキルの範囲内かどうか
+//						//左上
+//						edgePosition.x = cos(targetAngle + 180 * (3.14 / 180) + edge) * diagonal + targetCenterPos.x;
+//						edgePosition.y = sin(targetAngle + 180 * (3.14 / 180) + edge) * diagonal + targetCenterPos.y;
+//						if (atan2(	(CenterPosition.y - edgePosition.y) * (CenterPosition.y - edgePosition.y),
+//									(CenterPosition.x - edgePosition.x) * (CenterPosition.x - edgePosition.x)) <= radius)
+//						{
+//							vivid::DrawText(40, "attateru", vivid::Vector2(vivid::WINDOW_WIDTH / 2, vivid::WINDOW_HEIGHT - 40), 0xfffffff);
+//						}
+//						else
+//						{
+//
+//						}
+//
+//					}
+//				}
+//
+//				break;
+//
+//			default:
+//				break;
+//			}
+//		}
+//	}
+//}
 
 void playermanager::Finalize(void)
 {
@@ -141,5 +141,12 @@ void playermanager::Finalize(void)
 		player[i]->Finalize();
 	}
 }
+
+vivid::Vector2 playermanager::GetPosition(int playernumber) { return player[playernumber]->GetPlayerPosition(); }
+
+float playermanager::GetAngle(int playernumber) { return player[playernumber]->GetPlayerAngle(); }
+
+CHARACTER_ID playermanager::GetCharacter(int playernumber) { return player[playernumber]->GetUseCharacter(); }
+
 
 

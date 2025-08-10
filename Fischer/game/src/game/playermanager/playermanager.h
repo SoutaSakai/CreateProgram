@@ -38,9 +38,12 @@ public:
 	void ChangeControlFlagFalse(int playernumber) { m_ControlFlag[playernumber] = false; }
 
 	//プレイヤーの座標を渡す
-	//vivid::Vector2 GetPosition(int playernumber) const { return player[playernumber]->GetPlayerPosition(); }
-	////プレイヤーの角度を渡す
-	//float GetAngle(int playernumber) const { return player[playernumber]->GetPlayerAngle(); }
+	vivid::Vector2 GetPosition(int playernumber);
+	//プレイヤーの角度を渡す
+	float GetAngle(int playernumber);
+	//プレイヤーが使っているキャラクターを渡す
+	CHARACTER_ID GetCharacter(int playernumber);
+
 
 private:
 

@@ -34,10 +34,6 @@ public:
 	//				何playerか？、使うキャラ1つ
 	void CreateObj(int PlayerNumber,CHARACTER_ID Character);
 
-	//Elsctriceel
-	/*vivid::Vector2	ElsctriceelCenterPosition(int playernumber) const { return elsctriceel[playernumber]->GetCenterPosition(); };
-	float			ElsctriceelSikllSize(int playernumber)		const { return elsctriceel[playernumber]->GetSkillSize(); }*/
-
 	void DeleteObj(void);	//	オブジェクトをすべて削除する
 
 private:

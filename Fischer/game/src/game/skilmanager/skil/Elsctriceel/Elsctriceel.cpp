@@ -37,11 +37,19 @@ void Elsctriceel::Update(vivid::Vector2 Pos)
 
 void Elsctriceel::CheckHitSkill(void)
 {
-	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
-	{
-		if (i != m_PlayerNumber)
-		{
-
-		}
-	}
+	//for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+	//{
+	//	if (i != m_PlayerNumber)
+	//	{
+	//		//対象の座標
+	//		vivid::Vector2 position = playermanager::GetInstance().GetPosition(i);
+	//		//対象の角度
+	//		float angle = playermanager::GetInstance().GetAngle(i);
+	//		//対象のキャラクター
+	//		CHARACTER_ID character = playermanager::GetInstance().GetCharacter(i);
+	//		//キャラクターの横幅と立幅
+	//		float width = CharacterManager::GetInstance().CharacterWIDTH(character);
+	//		float height = CharacterManager::GetInstance().CharacterHEIGHT(character);
+	//	}
+	//}
 }
