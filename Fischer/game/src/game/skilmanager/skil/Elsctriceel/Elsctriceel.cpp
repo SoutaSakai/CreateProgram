@@ -19,8 +19,8 @@ void Elsctriceel::Update(vivid::Vector2 Pos)
 	CenterPosition = vivid::Vector2(Pos.x + CharacterManager::GetInstance().CharacterWIDTH (CHARACTER_ID::ELSCTRICEEL) / 2,
 									Pos.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::ELSCTRICEEL) / 2);
 
-	//
-
+	//“–‚½‚è”»’è
+	CheckHitSkill();
 
 	//Œø‰ÊŽžŠÔ“à
 	if (Timer <= AbilityTime)
@@ -32,5 +32,16 @@ void Elsctriceel::Update(vivid::Vector2 Pos)
 	else
 	{
 		playermanager::GetInstance().ChangeSkilFlagFalse(m_PlayerNumber);
+	}
+}
+
+void Elsctriceel::CheckHitSkill(void)
+{
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+	{
+		if (i != m_PlayerNumber)
+		{
+
+		}
 	}
 }

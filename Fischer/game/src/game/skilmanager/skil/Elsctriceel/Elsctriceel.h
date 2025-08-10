@@ -11,7 +11,7 @@ public:
 	void Initialize(int playernumber);
 	void Update(vivid::Vector2 Pos);
 
-		
+	void CheckHitSkill(void);
 
 	//Šî€“_‚ğ•Ô‚·
 	vivid::Vector2 GetCenterPosition(void) const { return CenterPosition; }

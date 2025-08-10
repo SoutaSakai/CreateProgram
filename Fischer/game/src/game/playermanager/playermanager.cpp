@@ -84,8 +84,8 @@ void playermanager::CheckHitSkil(void)
 			switch (player[i]->GetUseCharacter())
 			{
 			case CHARACTER_ID::ELSCTRICEEL:
-				CenterPosition	= SkilManager::Getinstance().ElsctriceelCenterPosition(i);
-				radius			= SkilManager::Getinstance().ElsctriceelSikllSize(i);
+				/*CenterPosition	= SkilManager::Getinstance().ElsctriceelCenterPosition(i);
+				radius			= SkilManager::Getinstance().ElsctriceelSikllSize(i);*/
 
 				for (int t = 0; t < MaxPlayer; t++)
 				{
