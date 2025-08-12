@@ -44,6 +44,8 @@ public:
 	//プレイヤーが使っているキャラクターを渡す
 	CHARACTER_ID GetCharacter(int playernumber);
 
+	bool GetOctopusSlowFlag(int playernumber) const { return m_Octopus_Slow[playernumber]; }
+	void ChangeOctopusSlowFlag(int playernumber, bool flag) { m_Octopus_Slow[playernumber] = flag; }
 
 private:
 
@@ -66,4 +68,7 @@ private:
 	//ControlFlag ==> 操作できるかどうか
 	bool m_SkilFlag[(int)vivid::controller::DEVICE_ID::MAX];
 	bool m_ControlFlag[(int)vivid::controller::DEVICE_ID::MAX];
+
+	//バフ・デバフのフラグ
+	bool m_Octopus_Slow[(int)vivid::controller::DEVICE_ID::MAX];		//タコのスロウ効果がついているかどうか
 };

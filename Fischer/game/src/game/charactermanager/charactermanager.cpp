@@ -57,16 +57,17 @@ const float CharacterManager::TurtleMouthRadius = 0;
 //Octopus			タコ
 const float CharacterManager::OctopusWIDTH = 80;
 const float CharacterManager::OctopusHEIGHT = 90;
-const float CharacterManager::OctopusSpeed = 7;
+const float CharacterManager::OctopusSpeed = 8;
 const vivid::Rect CharacterManager::OctopusRect = { 0,0,OctopusWIDTH ,OctopusHEIGHT };
 const std::string CharacterManager::OctopusFilePath = "data\\Octopus.png";
 const vivid::Vector2 CharacterManager::OctopusMouthPos = { 0,0 };
 const float CharacterManager::OctopusMouthRadius = 0;
+const float CharacterManager::SlowSpeed = OctopusSpeed * 0.3;
 
 //Pointuna			ポインツナ
 const float CharacterManager::PointunaWIDTH = 150;
 const float CharacterManager::PointunaHEIGHT = 80;
-const float CharacterManager::PointunaSpeed = 7;
+const float CharacterManager::PointunaSpeed = 8;
 const vivid::Rect CharacterManager::PointunaRect = { 0,0,PointunaWIDTH ,PointunaHEIGHT };
 const std::string CharacterManager::PointunaFilePath = "data\\Pointuna.png";
 const vivid::Vector2 CharacterManager::PointunaMouthPos = { 0,0 };
@@ -75,7 +76,7 @@ const float CharacterManager::PointunaMouthRadius = 0;
 //Tuna				マグロ
 const float CharacterManager::TunaWIDTH = 150;
 const float CharacterManager::TunaHEIGHT = 80;
-const float CharacterManager::TunaSpeed = 7;
+const float CharacterManager::TunaSpeed = 8;
 const vivid::Rect CharacterManager::TunaRect = { 0,0,TunaWIDTH ,TunaHEIGHT };
 const std::string CharacterManager::TunaFilePath = "data\\Tuna.png";
 const vivid::Vector2 CharacterManager::TunaMouthPos = { 0,0 };

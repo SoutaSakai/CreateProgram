@@ -17,13 +17,13 @@ void COctopus::Initialize(int playernumber, vivid::Vector2 positon, vivid::Vecto
 {
 	m_PlayerNumber = playernumber;
 
-	m_Position.x = positon.x + CharacterManager::GetInstance().CharacterWIDTH (CHARACTER_ID::OCTOPUS);
+	m_Position.x = positon.x + CharacterManager::GetInstance().CharacterWIDTH (CHARACTER_ID::OCTOPUS) / 2 - m_InkWidth / 2;
 	m_Position.y = positon.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::OCTOPUS) / 2 - m_InkHeight / 2;
 
 	m_Color = 0xffffffff;
 
 	m_Rect = { 0,0,m_InkWidth ,m_InkHeight };
-	m_Anchor = vivid::Vector2(0.0f, m_InkHeight / 2);
+	m_Anchor = vivid::Vector2(m_InkWidth / 2, m_InkHeight / 2);
 	m_Scale = vivid::Vector2::ZERO;
 
 	m_Timer = 0;
@@ -52,6 +52,8 @@ void COctopus::Update(void)
 		}
 	}
 	vivid::DrawTexture(m_FilePath, m_Position, m_Color, m_Rect, m_Anchor, m_Scale);
+
+	CheckHitSkill();
 }
 
 void COctopus::Finalize(void)
@@ -60,7 +62,7 @@ void COctopus::Finalize(void)
 
 void COctopus::CheckHitSkill(void)
 {
-	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+	for (int i = 0; i < 2; i++)
 	{
 		if (i != m_PlayerNumber)
 		{
@@ -73,6 +75,27 @@ void COctopus::CheckHitSkill(void)
 			//キャラクターの横幅と立幅
 			float width = CharacterManager::GetInstance().CharacterWIDTH(character);
 			float height = CharacterManager::GetInstance().CharacterHEIGHT(character);
+
+			//右辺・左辺のどちらかがインクの中に入っていたら
+			if ((m_Position.x <= position.x && position.x <= m_Position.x + m_InkWidth) || 
+				(m_Position.x <= position.x + width && position.x + width <= m_Position.x + m_InkWidth))
+			{
+				//上辺・下辺のどちらかが入っていたら
+				if ((m_Position.y <= position.y && position.y <= m_Position.y + m_InkHeight) ||
+					(m_Position.y <= position.x + height && position.y + height <= m_Position.y + m_InkHeight))
+				{
+					playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, true);
+					vivid::DrawText(40, "attateru", vivid::Vector2(640.0f,0.0f), 0xffffffff);
+				}
+				else
+				{
+					playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
+				}
+			}
+			else
+			{
+				playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
+			}
 		}	
 	}
 }

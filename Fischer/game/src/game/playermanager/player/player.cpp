@@ -134,29 +134,39 @@ void Player::CharacterStick(void)
 
 void Player::Keyboard(void)
 {
+	float speed;
+
+	if (playermanager::GetInstance().GetOctopusSlowFlag((int)m_PlayerID))
+	{
+		speed = CharaSpeed - CharacterManager::GetInstance().GetSlowSpeed();
+	}
+	else
+	{
+		speed = CharaSpeed;
+	}
 
 	//確認コード===>
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::D))
 	{
-		CharacterPos.x += CharaSpeed;
+		CharacterPos.x += speed;
 		Scale.x = 1.0f;
 		Angle = 0;
 	}
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::A))
 	{
-		CharacterPos.x -= CharaSpeed;
+		CharacterPos.x -= speed;
 		Scale.x = -1.0f;
 		Angle = 0;
 	}
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::W))
 	{
-		CharacterPos.y -= CharaSpeed;
+		CharacterPos.y -= speed;
 		if (Scale.x >= 0)Angle = 270 * (3.14 / 180);
 		else Angle = 90 * (3.14 / 180);
 	}
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::S))
 	{
-		CharacterPos.y += CharaSpeed;
+		CharacterPos.y += speed;
 		if (Scale.x <= 0)Angle = 270 * (3.14 / 180);
 		else Angle = 90 * (3.14 / 180);
 	}

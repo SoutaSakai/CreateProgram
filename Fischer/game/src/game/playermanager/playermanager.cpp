@@ -37,6 +37,8 @@ void playermanager::Initialize(const int MaxPlayer)
 		//Flag‚Ì‰Šú‰»
 		m_SkilFlag[i] = false;
 		m_ControlFlag[i] = true;
+
+		m_Octopus_Slow[i] = false;
 	}
 
 	//‰¼
