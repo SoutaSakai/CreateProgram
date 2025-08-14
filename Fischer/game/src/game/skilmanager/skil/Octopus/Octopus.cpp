@@ -84,6 +84,7 @@ void COctopus::CheckHitSkill(void)
 				if ((m_Position.y <= position.y && position.y <= m_Position.y + m_InkHeight) ||
 					(m_Position.y <= position.x + height && position.y + height <= m_Position.y + m_InkHeight))
 				{
+					//“–‚½‚Á‚Ä‚¢‚éŽž‚Ìˆ—
 					playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, true);
 					vivid::DrawText(40, "attateru", vivid::Vector2(640.0f,0.0f), 0xffffffff);
 				}

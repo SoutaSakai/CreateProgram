@@ -14,6 +14,9 @@ public:
 	void Draw(void);
 	void Finalize(void);
 
+	//スキルの当たり判定
+	void CheckHitSkill(void);
+
 private:
 	
 	static const std::string		m_filepath;			//ファイルパス
@@ -26,11 +29,11 @@ private:
 	static const float				m_abilityTime;		//効果時間
 	static const vivid::Vector2		m_scalespeed;		//スケールスピード
 
-	vivid::Vector2					m_position;			//座標
-	vivid::Vector2					m_scale;			//拡大率
+	vivid::Vector2					m_Position;			//座標
+	vivid::Vector2					m_Scale;			//拡大率
 
 	unsigned int					m_Color;			//色
-	int								m_playernumber;		//プレイヤーID
+	int								m_PlayerNumber;		//プレイヤーID
 	float							m_timer;			//タイマー
 
 };
