@@ -14,17 +14,17 @@ public:
 	void CheckHitSkill(void);
 
 	//Šî€“_‚ğ•Ô‚·
-	vivid::Vector2 GetCenterPosition(void) const { return CenterPosition; }
+	vivid::Vector2 GetCenterPosition(void) const { return m_CenterPosition; }
 
 	//ƒXƒLƒ‹‚Ì”¼Œa‚ğ•Ô‚·
 	float GetSkillSize(void) const { return SkillSize; }
 
 private:
 
-	static const float SkillSize;				//Œø‰Ê”ÍˆÍ
+	static const float SkillSize;				//Œø‰Ê”ÍˆÍ(‰~‚Ì’¼Œa)
 	static const float AbilityTime;				//Œø‰ÊŠÔ
 
-	vivid::Vector2 CenterPosition;
+	vivid::Vector2		m_CenterPosition;
 
 	float Timer;
 
