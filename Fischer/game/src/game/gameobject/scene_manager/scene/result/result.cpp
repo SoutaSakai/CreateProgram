@@ -53,10 +53,10 @@ void Result::Initialize(void)
 
 			// 新コード===>
 			m_UseCharacterPosition[j].Character[i].x = vivid::WINDOW_WIDTH / 3 + i * m_tuna_width;
-			m_UseCharacterPosition[j].Character[i].y = vivid::WINDOW_HEIGHT / 4 + j * m_tuna_height;
+			m_UseCharacterPosition[j].Character[i].y = vivid::WINDOW_HEIGHT / 5 + j * m_tuna_height;
 
 			m_TextPosition[j].x = vivid::WINDOW_WIDTH / 6;
-			m_TextPosition[j].y = m_UseCharacterPosition[j].Character[i].y + m_tuna_height / 2.0f - 25 / 2.0f;
+			m_TextPosition[j].y = m_UseCharacterPosition[j].Character[i].y + m_tuna_height / 2.0f - m_height / 4.0f;
 			//<===
 
 			m_ScorePosition[j].x = vivid::WINDOW_WIDTH / 2 + vivid::WINDOW_WIDTH / 3;					// 得点のx軸
@@ -171,7 +171,8 @@ void Result::Draw(void)
 
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawLine(vivid::Vector2(90.0f, 100.0f), vivid::Vector2(1190.0f, 100.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(90.0f, 400.0f), 0xffffffff);
 #endif
 }
 
