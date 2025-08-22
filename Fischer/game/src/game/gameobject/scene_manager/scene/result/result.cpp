@@ -53,7 +53,7 @@ void Result::Initialize(void)
 
 			// 新コード===>
 			m_UseCharacterPosition[j].Character[i].x = vivid::WINDOW_WIDTH / 3 + i * m_tuna_width;
-			m_UseCharacterPosition[j].Character[i].y = vivid::WINDOW_HEIGHT / 5 + j * m_tuna_height;
+			m_UseCharacterPosition[j].Character[i].y = vivid::WINDOW_HEIGHT / 6 + j * m_tuna_height;
 
 			m_TextPosition[j].x = vivid::WINDOW_WIDTH / 6;
 			m_TextPosition[j].y = m_UseCharacterPosition[j].Character[i].y + m_tuna_height / 2.0f - m_height / 4.0f;
@@ -167,12 +167,19 @@ void Result::Draw(void)
 
 	vivid::DrawTexture("data\\back_character_select.png", m_ButtonPosition[0], 0xffffffff, m_ButtonRect[0], m_ButtonAnchor, m_CharacterSelectScale);
 	vivid::DrawTexture("data\\exit.png", m_ButtonPosition[1], 0xffffffff, m_ButtonRect[1], m_ButtonAnchor, m_ExitScale);//リザルトボタンの描画
-	vivid::DrawText(50, "ランキング", vivid::Vector2(vivid::WINDOW_WIDTH / 2 - 125, vivid::WINDOW_HEIGHT / 10), 0xff000000);
+	vivid::DrawText(50, "ランキング", vivid::Vector2(vivid::WINDOW_WIDTH / 2 - 125, vivid::WINDOW_HEIGHT / 36), 0xff000000);
 
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(90.0f, 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 50.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 50.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), vivid::Vector2(90.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), 0xffffffff);	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
+
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f - 50.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f - 50.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(1190.0f, 500.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(1190.0f - 15.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(1190.0f - 15.0f, 500.0f), 0xffffffff);
 #endif
 }
 
