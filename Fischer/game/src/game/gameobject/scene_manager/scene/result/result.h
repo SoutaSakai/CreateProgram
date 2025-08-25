@@ -29,7 +29,8 @@ private:
 	UseCharacter*	m_UseCharacterPosition;		// 使用キャラクターの座標
 	int*			m_Score;					// 得点
 	vivid::Vector2*	m_ScorePosition;			// 得点の座標
-	vivid::Vector2*	m_TextPosition;				// 「使用キャラクター」文字列の座標
+	vivid::Vector2*	m_UseCharacterTextPosition;	// 「使用キャラクター」文字列の座標
+	vivid::Vector2*	m_RankTextPosition;			// 順位の座標
 	vivid::Vector2	m_BackGroundPosition;		// 背景の座標
 	vivid::Vector2	m_CharacterSelectBaseScale;	// キャラクター選択画面に戻るボタンの拡大率の初期値
 	vivid::Vector2	m_ExitBaseScale;			// やめるボタンの拡大率の初期値

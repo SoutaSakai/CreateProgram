@@ -58,7 +58,7 @@ void CharacterSelect::Draw(void)
 	// ‹›‰¼•`‰æ
 	for (int i = 0; i < 9; ++i)
 	{
-		vivid::DrawTexture("data\\Tuna.png", fish_position[i]);
+		vivid::DrawTexture("data\\ActiveTuna.png", fish_position[i]);
 	}
 
 

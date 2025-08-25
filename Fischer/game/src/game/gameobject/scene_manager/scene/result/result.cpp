@@ -6,8 +6,8 @@
 
 const int	Result::m_width = 32;				// 数字一つの幅
 const int	Result::m_height = 48;				// 数字一つの高さ
-const int	Result::m_tuna_width = 220;			// マグロの幅
-const int	Result::m_tuna_height = 80;			// マグロの高さ
+const int	Result::m_tuna_width = 75;			// マグロの幅
+const int	Result::m_tuna_height = 40;			// マグロの高さ
 const int	Result::m_max_player = 4;			// プレイヤー人数
 const int	Result::m_max_button = 2;			// ボタンの個数
 
@@ -24,7 +24,8 @@ void Result::Initialize(void)
 {
 	m_Score = new int[m_max_player];
 	m_ScorePosition = new vivid::Vector2[m_max_player];
-	m_TextPosition = new vivid::Vector2[m_max_player];
+	m_UseCharacterTextPosition = new vivid::Vector2[m_max_player];
+	m_RankTextPosition = new vivid::Vector2[m_max_player];
 	m_ButtonPosition = new vivid::Vector2[m_max_player];
 	m_ButtonRect = new vivid::Rect[m_max_player];
 	m_UseCharacterPosition = new UseCharacter[m_max_player];
@@ -37,9 +38,15 @@ void Result::Initialize(void)
 	m_ButtonPosition[1] = { vivid::WINDOW_WIDTH / 2 - 150, vivid::WINDOW_HEIGHT / 1.15 };	//やめるのボタンのポジション
 	m_ButtonAnchor = { 155,40 };													//ボタンの基準点
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < m_max_player; i++)
 	{
-		for (int j = 0; j < m_max_player; j++)
+		m_RankTextPosition[i].x = vivid::WINDOW_WIDTH / 6;
+		m_RankTextPosition[i].y = vivid::WINDOW_HEIGHT / 6 + 70.0f * i;
+
+		m_UseCharacterTextPosition[i].x = m_RankTextPosition[i].x + 110.0f;
+		m_UseCharacterTextPosition[i].y = m_RankTextPosition[i].y + 30.0f;
+
+		for (int j = 0; j < 3; j++)
 		{
 			m_Score[i] = 0.0f;
 
@@ -52,16 +59,16 @@ void Result::Initialize(void)
 			//<===
 
 			// 新コード===>
-			m_UseCharacterPosition[j].Character[i].x = vivid::WINDOW_WIDTH / 3 + i * m_tuna_width;
-			m_UseCharacterPosition[j].Character[i].y = vivid::WINDOW_HEIGHT / 6 + j * m_tuna_height;
 
-			m_TextPosition[j].x = vivid::WINDOW_WIDTH / 6;
-			m_TextPosition[j].y = m_UseCharacterPosition[j].Character[i].y + m_tuna_height / 2.0f - m_height / 4.0f;
+			m_UseCharacterPosition[i].Character[j].x = (m_UseCharacterTextPosition[i].x + 190.0f + 20.0f) + (m_tuna_width + 20.0f) * j;
+			m_UseCharacterPosition[i].Character[j].y = m_UseCharacterTextPosition[i].y;
+
 			//<===
 
-			m_ScorePosition[j].x = vivid::WINDOW_WIDTH / 2 + vivid::WINDOW_WIDTH / 3;					// 得点のx軸
-			m_ScorePosition[j].y = m_UseCharacterPosition[j].Character[i].y + m_tuna_height / 2.0f - m_height / 2.0f;		// 得点のy軸
 		}
+
+		m_ScorePosition[i].x = m_UseCharacterPosition[i].Character[2].x + m_tuna_width + 20.0f;			// 得点のx軸
+		m_ScorePosition[i].y = m_UseCharacterPosition[i].Character[2].y - (48.0f - m_tuna_height);								// 得点のy軸
 	}
 
 	//ボタンの個数
@@ -150,14 +157,14 @@ void Result::Draw(void)
 
 			TempScore /= 10;
 
-			m_point_pos.x -= m_width;
-
 			vivid::DrawTexture("data\\number.png", m_point_pos, 0xffffffff, rect);
+
+			m_point_pos.x -= m_width;
 
 		} while (TempScore > 0);
 
-		vivid::DrawTexture("data\\first.png", m_TextPosition[i] - vivid::Vector2(110.0f,35.0f));
-		vivid::DrawTexture("data\\use_character_text.png", m_TextPosition[i]);
+		vivid::DrawTexture("data\\first.png", m_RankTextPosition[i]);
+		vivid::DrawTexture("data\\use_character_text.png", m_UseCharacterTextPosition[i]);
 	}
 
 
@@ -171,15 +178,17 @@ void Result::Draw(void)
 
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 50.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 50.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(90.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f), vivid::Vector2(90.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), 0xffffffff);	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
+	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 60.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 60.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(80.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(80.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
 
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(90.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f - 50.0f), vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5 - 50.0f + 400.0f - 50.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(1190.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(1190.0f, 500.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(1190.0f - 15.0f, vivid::WINDOW_HEIGHT / 5), vivid::Vector2(1190.0f - 15.0f, 500.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(100.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(100.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 30.0f), 0xffffffff);
+
+	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f - 50.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f - 50.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(1180.0f - 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(1180.0f - 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);
 #endif
 }
 

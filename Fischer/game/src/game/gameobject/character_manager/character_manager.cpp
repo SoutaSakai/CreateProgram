@@ -77,7 +77,7 @@ const float CharacterManager::TunaWIDTH = 150;
 const float CharacterManager::TunaHEIGHT = 80;
 const float CharacterManager::TunaSpeed = 5;
 const vivid::Rect CharacterManager::TunaRect = { 0,0,TunaWIDTH ,TunaHEIGHT };
-const std::string CharacterManager::TunaFilePath = "data\\Tuna.png";
+const std::string CharacterManager::TunaFilePath = "data\\ActiveTuna.png";
 const vivid::Vector2 CharacterManager::TunaMouthPos = { 130.0f,40.0f };
 const float CharacterManager::TunaMouthRadius = 25.0f;
 
