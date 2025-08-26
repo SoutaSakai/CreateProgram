@@ -18,13 +18,20 @@ private:
 		vivid::Vector2* Character;
 	};
 
-	static const int	m_width;		// ナンバー画像サイズの幅
-	static const int	m_height;		// ナンバー画像サイズの高さ
-	static const int	m_tuna_width;	// ツナ画像サイズの幅
-	static const int	m_tuna_height;	// ツナ画像サイズの高さ
-	static const int	m_max_player;	// プレイヤー人数
-	static const int	m_max_button;	// ボタンの個数
-
+	static const int	m_rank_width;					// 順位の幅
+	static const int	m_rank_height;					// 順位の高さ
+	static const int	m_use_character_text_width;		// 「使用キャラクター」文字列の幅
+	static const int	m_use_character_text_height;	// 「使用キャラクター」文字列の高さ
+	static const int	m_tuna_width;					// マグロの幅
+	static const int	m_tuna_height;					// マグロの高さ
+	static const int	m_number_width;					// スコアの数字の幅
+	static const int	m_number_height;				// スコアの数字の高さ
+	static const int	m_button_width;					// ボタンの幅
+	static const int	m_button_height;				// ボタンの高さ
+	static const int	m_max_player;					// プレイヤーの最大値
+	static const int	m_max_fish;						// 魚の最大値
+	static const int	m_max_button;					// ボタンの個数
+	static const float	m_distance;						// 表示間隔
 
 	UseCharacter*	m_UseCharacterPosition;		// 使用キャラクターの座標
 	int*			m_Score;					// 得点
