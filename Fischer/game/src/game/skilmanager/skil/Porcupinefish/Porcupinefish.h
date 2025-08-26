@@ -11,6 +11,9 @@ public:
 	void Initialize(int playernumber,vivid::Vector2 pos);
 	void Update();
 
+	//ƒXƒLƒ‹‚Ì“–‚½‚è”»’è
+	void CheckHitSkill(void);
+
 private:
 
 	static const int	m_Spinewidth;	//j‚Ì‰¡•

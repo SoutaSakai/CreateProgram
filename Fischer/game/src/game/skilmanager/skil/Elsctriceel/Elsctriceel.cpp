@@ -56,7 +56,7 @@ void Elsctriceel::CheckHitSkill(void)
 			//‘ÎÛ‚Ì’†S“_
 			vivid::Vector2 targetcenterpos = vivid::Vector2(targetposition.x + width / 2, targetposition.y + height / 2);
 			//‘ÎÛ‚Ì‘ÎŠpü‚Ì’·‚³‚ğ‹‚ß‚é
-			float diagonal = sqrt(pow(targetposition.x - targetcenterpos.x,2)+pow(targetposition.y - targetcenterpos.y,2));
+			float diagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2) + pow(targetposition.y - targetcenterpos.y, 2));
 			
 			for (int j = 0; j < 4; j++)
 			{
