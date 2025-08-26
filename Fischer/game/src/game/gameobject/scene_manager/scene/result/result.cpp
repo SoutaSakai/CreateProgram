@@ -10,12 +10,14 @@ const int	Result::m_use_character_text_width	= 190;		// 「使用キャラクター」文字
 const int	Result::m_use_character_text_height	= 40;		// 「使用キャラクター」文字列の高さ
 const int	Result::m_number_width				= 32;		// 数字一つの幅
 const int	Result::m_number_height				= 48;		// 数字一つの高さ
+const int	Result::m_score_text_width			= 75;		// 「pt」文字列の幅
+const int	Result::m_score_text_height			= 40;		// 「pt」文字列の高さ
 const int	Result::m_tuna_width				= 75;		// マグロの幅
 const int	Result::m_tuna_height				= 40;		// マグロの高さ
 const int	Result::m_max_player				= 4;		// プレイヤー人数
 const int	Result::m_max_fish					= 3;		// プレイヤー人数
-const int	m_button_width;					// ボタンの幅
-const int	m_button_height;				// ボタンの高さ
+const int	Result::m_button_width				= 310;		// ボタンの幅
+const int	Result::m_button_height				= 80;		// ボタンの高さ
 const int	Result::m_max_button				= 2;		// ボタンの個数
 const float	Result::m_distance					= 20.0f;	// 表示間隔
 
@@ -32,31 +34,31 @@ Result::Result(void)
 void Result::Initialize(void)
 {
 	/* 配列作成 */
-	m_Score = new int[m_max_player];												// 得点
-	m_ScorePosition = new vivid::Vector2[m_max_player];								// 得点の座標
-	m_RankTextPosition = new vivid::Vector2[m_max_player];							// 順位の座標
-	m_ButtonPosition = new vivid::Vector2[m_max_player];							// ボタンの座標
-	m_ButtonRect = new vivid::Rect[m_max_player];									// ボタンの描画範囲
-	m_UseCharacterTextPosition = new vivid::Vector2[m_max_player];					// 「使用キャラクター」文字列の座標
-	m_UseCharacterPosition = new UseCharacter[m_max_player];						// 使用キャラクターの座標（1次元目）
+	m_Score = new int[m_max_player];								// 得点
+	m_ScorePosition = new vivid::Vector2[m_max_player];				// 得点の座標
+	m_RankTextPosition = new vivid::Vector2[m_max_player];			// 順位の座標
+	m_ButtonPosition = new vivid::Vector2[m_max_player];			// ボタンの座標
+	m_ButtonRect = new vivid::Rect[m_max_player];					// ボタンの描画範囲
+	m_UseCharacterTextPosition = new vivid::Vector2[m_max_player];	// 「使用キャラクター」文字列の座標
+	m_UseCharacterPosition = new UseCharacter[m_max_player];		// 使用キャラクターの座標（1次元目）
 	for (int i = 0; i < m_max_player; i++)
 	{
 		m_UseCharacterPosition[i].Character = new vivid::Vector2[m_max_player];		// 使用キャラクターの座標（2次元目）
 	}
 
-	m_ButtonPosition[0] = { vivid::WINDOW_WIDTH / 2 - 155, vivid::WINDOW_HEIGHT / 1.4 };	// 「キャラクターセレクトに戻る」ボタンのポジション
-	m_ButtonPosition[1] = { vivid::WINDOW_WIDTH / 2 - 155, vivid::WINDOW_HEIGHT / 1.15 };	// 「やめる」ボタンのポジション
-	m_ButtonAnchor = { 155,40 };															// ボタンの基準点
+	m_ButtonPosition[0] = { vivid::WINDOW_WIDTH / 2 - m_button_width / 2, vivid::WINDOW_HEIGHT / 7 * 5 };	// 「キャラクターセレクトに戻る」ボタンのポジション
+	m_ButtonPosition[1] = { vivid::WINDOW_WIDTH / 2 - m_button_width / 2, vivid::WINDOW_HEIGHT / 6 * 5 };	// 「やめる」ボタンのポジション
+	m_ButtonAnchor = { m_button_width / 2,m_button_height / 2 };											// ボタンの基準点
 
 	for (int i = 0; i < m_max_player; i++)
 	{
-		m_Score[i] = 0.0f;
+		m_Score[i] = 0.0f;		// 得点
 
 		m_RankTextPosition[i].x = vivid::WINDOW_WIDTH / 5;							// 順位のx座標
 		m_RankTextPosition[i].y = vivid::WINDOW_HEIGHT / 6 + m_rank_height * i;		// 順位のy座標
 
-		m_UseCharacterTextPosition[i].x = m_RankTextPosition[i].x + m_rank_width;	// 「使用キャラクター」文字列のx座標
-		m_UseCharacterTextPosition[i].y = m_RankTextPosition[i].y + 30.0f;			// 「使用キャラクター」文字列のy座標
+		m_UseCharacterTextPosition[i].x = m_RankTextPosition[i].x + m_rank_width;									// 「使用キャラクター」文字列のx座標
+		m_UseCharacterTextPosition[i].y = m_RankTextPosition[i].y + (m_rank_height - m_use_character_text_height);	// 「使用キャラクター」文字列のy座標
 
 		for (int j = 0; j < m_max_fish; j++)
 		{
@@ -71,7 +73,7 @@ void Result::Initialize(void)
 
 	for (int i = 0; i < m_max_button; i++)
 	{
-		m_ButtonRect[i] = { 0,0,310,80 };					//ボタンの描画範囲
+		m_ButtonRect[i] = { 0,0,m_button_width,m_button_height };					//ボタンの描画範囲
 	}
 
 	m_BackGroundPosition = { 0.0f,0.0f };					// 背景座標
@@ -102,7 +104,6 @@ void Result::Update(void)
 		m_ExitScale = m_ExitMaxScale;							//やめるのボタンを選択している時の大きさ
 		m_ButtonFlag = false;
 	}
-
 
 	//<===
 
@@ -167,7 +168,7 @@ void Result::Draw(void)
 	}
 
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < m_max_fish; i++)
 		for (int j = 0; j < m_max_player; j++)
 			vivid::DrawTexture("data\\Tuna.png", m_UseCharacterPosition[j].Character[i]);
 
@@ -176,11 +177,12 @@ void Result::Draw(void)
 	vivid::DrawText(50, "ランキング", vivid::Vector2(vivid::WINDOW_WIDTH / 2 - 125, vivid::WINDOW_HEIGHT / 36), 0xff000000);
 
 #ifdef VIVID_DEBUG
+	/*ここから*/
 	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 60.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 60.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(80.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(80.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
+	vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 15.0f, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 15.0f, m_RankTextPosition[0].y + 30.0f - 60.0f), vivid::Vector2(1180.0f, vivid::WINDOW_HEIGHT / 5 + 30.0f - 60.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 15.0f, m_RankTextPosition[0].y - 60.0f), vivid::Vector2(80.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);
+	vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x, m_RankTextPosition[0].y - 60.0f), vivid::Vector2(80.0f + 15.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 400.0f), 0xffffffff);	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
 
 	vivid::DrawLine(vivid::Vector2(100.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f), vivid::Vector2(100.0f, vivid::WINDOW_HEIGHT / 5 - 60.0f + 30.0f), 0xffffffff);
 

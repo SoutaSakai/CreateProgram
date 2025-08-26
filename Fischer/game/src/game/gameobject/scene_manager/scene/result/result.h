@@ -24,8 +24,10 @@ private:
 	static const int	m_use_character_text_height;	// 「使用キャラクター」文字列の高さ
 	static const int	m_tuna_width;					// マグロの幅
 	static const int	m_tuna_height;					// マグロの高さ
-	static const int	m_number_width;					// スコアの数字の幅
-	static const int	m_number_height;				// スコアの数字の高さ
+	static const int	m_number_width;					// 数字1つの幅
+	static const int	m_number_height;				// 数字1つの高さ
+	static const int	m_score_text_width;				// 「pt」文字列の幅
+	static const int	m_score_text_height;			// 「pt」文字列の高さ
 	static const int	m_button_width;					// ボタンの幅
 	static const int	m_button_height;				// ボタンの高さ
 	static const int	m_max_player;					// プレイヤーの最大値
