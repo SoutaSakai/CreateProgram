@@ -17,6 +17,10 @@ public:
 	void Update(vivid::Vector2 pos,float angle,float scalex);
 	void Finalize(void);
 
+	//デコイの情報を返す
+	vivid::Vector2 GetDecoyPos(void) const { return m_Position; }
+
+
 private:
 
 	static const int		m_MaxDecoy;		//分身の数
@@ -28,8 +32,8 @@ private:
 	vivid::Vector2			m_Position;		//座標
 	vivid::Rect				m_Rect;			//表示範囲
 	std::string				m_FilePath;		//ファイルパス
-	vivid::Vector2			m_Anchor;
-	vivid::Vector2			m_Angle;		//角度
+	vivid::Vector2			m_Anchor;		//基準点
+	vivid::Vector2			m_PositionAngle;		//角度
 
 	int m_PlayerNumber;
 

@@ -17,8 +17,8 @@ void CMirrormoray::Initialize(int playernumber)
 
 	//ƒ‰ƒ“ƒ_ƒ€‚ÅŠp“x‚ðŒˆ‚ß‚é
 	float angle = (rand() % 361 - 180) * 3.14f / 180.f; 
-	m_Angle.x = cos(angle);
-	m_Angle.y = sin(angle);
+	m_PositionAngle.x = cos(angle);
+	m_PositionAngle.y = sin(angle);
 
 	//ƒtƒ@ƒCƒ‹ƒpƒXŽæ“¾
 	m_FilePath = CharacterManager::GetInstance().CharacterFilePath(CHARACTER_ID::MIRRORMORAYELL);
@@ -37,56 +37,56 @@ void CMirrormoray::Update(vivid::Vector2 pos, float angle, float scalex)
 	if (pos.y <= 165 && vivid::keyboard::Button(vivid::keyboard::KEY_ID::W))
 	{
 		vivid::DrawText(40, "W", vivid::Vector2(640, 0));
-		m_Position.x = cos(atan2(m_Angle.y, m_Angle.x)) * m_Range + pos.x;
+		m_Position.x = cos(atan2(m_PositionAngle.y, m_PositionAngle.x)) * m_Range + pos.x;
 		m_Position.y -= CharacterManager::GetInstance().CharacterSpeed(CHARACTER_ID::MIRRORMORAYELL);
 
 		//ƒfƒRƒC‚ªˆê”Ôã‚És‚Á‚½‚ç
-		if (m_Position.y <= 165 && m_Angle.y > 0)
+		if (m_Position.y <= 165 && m_PositionAngle.y > 0)
 		{
 			//Šp“x‚ð”½“]‚³‚¹‚é
-			m_Angle.y *= -1;
+			m_PositionAngle.y *= -1;
 		}
 	}
 	else if(pos.y + m_height >= vivid::WINDOW_HEIGHT && vivid::keyboard::Button(vivid::keyboard::KEY_ID::S))
 	{
 		vivid::DrawText(40, "S", vivid::Vector2(640, 0));
-		m_Position.x = cos(atan2(m_Angle.y, m_Angle.x)) * m_Range + pos.x;
+		m_Position.x = cos(atan2(m_PositionAngle.y, m_PositionAngle.x)) * m_Range + pos.x;
 		m_Position.y += CharacterManager::GetInstance().CharacterSpeed(CHARACTER_ID::MIRRORMORAYELL);
 
-		if (m_Position.y + m_height >= vivid::WINDOW_HEIGHT && m_Angle.y < 0)
+		if (m_Position.y + m_height >= vivid::WINDOW_HEIGHT && m_PositionAngle.y < 0)
 		{
-			m_Angle.y *= -1;
+			m_PositionAngle.y *= -1;
 		}
 	}
 	else if (pos.x <= 0 && vivid::keyboard::Button(vivid::keyboard::KEY_ID::A))
 	{
 		vivid::DrawText(40, "A", vivid::Vector2(640, 0));
 		m_Position.x -= CharacterManager::GetInstance().CharacterSpeed(CHARACTER_ID::MIRRORMORAYELL);
-		m_Position.y = sin(atan2(m_Angle.y, m_Angle.x)) * m_Range + pos.y;
+		m_Position.y = sin(atan2(m_PositionAngle.y, m_PositionAngle.x)) * m_Range + pos.y;
 
-		if (m_Position.x <= 0 && m_Angle.x > 0) 
+		if (m_Position.x <= 0 && m_PositionAngle.x > 0)
 		{
 			//Šp“x‚ð”½“]‚³‚¹‚é
-			m_Angle.x *= -1;
+			m_PositionAngle.x *= -1;
 		}
 	}
 	else if (pos.x + m_width >= vivid::WINDOW_WIDTH && vivid::keyboard::Button(vivid::keyboard::KEY_ID::D))
 	{
 		vivid::DrawText(40, "D", vivid::Vector2(640, 0));
 		m_Position.x += CharacterManager::GetInstance().CharacterSpeed(CHARACTER_ID::MIRRORMORAYELL);
-		m_Position.y = sin(atan2(m_Angle.y, m_Angle.x)) * m_Range + pos.y;
+		m_Position.y = sin(atan2(m_PositionAngle.y, m_PositionAngle.x)) * m_Range + pos.y;
 
-		if (m_Position.x + m_width >= vivid::WINDOW_WIDTH && m_Angle.x < 0)
+		if (m_Position.x + m_width >= vivid::WINDOW_WIDTH && m_PositionAngle.x < 0)
 		{
 			//Šp“x‚ð”½“]‚³‚¹‚é
-			m_Angle.x *= -1;
+			m_PositionAngle.x *= -1;
 		}
 	}
 	else
 	{
 		//Šp“x‚©‚çÀ•W‚ð‹‚ß‚é
-		m_Position.x = cos(atan2(m_Angle.y,m_Angle.x)) * m_Range + pos.x;
-		m_Position.y = sin(atan2(m_Angle.y, m_Angle.x)) * m_Range + pos.y;
+		m_Position.x = cos(atan2(m_PositionAngle.y, m_PositionAngle.x)) * m_Range + pos.x;
+		m_Position.y = sin(atan2(m_PositionAngle.y, m_PositionAngle.x)) * m_Range + pos.y;
 	}
 
 
@@ -96,7 +96,7 @@ void CMirrormoray::Update(vivid::Vector2 pos, float angle, float scalex)
 	if (m_Position.y <= 165)								m_Position.y = 165;								//ã•ûŒü
 	if (m_Position.y + m_height >= vivid::WINDOW_HEIGHT)	m_Position.y = vivid::WINDOW_HEIGHT - m_height;	//‰º•ûŒü
 
-	vivid::DrawText(40, std::to_string( m_Angle.x), vivid::Vector2(600, 0));
+	vivid::DrawText(40, std::to_string(m_PositionAngle.x), vivid::Vector2(600, 0));
 	vivid::DrawTexture(m_FilePath, m_Position, 0xffff0000, m_Rect, m_Anchor , vivid::Vector2(scalex, 1.0f),angle);
 }
 

@@ -176,7 +176,9 @@
     <ClCompile Include="src\game\skilmanager\skil\Lionfish\Lionfish.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Mirrormoray\Mirrormoray.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Octopus\Octopus.cpp" />
+    <ClCompile Include="src\game\skilmanager\skil\Pointuna\Pointuna.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Porcupinefish\Porcupinefish.cpp" />
+    <ClCompile Include="src\game\skilmanager\skil\Shark\Shark.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Tuna\Tuna.cpp" />
     <ClCompile Include="src\game\skilmanager\skil\Turtle\Turtle.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -206,7 +208,9 @@
     <ClInclude Include="src\game\skilmanager\skil\Lionfish\Lionfish.h" />
     <ClInclude Include="src\game\skilmanager\skil\Mirrormoray\Mirrormoray.h" />
     <ClInclude Include="src\game\skilmanager\skil\Octopus\Octopus.h" />
+    <ClInclude Include="src\game\skilmanager\skil\Pointuna\Pointuna.h" />
     <ClInclude Include="src\game\skilmanager\skil\Porcupinefish\Porcupinefish.h" />
+    <ClInclude Include="src\game\skilmanager\skil\Shark\Shark.h" />
     <ClInclude Include="src\game\skilmanager\skil\Tuna\Tuna.h" />
     <ClInclude Include="src\game\skilmanager\skil\Turtle\Turtle.h" />
     <ClInclude Include="src\game\scenemanager\iscene\scenes\iscene.h" />

@@ -20,6 +20,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Ve
 		porcupinefish[PlayerNumber]->Initialize(PlayerNumber,pos);
 		break;
 	case CHARACTER_ID::SHARK:
+		shark[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	case CHARACTER_ID::LIONFISH:
 		lionfish[PlayerNumber]->Intialize(PlayerNumber, pos);
@@ -34,6 +35,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Ve
 		octopus[PlayerNumber]->Initialize(PlayerNumber, pos, scale);
 		break;
 	case CHARACTER_ID::POINTUNA:
+		pointuna[PlayerNumber]->Initialize(PlayerNumber);
 		break;
 	case CHARACTER_ID::TUNA:
 		tuna[PlayerNumber]->Initialize(PlayerNumber);
@@ -49,6 +51,7 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 	{
 	case CHARACTER_ID::DUMMY:
 		break;
+
 	case CHARACTER_ID::ELSCTRICEEL:
 		elsctriceel[PlayerNumber]->Update(Pos);
 		return Pos;
@@ -60,7 +63,10 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 
 	case CHARACTER_ID::SHARK:
+		shark[PlayerNumber]->Update();
+		return Pos;
 		break;
+
 	case CHARACTER_ID::LIONFISH:
 		lionfish[PlayerNumber]->Update();
 		return Pos;
@@ -82,6 +88,8 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 
 	case CHARACTER_ID::POINTUNA:
+		pointuna[PlayerNumber]->Update();
+		return Pos;
 		break;
 
 	case CHARACTER_ID::TUNA:
@@ -114,6 +122,7 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 		if (porcupinefish[PlayerNumber] == nullptr)porcupinefish[PlayerNumber] = new Porcupinefish();
 		break;
 	case CHARACTER_ID::SHARK:
+		if (shark[PlayerNumber] == nullptr)shark[PlayerNumber] = new CShark();
 		break;
 	case CHARACTER_ID::LIONFISH:
 		if (lionfish[PlayerNumber] == nullptr)lionfish[PlayerNumber] = new CLionFish();
@@ -128,6 +137,7 @@ void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
 		if (octopus[PlayerNumber] == nullptr)octopus[PlayerNumber] = new COctopus();
 		break;
 	case CHARACTER_ID::POINTUNA:
+		if (pointuna[PlayerNumber] == nullptr)pointuna[PlayerNumber] = new CPointuna();
 		break;
 	case CHARACTER_ID::TUNA:
 		if (tuna[PlayerNumber] == nullptr)tuna[PlayerNumber] = new Tuna();

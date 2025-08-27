@@ -84,14 +84,14 @@ void Porcupinefish::CheckHitSkill(void)
 		//j‚Ì’†S“_
 		vivid::Vector2 SpineCenterPos = m_SpinePos[i] + vivid::Vector2(m_Spinewidth / 2, m_Spineheight / 2);
 
-		SpineVertex[i][0].x += cos((m_Angle[i] + 225) * 3.14 / 180.0f) * Spinediagonal;
-		SpineVertex[i][0].y += sin((m_Angle[i] + 225) * 3.14 / 180.0f) * Spinediagonal;
+		SpineVertex[i][0].x = SpineCenterPos.x + cos((m_Angle[i] + 225) * 3.14 / 180.0f) * Spinediagonal;
+		SpineVertex[i][0].y = SpineCenterPos.y + sin((m_Angle[i] + 225) * 3.14 / 180.0f) * Spinediagonal;
 
-		SpineVertex[i][1].x += m_Spinewidth / 2;
-		SpineVertex[i][1].y;
+		SpineVertex[i][1].x = SpineCenterPos.x + m_Spinewidth / 2;
+		SpineVertex[i][1].y = SpineCenterPos.y + m_Spineheight / 2;
 
-		SpineVertex[i][2].x += cos((m_Angle[i] + 135) * 3.14 / 180.0f) * Spinediagonal;
-		SpineVertex[i][2].y += sin((m_Angle[i] + 135) * 3.14 / 180.0f) * Spinediagonal;
+		SpineVertex[i][2].x = SpineCenterPos.x + cos((m_Angle[i] + 135) * 3.14 / 180.0f) * Spinediagonal;
+		SpineVertex[i][2].y = SpineCenterPos.y + sin((m_Angle[i] + 135) * 3.14 / 180.0f) * Spinediagonal;
 		
 	}
 
@@ -123,24 +123,61 @@ void Porcupinefish::CheckHitSkill(void)
 				vertex[j].y = sin((targetangle + 135 + 90 * j) * 3.14 / 180) * targetdiagonal + targetcenterpos.y;
 			}
 
-			//j‚Ì•Ó‚Æcharacter‚Ì•Ó‚ªŒğ·‚µ‚Ä‚é‚©’²‚×‚é
-			//
+			//j‚Ì•Ó(AB)‚Æcharacter‚Ì•Ó(CD)‚ªŒğ·‚µ‚Ä‚é‚©’²‚×‚é
+			vivid::Vector2 A, B, C, D;
 			//j‚Ì”
 			for (int p = 0; p < m_MaxSpine; p++)
 			{
-				//OŠpŒ`‚Ì•Ó‚Ì”
-				for (int t = 0; t < 3; t++)
+				//j‚ª—LŒø‚¾‚Á‚½‚ç
+				if (m_SpineFlag[p])
 				{
-					vivid::Vector2 AB;
-
-					//character‚Ì•Ó‚Ì”
-					for (int b = 0; b < 4; b++)
+					//OŠpŒ`‚Ì•Ó‚Ì”
+					for (int t = 0; t < 3; t++)
 					{
-						vivid::Vector2 CD;
-						
+						//OŠpŒ`‚Ìˆê•Ó(AB)
+						A = SpineVertex[p][t];
+						if (t >= 2)	B = SpineVertex[p][0];
+						else		B = SpineVertex[p][t + 1];
+
+						//character‚Ì•Ó‚Ì”
+						for (int b = 0; b < 4; b++)
+						{
+							//character‚Ìˆê•Ó(CD)
+							C = vertex[b];
+							if (b >= 3)	D = vertex[0];
+							else		D = vertex[b + 1];
+
+							if (CheckCross(A, B, C, D))
+							{
+								//ƒtƒ‰ƒO‚ğfalse‚É‚·‚é
+								m_SpineFlag[p] = false;
+								vivid::DrawText(40, "HIT", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+							}
+						}
 					}
 				}
 			}
 		}
 	}
+}
+
+bool Porcupinefish::CheckCross(vivid::Vector2 A, vivid::Vector2 B, vivid::Vector2 C, vivid::Vector2 D)
+{
+	vivid::Vector2 AB = B - A;
+	vivid::Vector2 AC = C - A;
+	vivid::Vector2 AD = D - A;
+
+	vivid::Vector2 CD = D - C;
+	vivid::Vector2 CA = A - C;
+	vivid::Vector2 CB = B - C;
+
+	double cross1 = vivid::Vector2::Cross(AB, AC);
+	double cross2 = vivid::Vector2::Cross(AB, AD);
+	double cross3 = vivid::Vector2::Cross(CD, CA);
+	double cross4 = vivid::Vector2::Cross(CD, CB);
+
+	if ((cross1 * cross2 <= 0) && (cross3 * cross4 <= 0))
+		return true;
+
+	return false;
 }

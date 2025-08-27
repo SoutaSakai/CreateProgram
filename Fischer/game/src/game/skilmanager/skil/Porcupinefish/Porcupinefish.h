@@ -13,6 +13,9 @@ public:
 
 	//ƒXƒLƒ‹‚Ì“–‚½‚è”»’è
 	void CheckHitSkill(void);
+	//ü•ªABECD‚ªŒğ·‚µ‚Ä‚é‚©
+	bool CheckCross(vivid::Vector2 A, vivid::Vector2 B, vivid::Vector2 C, vivid::Vector2 D);
+
 
 private:
 

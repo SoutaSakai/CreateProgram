@@ -11,6 +11,8 @@
 #include"skil/Octopus/Octopus.h"
 #include"skil/Mirrormoray/Mirrormoray.h"
 #include"skil/Lionfish/Lionfish.h"
+#include"skil/Pointuna/Pointuna.h"
+#include"skil/Shark/Shark.h"
 
 class Elsctriceel;
 class Tuna;
@@ -19,6 +21,8 @@ class Porcupinefish;
 class COctopus;
 class CMirrormoray;
 class CLionFish;
+class CPointuna;
+class CShark;
 
 class SkilManager
 {
@@ -45,4 +49,6 @@ private:
 	COctopus*			octopus[(int)vivid::controller::DEVICE_ID::MAX];
 	CMirrormoray*		mirrormoray[(int)vivid::controller::DEVICE_ID::MAX];
 	CLionFish*			lionfish[(int)vivid::controller::DEVICE_ID::MAX];
+	CPointuna*			pointuna[(int)vivid::controller::DEVICE_ID::MAX];
+	CShark*				shark[(int)vivid::controller::DEVICE_ID::MAX];
 };
