@@ -14,6 +14,10 @@ public:
 	void Finalize(void) override;
 
 private:
-	vivid::Vector2 fish_position[9];
-	vivid::Vector2 select_position[4];
+	static const int	m_max_character;	// キャラクターの最大数
+	static const int	m_max_player;		// プレイヤーの最大数
+	static const int	m_distance;			// 表示間隔
+
+	vivid::Vector2*		m_CharacterPosition;	// キャラクターの座標
+	vivid::Vector2*		m_SelectPosition;		// 選択枠の座標
 };
