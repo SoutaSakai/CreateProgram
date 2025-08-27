@@ -22,6 +22,8 @@ private:
 	static const int	m_rank_height;					// 順位の高さ
 	static const int	m_use_character_text_width;		// 「使用キャラクター」文字列の幅
 	static const int	m_use_character_text_height;	// 「使用キャラクター」文字列の高さ
+	static const int	m_round_text_width;				// 「_R」文字列の幅
+	static const int	m_round_text_height;			// 「_R」文字列の高さ
 	static const int	m_tuna_width;					// マグロの幅
 	static const int	m_tuna_height;					// マグロの高さ
 	static const int	m_number_width;					// 数字1つの幅
@@ -38,6 +40,8 @@ private:
 	UseCharacter*	m_UseCharacterPosition;		// 使用キャラクターの座標
 	int*			m_Score;					// 得点
 	vivid::Vector2*	m_ScorePosition;			// 得点の座標
+	vivid::Vector2*	m_ScoreTextPosition;		// 「pt」文字列の座標
+	vivid::Vector2* m_RoundTextPosition;		// 「_R」文字列の座標
 	vivid::Vector2*	m_UseCharacterTextPosition;	// 「使用キャラクター」文字列の座標
 	vivid::Vector2*	m_RankTextPosition;			// 順位の座標
 	vivid::Vector2	m_BackGroundPosition;		// 背景の座標
@@ -50,9 +54,9 @@ private:
 	vivid::Vector2	m_CharacterSelectScale;		// キャラクターセレクトボタンの拡大率
 	vivid::Vector2	m_ExitScale;				// やめるボタンの拡大率
 	vivid::Rect*	m_ButtonRect;				// ボタンの範囲
-	//vivid::Vector2	m_FramePosition;			// 外枠の座標
-	//vivid::Vector2	m_FrameAnchor;				// 外枠の基準点
-	//vivid::Vector2	m_FrameScale;				// 外枠の拡大率
-	//vivid::Rect		m_FrameRect;				// 外枠の範囲
+	//vivid::Vector2	m_FramePosition;		// 外枠の座標
+	//vivid::Vector2	m_FrameAnchor;			// 外枠の基準点
+	//vivid::Vector2	m_FrameScale;			// 外枠の拡大率
+	//vivid::Rect		m_FrameRect;			// 外枠の範囲
 	bool			m_ButtonFlag;				// ボタンの現在
 };
