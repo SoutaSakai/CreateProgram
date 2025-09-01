@@ -18,7 +18,7 @@ void CharacterSelect::Initialize(void)
 	{
 		if (i < 5)
 		{
-			m_CharacterPosition[i] = vivid::Vector2(vivid::WINDOW_WIDTH / 6 * (i + 1) - 150.0f / 2, 110.0f);
+			m_CharacterPosition[i] = vivid::Vector2(vivid::WINDOW_WIDTH / 10 * (i * 2 + 1) - 150.0f / 2, 110.0f);
 		}
 		else if (i < m_max_character)
 		{
@@ -26,7 +26,7 @@ void CharacterSelect::Initialize(void)
 		}
 	}
 
-	m_SelectPosition[0] = vivid::Vector2{ vivid::WINDOW_WIDTH / 6 - 220.0f / 2, 100.0f };
+	m_SelectPosition[0] = vivid::Vector2( vivid::WINDOW_WIDTH / 6 - 220.0f / 2, 100.0f );
 }
 
 void CharacterSelect::Update(void)
