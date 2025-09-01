@@ -1,7 +1,11 @@
-#include "..\..\scene_manager.h"
 #include "characterselect.h"
+#include "..\..\scene_manager.h"
+#include "..\..\..\character_manager\character_manager.h"
+#include "..\..\..\character_manager\characterID.h"
 
-const int	CharacterSelect::m_max_character	= 9;	// キャラクターの最大数
+const int	CharacterSelect::m_flame_width		= 220;	// 選択枠の幅
+const int	CharacterSelect::m_flame_height		= 100;	// 選択枠の高さ
+const int	CharacterSelect::m_max_character	= (int)CHARACTER_ID::MAX - 1;
 const int	CharacterSelect::m_max_player		= 4;	// プレイヤーの最大数
 const int	CharacterSelect::m_distance			= 20;	// 表示間隔
 
@@ -12,7 +16,7 @@ CharacterSelect::CharacterSelect(void)
 void CharacterSelect::Initialize(void)
 {
 	m_CharacterPosition = new vivid::Vector2[m_max_character];
-	m_SelectPosition = new vivid::Vector2[m_max_player];
+	m_FlamePosition = new vivid::Vector2[m_max_player];
 
 	for (int i = 0; i < m_max_character; ++i)
 	{
@@ -26,11 +30,20 @@ void CharacterSelect::Initialize(void)
 		}
 	}
 
-	m_SelectPosition[0] = vivid::Vector2( vivid::WINDOW_WIDTH / 6 - 220.0f / 2, 100.0f );
+	for (int i = 0; i < m_max_player; ++i)
+	{
+		float CenterPositionX = m_CharacterPosition[0].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
+		float CenterPositionY = m_CharacterPosition[0].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
+
+		m_FlamePosition[i].x = CenterPositionX - m_flame_width / 2.0f;
+		m_FlamePosition[i].y = CenterPositionY - m_flame_height / 2.0f;
+	}
 }
 
 void CharacterSelect::Update(void)
 {
+	Keyboard();
+
 //#ifdef VIVID_DEBUG
 	// Zキーでシーン変更
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
@@ -61,23 +74,43 @@ void CharacterSelect::Draw(void)
 	}
 
 	// キャラ選択枠の描画
-	vivid::DrawTexture("data\\box.png", m_SelectPosition[0]);
+	vivid::DrawTexture("data\\select_flame.png", m_FlamePosition[0]);
 
 	// 魚仮描画
 	for (int i = 0; i < m_max_character; ++i)
 	{
-		vivid::DrawTexture("data\\ActiveTuna.png", m_CharacterPosition[i]);
+		vivid::DrawTexture("data\\tuna.png", m_CharacterPosition[i]);
 	}
 
 
 #ifdef VIVID_DEBUG
 
 	vivid::DrawText(24, "characterselect", vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawLine(vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f, vivid::WINDOW_HEIGHT / 5.0f), vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f + 105.0f, vivid::WINDOW_HEIGHT / 5.0f), 0xffffffff);
-	vivid::DrawLine(vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f * 2, vivid::WINDOW_HEIGHT / 5.0f), vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f * 2 - 105.0f, vivid::WINDOW_HEIGHT / 5.0f), 0xffffffff);
+	//vivid::DrawLine(vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f, vivid::WINDOW_HEIGHT / 5.0f), vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f + 105.0f, vivid::WINDOW_HEIGHT / 5.0f), 0xffffffff);
+	//vivid::DrawLine(vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f * 2, vivid::WINDOW_HEIGHT / 5.0f), vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f * 2 - 105.0f, vivid::WINDOW_HEIGHT / 5.0f), 0xffffffff);
 #endif
 }
 
 void CharacterSelect::Finalize(void)
 {
+}
+
+void CharacterSelect::Keyboard(void)
+{
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::D) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::RIGHT))
+	{
+
+	}
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
+	{
+
+	}
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::W) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::UP))
+	{
+
+	}
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::S) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::DOWN))
+	{
+
+	}
 }

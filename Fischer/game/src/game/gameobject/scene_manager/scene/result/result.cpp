@@ -161,7 +161,7 @@ void Result::Draw(void)
 		for (int i = 0; i < m_max_fish; i++)
 			for (int j = 0; j < m_max_player; j++)
 			{
-				vivid::DrawTexture("data\\Tuna.png", m_UseCharacterPosition[j].Character[i]);
+				vivid::DrawTexture("data\\result_tuna.png", m_UseCharacterPosition[j].Character[i]);
 			}
 
 		int TempScore = ScoreManager::GetInstance().GetScore(i);

@@ -14,4 +14,5 @@ enum class CHARACTER_ID
 	POINTUNA,
 	TUNA,
 
+	MAX
 };

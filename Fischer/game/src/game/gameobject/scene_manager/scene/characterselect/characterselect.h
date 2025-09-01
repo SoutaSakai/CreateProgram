@@ -13,11 +13,16 @@ public:
 	void Draw(void) override;
 	void Finalize(void) override;
 
+	void Keyboard(void);
+
 private:
-	static const int	m_max_character;	// キャラクターの最大数
+
+	static const int	m_flame_width;		// 選択枠の幅
+	static const int	m_flame_height;		// 選択枠の高さ
+	static const int	m_max_character;		// キャラクターの最大数
 	static const int	m_max_player;		// プレイヤーの最大数
 	static const int	m_distance;			// 表示間隔
 
 	vivid::Vector2*		m_CharacterPosition;	// キャラクターの座標
-	vivid::Vector2*		m_SelectPosition;		// 選択枠の座標
+	vivid::Vector2*		m_FlamePosition;		// 選択枠の座標
 };
