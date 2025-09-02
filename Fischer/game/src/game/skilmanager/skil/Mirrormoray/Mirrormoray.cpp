@@ -33,6 +33,8 @@ void CMirrormoray::Initialize(int playernumber)
 
 void CMirrormoray::Update(vivid::Vector2 pos, float angle, float scalex)
 {
+	m_Angle = angle;
+
 	//デコイの角度が正の値で一番上に行ったとき
 	if (pos.y <= 165 && vivid::keyboard::Button(vivid::keyboard::KEY_ID::W))
 	{

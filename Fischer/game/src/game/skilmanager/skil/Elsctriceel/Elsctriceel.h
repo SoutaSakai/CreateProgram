@@ -16,8 +16,7 @@ public:
 	//Šî€“_‚ğ•Ô‚·
 	vivid::Vector2 GetCenterPosition(void) const { return m_CenterPosition; }
 
-	//ƒXƒLƒ‹‚Ì”¼Œa‚ğ•Ô‚·
-	float GetSkillSize(void) const { return SkillSize; }
+	void CollisionDetection(int number);
 
 private:
 

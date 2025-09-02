@@ -40,6 +40,9 @@ public:
 
 	void DeleteObj(void);	//	オブジェクトをすべて削除する
 
+	vivid::Vector2	GetMirrormorayDecoyPos(int playernumber);
+	float			GetMirrormorayDecoyAngle(int playernumber);
+
 private:
 
 	Elsctriceel*		elsctriceel[(int)vivid::controller::DEVICE_ID::MAX];

@@ -156,3 +156,13 @@ void SkilManager::DeleteObj(void)
 		if (tuna[i] != nullptr)			delete tuna[i];
 	}*/
 }
+
+vivid::Vector2 SkilManager::GetMirrormorayDecoyPos(int playernumber)
+{
+	return mirrormoray[playernumber]->GetDecoyPos();
+}
+
+float SkilManager::GetMirrormorayDecoyAngle(int playernumber)
+{
+	return mirrormoray[playernumber]->GetDecoyAngle();
+}
