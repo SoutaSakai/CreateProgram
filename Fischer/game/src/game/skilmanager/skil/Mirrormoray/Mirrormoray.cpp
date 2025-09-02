@@ -105,3 +105,13 @@ void CMirrormoray::Update(vivid::Vector2 pos, float angle, float scalex)
 void CMirrormoray::Finalize(void)
 {
 }
+
+vivid::Vector2 CMirrormoray::GetDecoyPos(void)
+{
+	return m_Position;
+}
+
+float CMirrormoray::GetDecoyAngle(void)
+{
+	return m_Angle;
+}

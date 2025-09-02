@@ -159,10 +159,16 @@ void SkilManager::DeleteObj(void)
 
 vivid::Vector2 SkilManager::GetMirrormorayDecoyPos(int playernumber)
 {
-	return mirrormoray[playernumber]->GetDecoyPos();
+	if (mirrormoray[playernumber] != nullptr)
+		return mirrormoray[playernumber]->GetDecoyPos();
+	else 
+		return vivid::Vector2::ZERO;
 }
 
 float SkilManager::GetMirrormorayDecoyAngle(int playernumber)
 {
-	return mirrormoray[playernumber]->GetDecoyAngle();
+	if (mirrormoray[playernumber] != nullptr)
+		return mirrormoray[playernumber]->GetDecoyAngle();
+	else 
+		return 0.0f;
 }

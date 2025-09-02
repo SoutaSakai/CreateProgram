@@ -18,8 +18,8 @@ public:
 	void Finalize(void);
 
 	//ƒfƒRƒC‚Ìî•ñ‚ğ•Ô‚·
-	vivid::Vector2	GetDecoyPos(void)	const { return m_Position; }
-	float			GetDecoyAngle(void) const { return m_Angle; }
+	vivid::Vector2	GetDecoyPos(void);
+	float			GetDecoyAngle(void);
 
 
 

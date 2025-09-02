@@ -16,7 +16,7 @@ public:
 	//Šî€“_‚ğ•Ô‚·
 	vivid::Vector2 GetCenterPosition(void) const { return m_CenterPosition; }
 
-	void CollisionDetection(int number);
+	void CollisionDetection(int number,int pattern);
 
 private:
 

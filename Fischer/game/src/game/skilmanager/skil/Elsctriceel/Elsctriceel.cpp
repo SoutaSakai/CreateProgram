@@ -42,35 +42,55 @@ void Elsctriceel::CheckHitSkill(void)
 		if (i != m_PlayerNumber)
 		{
 			
-			CollisionDetection(i);
+			CollisionDetection(i,0);
 			
 			//ミラーウツボだったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL)
 			{
-
+				CollisionDetection(i, 1);
 			}
 		}
 	}
 }
 
-void Elsctriceel::CollisionDetection(int number)
+void Elsctriceel::CollisionDetection(int number, int pattern)
 {
 	//回転した状態の四角形の頂点の座標
 	vivid::Vector2 vertex[4];
 
-	//対象の座標
-	vivid::Vector2 targetposition = playermanager::GetInstance().GetPosition(number);
-	//対象の角度
-	float targetangle = playermanager::GetInstance().GetAngle(number);
-	//対象のキャラクター
-	CHARACTER_ID targetcharacter = playermanager::GetInstance().GetCharacter(number);
+	CHARACTER_ID targetcharacter;
+	vivid::Vector2 targetposition;
+	vivid::Vector2 targetcenterpos;
+	float targetangle;
+	float width, height;
+	float diagonal;
+
+	if (pattern == 0)
+	{
+		//対象の座標
+		targetposition = playermanager::GetInstance().GetPosition(number);
+		//対象の角度
+		targetangle = playermanager::GetInstance().GetAngle(number);
+		//対象のキャラクター
+		targetcharacter = playermanager::GetInstance().GetCharacter(number);
+	}
+	else
+	{
+		//対象の座標
+		targetposition = SkilManager::Getinstance().GetMirrormorayDecoyPos(number);
+		//対象の角度
+		targetangle = SkilManager::Getinstance().GetMirrormorayDecoyAngle(number);
+		//対象のキャラクター
+		targetcharacter = CHARACTER_ID::MIRRORMORAYELL;
+	}
+
 	//キャラクターの横幅と立幅
-	float width = CharacterManager::GetInstance().CharacterWIDTH(targetcharacter);
-	float height = CharacterManager::GetInstance().CharacterHEIGHT(targetcharacter);
+	width = CharacterManager::GetInstance().CharacterWIDTH(targetcharacter);
+	height = CharacterManager::GetInstance().CharacterHEIGHT(targetcharacter);
 	//対象の中心点
-	vivid::Vector2 targetcenterpos = vivid::Vector2(targetposition.x + width / 2, targetposition.y + height / 2);
+	targetcenterpos = vivid::Vector2(targetposition.x + width / 2, targetposition.y + height / 2);
 	//対象の対角線の長さを求める
-	float diagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2) + pow(targetposition.y - targetcenterpos.y, 2));
+	diagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2) + pow(targetposition.y - targetcenterpos.y, 2));
 
 	for (int j = 0; j < 4; j++)
 	{
