@@ -1,7 +1,6 @@
 #include "characterselect.h"
 #include "..\..\scene_manager.h"
 #include "..\..\..\character_manager\character_manager.h"
-#include "..\..\..\character_manager\characterID.h"
 
 const int	CharacterSelect::m_flame_width		= 220;	// ‘I‘ğ˜g‚Ì•
 const int	CharacterSelect::m_flame_height		= 100;	// ‘I‘ğ˜g‚Ì‚‚³
@@ -17,6 +16,7 @@ void CharacterSelect::Initialize(void)
 {
 	m_CharacterPosition = new vivid::Vector2[m_max_character];
 	m_FlamePosition = new vivid::Vector2[m_max_player];
+	m_CullentSelect = new CHARACTER_ID[m_max_player];
 
 	for (int i = 0; i < m_max_character; ++i)
 	{
@@ -32,16 +32,17 @@ void CharacterSelect::Initialize(void)
 
 	for (int i = 0; i < m_max_player; ++i)
 	{
-		float CenterPositionX = m_CharacterPosition[0].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
-		float CenterPositionY = m_CharacterPosition[0].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
+		m_CullentSelect[i] = CHARACTER_ID::DUMMY;
 
-		m_FlamePosition[i].x = CenterPositionX - m_flame_width / 2.0f;
-		m_FlamePosition[i].y = CenterPositionY - m_flame_height / 2.0f;
+		m_FlamePosition[i].x = GetFlamePosition(0).x;
+		m_FlamePosition[i].y = GetFlamePosition(0).y;
 	}
 }
 
 void CharacterSelect::Update(void)
 {
+
+
 	Keyboard();
 
 //#ifdef VIVID_DEBUG
@@ -84,7 +85,6 @@ void CharacterSelect::Draw(void)
 
 
 #ifdef VIVID_DEBUG
-
 	vivid::DrawText(24, "characterselect", vivid::Vector2(0.0f, 0.0f));
 	//vivid::DrawLine(vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f, vivid::WINDOW_HEIGHT / 5.0f), vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f + 105.0f, vivid::WINDOW_HEIGHT / 5.0f), 0xffffffff);
 	//vivid::DrawLine(vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f * 2, vivid::WINDOW_HEIGHT / 5.0f), vivid::Vector2(vivid::WINDOW_WIDTH / 6.0f * 2 - 105.0f, vivid::WINDOW_HEIGHT / 5.0f), 0xffffffff);
@@ -113,4 +113,15 @@ void CharacterSelect::Keyboard(void)
 	{
 
 	}
+}
+
+vivid::Vector2 CharacterSelect::GetFlamePosition(int num)
+{
+	float CenterPositionX = m_CharacterPosition[num].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionY = m_CharacterPosition[num].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
+
+	float FlamePositionX = CenterPositionX - m_flame_width / 2.0f;
+	float FlamePositionY = CenterPositionY - m_flame_height / 2.0f;
+
+	return vivid::Vector2(FlamePositionX, FlamePositionY);
 }

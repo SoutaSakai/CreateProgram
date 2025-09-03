@@ -1,6 +1,7 @@
 #pragma once
 #include "..\scene.h"
 #include "vivid.h"
+#include "..\..\..\character_manager\characterID.h"
 
 class CharacterSelect : public IScene
 {
@@ -13,9 +14,12 @@ public:
 	void Draw(void) override;
 	void Finalize(void) override;
 
-	void Keyboard(void);
+
 
 private:
+	void Keyboard(void);
+	vivid::Vector2 GetFlamePosition(int);
+	
 
 	static const int	m_flame_width;		// 選択枠の幅
 	static const int	m_flame_height;		// 選択枠の高さ
@@ -25,4 +29,5 @@ private:
 
 	vivid::Vector2*		m_CharacterPosition;	// キャラクターの座標
 	vivid::Vector2*		m_FlamePosition;		// 選択枠の座標
+	CHARACTER_ID*		m_CullentSelect;		// 選択中キャラクターのID
 };
