@@ -7,17 +7,9 @@
 //#include "..\scene_id.h"
 //#include "vivid.h"
 
-//‰¼
-static const int MaxPlyer = 1;
-
-const float		Gamemain::water_surface = 165.0f;
-
-CHARACTER_ID UseCharacter[MaxPlyer][3] =
-{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
-	//{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
-	//{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
-	//{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}
-};
+const int		Gamemain::m_max_player = 1;
+const int		Gamemain::m_max_fish = 3;
+const float		Gamemain::m_water_surface = 165.0f;
 
 Gamemain::Gamemain(void)
 {
@@ -25,19 +17,23 @@ Gamemain::Gamemain(void)
 
 void Gamemain::Initialize(void)
 {
+	m_UseCharacter = new UseCharacter[m_max_player];
+	for (int i = 0; i < m_max_player; i++)
+	{
+		m_UseCharacter[i].Character = new CHARACTER_ID[m_max_fish];
+	}
+
 	FisherManager::GetInstance().Initialize();
 
-	//‰¼
-	for (int i = 0; i < MaxPlyer; i++)
+	for (int i = 0; i < m_max_player; i++)
 	{
-		for (int k = 0; k < 3; k++)
+		for (int k = 0; k < m_max_fish; k++)
 		{
-			playermanager::GetInstance().GetUseCharacter(UseCharacter[i][k], i, k);
+			playermanager::GetInstance().GetUseCharacter(m_UseCharacter[i].Character[k], i, k);
 		}
 	}
 
-	playermanager::GetInstance().Initialize(MaxPlyer);
-
+	playermanager::GetInstance().Initialize(m_max_player);
 }
 
 void Gamemain::Update(void)
@@ -56,7 +52,7 @@ void Gamemain::Update(void)
 
 void Gamemain::Draw(void)
 {
-	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, water_surface));
+	vivid::DrawTexture("data\\background.png", vivid::Vector2(0.0f, m_water_surface));
 
 	FisherManager::GetInstance().Draw();
 

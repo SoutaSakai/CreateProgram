@@ -16,7 +16,7 @@ void CharacterSelect::Initialize(void)
 {
 	m_CharacterPosition = new vivid::Vector2[m_max_character];
 	m_FlamePosition = new vivid::Vector2[m_max_player];
-	m_CullentSelect = new CHARACTER_ID[m_max_player];
+	m_CullentSelect = new int[m_max_player];
 
 	for (int i = 0; i < m_max_character; ++i)
 	{
@@ -32,7 +32,7 @@ void CharacterSelect::Initialize(void)
 
 	for (int i = 0; i < m_max_player; ++i)
 	{
-		m_CullentSelect[i] = CHARACTER_ID::DUMMY;
+		m_CullentSelect[i] = (int)CHARACTER_ID::DUMMY;
 
 		m_FlamePosition[i].x = GetFlamePosition(0).x;
 		m_FlamePosition[i].y = GetFlamePosition(0).y;
@@ -95,11 +95,21 @@ void CharacterSelect::Finalize(void)
 {
 }
 
+void CharacterSelect::SetCullentSelect(int cullent)
+{
+	m_CullentSelect[0] = cullent;
+}
+
 void CharacterSelect::Keyboard(void)
 {
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::D) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::RIGHT))
 	{
+		m_CullentSelect++;
 
+		if (m_CullentSelect[0] > 5)
+			m_CullentSelect = 0;
+
+		m_FlamePosition[0] = GetFlamePosition((int)m_CullentSelect[0]);
 	}
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
 	{
@@ -117,8 +127,8 @@ void CharacterSelect::Keyboard(void)
 
 vivid::Vector2 CharacterSelect::GetFlamePosition(int num)
 {
-	float CenterPositionX = m_CharacterPosition[num].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
-	float CenterPositionY = m_CharacterPosition[num].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionX = m_CharacterPosition[num + 1].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionY = m_CharacterPosition[num + 1].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
 
 	float FlamePositionX = CenterPositionX - m_flame_width / 2.0f;
 	float FlamePositionY = CenterPositionY - m_flame_height / 2.0f;

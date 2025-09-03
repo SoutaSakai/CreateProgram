@@ -13,5 +13,20 @@ public:
 	void Finalize(void) override;
 
 private:
-	static const float		water_surface;
+	struct UseCharacter
+	{
+		CHARACTER_ID* Character;
+	};
+
+	static const int		m_max_player;
+	static const int		m_max_fish;
+	static const float		m_water_surface;
+
+	UseCharacter*	m_UseCharacter;
+
+	//{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
+	//	//{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	//	//{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	//	//{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}
+	//};
 };

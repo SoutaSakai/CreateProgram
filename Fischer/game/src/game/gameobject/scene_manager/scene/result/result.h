@@ -18,6 +18,9 @@ private:
 		vivid::Vector2* Character;
 	};
 
+	static const int	m_table_width;					// 枠の幅
+	static const int	m_table_height;					// 枠の高さ
+	static const int	m_log_width;					// 丸太の幅
 	static const int	m_rank_width;					// 順位の幅
 	static const int	m_rank_height;					// 順位の高さ
 	static const int	m_use_character_text_width;		// 「使用キャラクター」文字列の幅

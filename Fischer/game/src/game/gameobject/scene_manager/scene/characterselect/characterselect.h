@@ -14,7 +14,7 @@ public:
 	void Draw(void) override;
 	void Finalize(void) override;
 
-
+	void SetCullentSelect(int);
 
 private:
 	void Keyboard(void);
@@ -29,5 +29,5 @@ private:
 
 	vivid::Vector2*		m_CharacterPosition;	// キャラクターの座標
 	vivid::Vector2*		m_FlamePosition;		// 選択枠の座標
-	CHARACTER_ID*		m_CullentSelect;		// 選択中キャラクターのID
+	int*				m_CullentSelect;		// 選択中キャラクターのID
 };

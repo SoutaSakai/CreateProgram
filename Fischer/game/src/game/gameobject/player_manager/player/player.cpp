@@ -1,14 +1,11 @@
 #include "Player.h"
 
-//確認コード===>
 #include<DxLib.h>
-//<===
-
-//追加コード===>
 #include "..\..\feed_manager\feed_manager.h"
 #include "..\..\character_manager\character_manager.h"
 #include "..\..\fisher_manager\fisher_manager.h"
-//<===
+#include "..\..\scene_manager\scene\characterselect\characterselect.h"
+#include "..\..\scene_manager\scene_manager.h"
 
 const float Player::WaterHEIGHT = 165;
 
@@ -74,7 +71,10 @@ void Player::Update(void)
 
 		this->CharacterStick();
 
-		this->Keyboard();
+		if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::CHARACTERSELECT)
+			this->KeyboardCharacterSelect();
+		else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
+			this->KeyboardGamemain();
 	}
 
 	this->CheckWall();
@@ -197,7 +197,7 @@ void Player::CharacterStick(void)
 
 }
 
-void Player::Keyboard(void)
+void Player::KeyboardGamemain(void)
 {
 	//追加コード===>
 	int FisherMax = FisherManager::GetInstance().GetMax();
@@ -302,6 +302,31 @@ void Player::Keyboard(void)
 		}
 	}
 	//<===
+}
+
+void Player::KeyboardCharacterSelect(void)
+{
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::D) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::RIGHT))
+	{
+		//m_CullentSelect++;
+
+
+		//if (m_CullentSelect[0] > 5)
+		//	m_CullentSelect = 0;
+
+	}
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
+	{
+
+	}
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::W) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::UP))
+	{
+
+	}
+	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::S) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::DOWN))
+	{
+
+	}
 }
 
 void Player::CheckWall(void)

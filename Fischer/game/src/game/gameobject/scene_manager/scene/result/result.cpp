@@ -4,6 +4,9 @@
 #include "result.h"
 #include "vivid.h"
 
+const int	Result::m_table_width				= 860;		// 枠の幅
+const int	Result::m_table_height				= 370;		// 枠の高さ
+const int	Result::m_log_width					= 30;		// 丸太の幅
 const int	Result::m_rank_width				= 110;		// 順位の幅
 const int	Result::m_rank_height				= 70;		// 順位の高さ
 const int	Result::m_use_character_text_width	= 190;		// 「使用キャラクター」文字列の幅
@@ -50,6 +53,7 @@ void Result::Initialize(void)
 		m_UseCharacterPosition[i].Character = new vivid::Vector2[m_max_player];		// 使用キャラクターの座標（2次元目）
 	}
 
+	/* 座標計算 */
 	m_ButtonPosition[0] = { vivid::WINDOW_WIDTH / 2 - m_button_width / 2, vivid::WINDOW_HEIGHT / 7 * 5 };	// 「キャラクターセレクトに戻る」ボタンのポジション
 	m_ButtonPosition[1] = { vivid::WINDOW_WIDTH / 2 - m_button_width / 2, vivid::WINDOW_HEIGHT / 6 * 5 };	// 「やめる」ボタンのポジション
 	m_ButtonAnchor = { m_button_width / 2,m_button_height / 2 };											// ボタンの基準点
@@ -58,8 +62,8 @@ void Result::Initialize(void)
 	{
 		m_Score[i] = 0.0f;		// 得点
 
-		m_RankTextPosition[i].x = vivid::WINDOW_WIDTH / 5;							// 順位のx座標
-		m_RankTextPosition[i].y = vivid::WINDOW_HEIGHT / 6 + m_rank_height * i;		// 順位のy座標
+		m_RankTextPosition[i].x = vivid::WINDOW_WIDTH / 5;											// 順位のx座標
+		m_RankTextPosition[i].y = vivid::WINDOW_HEIGHT / 6 + (m_rank_height + m_distance / 2) * i;	// 順位のy座標
 
 		m_UseCharacterTextPosition[i].x = m_RankTextPosition[i].x + m_rank_width;									// 「使用キャラクター」文字列のx座標
 		m_UseCharacterTextPosition[i].y = m_RankTextPosition[i].y + (m_rank_height - m_use_character_text_height);	// 「使用キャラクター」文字列のy座標
@@ -153,7 +157,7 @@ void Result::Draw(void)
 
 	vivid::Rect rect = { 0,0,0,0 };
 
-	vivid::DrawTexture("data\\table.png", vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 40.0f));
+	vivid::DrawTexture("data\\table.png", vivid::Vector2(m_RankTextPosition[0].x - m_log_width, m_RankTextPosition[0].y - m_log_width));
 
 	// プレイヤー一人毎の表示
 	for (int i = 0; i < m_max_player; i++)

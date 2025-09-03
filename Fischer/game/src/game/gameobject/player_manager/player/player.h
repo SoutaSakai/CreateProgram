@@ -31,8 +31,11 @@ public:
 	//スティックの入力で角度を求める
 	void CharacterStick(void);
 
-	//キーボード入力処理
-	void Keyboard(void);
+	//ゲームメイン画面のキーボード入力処理
+	void KeyboardGamemain(void);
+
+	//キャラクター選択画面のキーボード入力処理
+	void KeyboardCharacterSelect(void);
 
 	//画面外に出ないように
 	void CheckWall(void);

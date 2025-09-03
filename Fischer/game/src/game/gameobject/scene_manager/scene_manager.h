@@ -20,6 +20,8 @@ public:
 
 	void Change_scene(SCENE_ID next_scene);
 
+	SCENE_ID GetCullentSceneId();
+
 private:
 
 	void Change(void);
@@ -31,7 +33,7 @@ private:
 	SceneManager& operator=(const SceneManager& rhs);
 
 	IScene* Iscene;
-	SCENE_ID Current_scene_id;
-	SCENE_ID Next_scene_id;
+	SCENE_ID m_CurrentSceneId;
+	SCENE_ID m_NextSceneId;
 };
 

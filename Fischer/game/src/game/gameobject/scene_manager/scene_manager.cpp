@@ -23,7 +23,7 @@ void SceneManager::Initialize(void)
 void SceneManager::Update(void)
 {
 	// シーンの切り替わり確認
-	if (Current_scene_id != Next_scene_id)
+	if (m_CurrentSceneId != m_NextSceneId)
 		Change(); // 切り替え関数
 
 	// シーンの更新
@@ -52,7 +52,13 @@ void SceneManager::Finalize(void)
 // シーンの切り替え（要求）
 void SceneManager::Change_scene(SCENE_ID next_scene)
 {
-	Next_scene_id = next_scene;
+	m_NextSceneId = next_scene;
+}
+
+// 現在のシーンの取得
+SCENE_ID SceneManager::GetCullentSceneId()
+{
+	return m_CurrentSceneId;
 }
 
 // シーンの切り替え（実際の動作）
@@ -69,7 +75,7 @@ void SceneManager::Change(void)
 	}
 
 	// 新しいシーンを作成する
-	switch (Next_scene_id)
+	switch (m_NextSceneId)
 	{
 	case SCENE_ID::TITLE:
 		Iscene = new Title();
@@ -90,13 +96,13 @@ void SceneManager::Change(void)
 		Iscene->Initialize();
 
 	// シーンIDを合わせる
-	Current_scene_id = Next_scene_id;
+	m_CurrentSceneId = m_NextSceneId;
 }
 
 // コンストラクタ
 SceneManager::SceneManager(void)
-	: Current_scene_id(SCENE_ID::DUMMY)
-	, Next_scene_id(SCENE_ID::DUMMY)
+	: m_CurrentSceneId(SCENE_ID::DUMMY)
+	, m_NextSceneId(SCENE_ID::DUMMY)
 	, Iscene(nullptr)
 {
 }
