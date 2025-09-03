@@ -45,7 +45,8 @@ void Elsctriceel::CheckHitSkill(void)
 			CollisionDetection(i,0);
 			
 			//ミラーウツボだったら
-			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL)
+			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL &&
+				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
 				CollisionDetection(i, 1);
 			}

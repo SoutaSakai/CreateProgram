@@ -35,7 +35,7 @@ void Player::Update(void)
 
 		this->CharacterStick();
 
-		//if((int)m_PlayerID == 0)
+		if((int)m_PlayerID == 1)
 			this->Keyboard();
 	}
 
@@ -105,6 +105,25 @@ void Player::Controller(void)
 	if (vivid::controller::Button(m_PlayerID, vivid::controller::BUTTON_ID::RIGHT_SHOULDER))
 	{
 		vivid::DrawText(40, "RIGHT_SHOULDER", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
+
+		if (!playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
+
+			//SkilFlagをtrueにする
+			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
+
+			//ControlFlagをfalseにする	==> 一部キャラだけ
+			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
+			{
+				playermanager::GetInstance().ChangeControlFlagFalse((int)m_PlayerID);
+			}
+
+			//オブジェクトを作る
+			SkilManager::Getinstance().CreateObj((int)m_PlayerID, UseCharacter[CharaNo]);
+
+			//初期化する
+			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Scale);
+
+		}
 
 	}
 }

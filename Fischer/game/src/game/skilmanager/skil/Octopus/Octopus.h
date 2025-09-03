@@ -23,6 +23,7 @@ public:
 
 	//ƒXƒLƒ‹‚Ì“–‚½‚è”»’è
 	void CheckHitSkill(void);
+	void CollisionDetection(int number, int pattern);
 
 private:
 

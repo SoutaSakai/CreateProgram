@@ -60,37 +60,66 @@ void CLionFish::CheckHitSkill(void)
 	{
 		if (i != m_PlayerNumber)
 		{
-			//対象の座標
-			vivid::Vector2 position = playermanager::GetInstance().GetPosition(i);
-			//対象の角度
-			float angle = playermanager::GetInstance().GetAngle(i);
-			//対象のキャラクター
-			CHARACTER_ID character = playermanager::GetInstance().GetCharacter(i);
-			//キャラクターの横幅と立幅
-			float width = CharacterManager::GetInstance().CharacterWIDTH(character);
-			float height = CharacterManager::GetInstance().CharacterHEIGHT(character);
+			CollisionDetection(i, 0);
 
-			//右辺・左辺のどちらかがインクの中に入っていたら
-			if ((m_Position.x <= position.x && position.x <= m_Position.x + m_width) ||
-				(m_Position.x <= position.x + width && position.x + width <= m_Position.x + m_width))
+			//ミラーウツボだったら
+			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL &&
+				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				//上辺・下辺のどちらかが入っていたら
-				if ((m_Position.y <= position.y && position.y <= m_Position.y + m_height) ||
-					(m_Position.y <= position.x + height && position.y + height <= m_Position.y + m_height))
-				{
-					//当たっている時の処理
-					playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, true);
-					vivid::DrawText(40, "attateru", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
-				}
-				else
-				{
-					playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
-				}
-			}
-			else
-			{
-				playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
+				CollisionDetection(i, 1);
 			}
 		}
+	}
+}
+
+void CLionFish::CollisionDetection(int number, int pattern)
+{
+	vivid::Vector2 position;
+	float angle;
+	CHARACTER_ID character;
+
+	if (pattern == 0)
+	{
+		//対象の座標
+		position = playermanager::GetInstance().GetPosition(number);
+		//対象の角度
+		angle = playermanager::GetInstance().GetAngle(number);
+		//対象のキャラクター
+		character = playermanager::GetInstance().GetCharacter(number);
+	}
+	else
+	{
+		//対象の座標
+		position = SkilManager::Getinstance().GetMirrormorayDecoyPos(number);
+		//対象の角度
+		angle = SkilManager::Getinstance().GetMirrormorayDecoyAngle(number);
+		//対象のキャラクター
+		character = CHARACTER_ID::MIRRORMORAYELL;
+	}
+
+	//キャラクターの横幅と立幅
+	float width = CharacterManager::GetInstance().CharacterWIDTH(character);
+	float height = CharacterManager::GetInstance().CharacterHEIGHT(character);
+
+	//右辺・左辺のどちらかがインクの中に入っていたら
+	if ((m_Position.x <= position.x && position.x <= m_Position.x + m_width) ||
+		(m_Position.x <= position.x + width && position.x + width <= m_Position.x + m_width))
+	{
+		//上辺・下辺のどちらかが入っていたら
+		if ((m_Position.y <= position.y && position.y <= m_Position.y + m_height) ||
+			(m_Position.y <= position.x + height && position.y + height <= m_Position.y + m_height))
+		{
+			//当たっている時の処理
+			playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, true);
+			vivid::DrawText(40, "attateru", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+		}
+		else
+		{
+			playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
+		}
+	}
+	else
+	{
+		playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
 	}
 }

@@ -73,11 +73,8 @@ void Porcupinefish::Update()
 
 void Porcupinefish::CheckHitSkill(void)
 {
-	//針の3つの頂点格納変数
-	vivid::Vector2 SpineVertex[6][3];
-
 	//針の対角線の長さを求める
-	float Spinediagonal = sqrt(pow(0 - m_Spinewidth / 2, 2) + pow(0 - m_Spineheight / 2, 2));
+	Spinediagonal = sqrt(pow(0 - m_Spinewidth / 2, 2) + pow(0 - m_Spineheight / 2, 2));
 
 	for (int i = 0; i < m_MaxSpine; i++)
 	{
@@ -99,63 +96,13 @@ void Porcupinefish::CheckHitSkill(void)
 	{
 		if (i != m_PlayerNumber)
 		{
-			//回転した状態の四角形の頂点の座標
-			vivid::Vector2 vertex[4];
+			CollisionDetection(i, 0);
 
-			//対象の座標
-			vivid::Vector2 targetposition = playermanager::GetInstance().GetPosition(i);
-			//対象の角度
-			float targetangle = playermanager::GetInstance().GetAngle(i);
-			//対象のキャラクター
-			CHARACTER_ID targetcharacter = playermanager::GetInstance().GetCharacter(i);
-			//キャラクターの横幅と立幅
-			float width = CharacterManager::GetInstance().CharacterWIDTH(targetcharacter);
-			float height = CharacterManager::GetInstance().CharacterHEIGHT(targetcharacter);
-			//対象の中心点
-			vivid::Vector2 targetcenterpos = vivid::Vector2(targetposition.x + width / 2, targetposition.y + height / 2);
-			//対象の対角線の長さを求める
-			float targetdiagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2) + pow(targetposition.y - targetcenterpos.y, 2));
-
-			for (int j = 0; j < 4; j++)
+			//ミラーウツボだったら
+			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL && 
+				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				//回転した状態の頂点の座標を求める
-				vertex[j].x = cos((targetangle + 135 + 90 * j) * 3.14 / 180) * targetdiagonal + targetcenterpos.x;
-				vertex[j].y = sin((targetangle + 135 + 90 * j) * 3.14 / 180) * targetdiagonal + targetcenterpos.y;
-			}
-
-			//針の辺(AB)とcharacterの辺(CD)が交差してるか調べる
-			vivid::Vector2 A, B, C, D;
-			//針の数
-			for (int p = 0; p < m_MaxSpine; p++)
-			{
-				//針が有効だったら
-				if (m_SpineFlag[p])
-				{
-					//三角形の辺の数
-					for (int t = 0; t < 3; t++)
-					{
-						//三角形の一辺(AB)
-						A = SpineVertex[p][t];
-						if (t >= 2)	B = SpineVertex[p][0];
-						else		B = SpineVertex[p][t + 1];
-
-						//characterの辺の数
-						for (int b = 0; b < 4; b++)
-						{
-							//characterの一辺(CD)
-							C = vertex[b];
-							if (b >= 3)	D = vertex[0];
-							else		D = vertex[b + 1];
-
-							if (CheckCross(A, B, C, D))
-							{
-								//フラグをfalseにする
-								m_SpineFlag[p] = false;
-								vivid::DrawText(40, "HIT", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
-							}
-						}
-					}
-				}
+				CollisionDetection(i, 1);
 			}
 		}
 	}
@@ -180,4 +127,86 @@ bool Porcupinefish::CheckCross(vivid::Vector2 A, vivid::Vector2 B, vivid::Vector
 		return true;
 
 	return false;
+}
+
+void Porcupinefish::CollisionDetection(int number, int pattern)
+{
+	//回転した状態の四角形の頂点の座標
+	vivid::Vector2 vertex[4];
+
+	CHARACTER_ID targetcharacter;
+	vivid::Vector2 targetposition;
+	vivid::Vector2 targetcenterpos;
+	float targetangle;
+	float width, height;
+	float diagonal;
+
+	if (pattern == 0)
+	{
+		//対象の座標
+		targetposition = playermanager::GetInstance().GetPosition(number);
+		//対象の角度
+		targetangle = playermanager::GetInstance().GetAngle(number);
+		//対象のキャラクター
+		targetcharacter = playermanager::GetInstance().GetCharacter(number);
+	}
+	else
+	{
+		//対象の座標
+		targetposition = SkilManager::Getinstance().GetMirrormorayDecoyPos(number);
+		//対象の角度
+		targetangle = SkilManager::Getinstance().GetMirrormorayDecoyAngle(number);
+		//対象のキャラクター
+		targetcharacter = CHARACTER_ID::MIRRORMORAYELL;
+	}
+	
+	//キャラクターの横幅と立幅
+	width = CharacterManager::GetInstance().CharacterWIDTH(targetcharacter);
+	height = CharacterManager::GetInstance().CharacterHEIGHT(targetcharacter);
+	//対象の中心点
+	targetcenterpos = vivid::Vector2(targetposition.x + width / 2, targetposition.y + height / 2);
+	//対象の対角線の長さを求める
+	diagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2) + pow(targetposition.y - targetcenterpos.y, 2));
+
+	for (int j = 0; j < 4; j++)
+	{
+		//回転した状態の頂点の座標を求める
+		vertex[j].x = cos((targetangle + 135 + 90 * j) * 3.14 / 180) * diagonal + targetcenterpos.x;
+		vertex[j].y = sin((targetangle + 135 + 90 * j) * 3.14 / 180) * diagonal + targetcenterpos.y;
+	}
+
+	//針の辺(AB)とcharacterの辺(CD)が交差してるか調べる
+	vivid::Vector2 A, B, C, D;
+	//針の数
+	for (int p = 0; p < m_MaxSpine; p++)
+	{
+		//針が有効だったら
+		if (m_SpineFlag[p])
+		{
+			//三角形の辺の数
+			for (int t = 0; t < 3; t++)
+			{
+				//三角形の一辺(AB)
+				A = SpineVertex[p][t];
+				if (t >= 2)	B = SpineVertex[p][0];
+				else		B = SpineVertex[p][t + 1];
+
+				//characterの辺の数
+				for (int b = 0; b < 4; b++)
+				{
+					//characterの一辺(CD)
+					C = vertex[b];
+					if (b >= 3)	D = vertex[0];
+					else		D = vertex[b + 1];
+
+					if (CheckCross(A, B, C, D))
+					{
+						//フラグをfalseにする
+						m_SpineFlag[p] = false;
+						vivid::DrawText(40, "HIT", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+					}
+				}
+			}
+		}
+	}
 }

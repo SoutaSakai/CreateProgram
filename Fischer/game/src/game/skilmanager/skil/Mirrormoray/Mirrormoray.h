@@ -32,11 +32,14 @@ private:
 	static const float		m_height;		//立幅
 
 	vivid::Vector2			m_Position;				//座標
+	float					m_Speed;
+	float					m_Distance;
 	vivid::Rect				m_Rect;					//表示範囲
 	std::string				m_FilePath;				//ファイルパス
 	vivid::Vector2			m_Anchor;				//基準点
-	float					m_Angle;				//向き
+	float					m_directionAngle;				//向き
 	vivid::Vector2			m_PositionAngle;		//位置の角度
+	float					m_Angle;
 
 	int m_PlayerNumber;
 
