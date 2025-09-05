@@ -60,7 +60,7 @@ void Result::Initialize(void)
 
 	for (int i = 0; i < m_max_player; i++)
 	{
-		m_Score[i] = 0.0f;		// 得点
+		m_Score[i] = ScoreManager::GetInstance().GetScore(i);		// 得点
 
 		m_RankTextPosition[i].x = vivid::WINDOW_WIDTH / 5;											// 順位のx座標
 		m_RankTextPosition[i].y = vivid::WINDOW_HEIGHT / 6 + (m_rank_height + m_distance / 2) * i;	// 順位のy座標
@@ -104,9 +104,6 @@ void Result::Update(void)
 {
 	namespace keyboard = vivid::keyboard;
 
-	
-	// 大幅改変===>
-
 	//キャラクター選択画面にもどるのボタン
 	if (keyboard::Trigger(keyboard::KEY_ID::W))
 	{
@@ -131,7 +128,7 @@ void Result::Update(void)
 		//Wボタンのとき
 		if (m_ButtonFlag)
 		{
-			SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN);
+			SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
 			ScoreManager::GetInstance().Initialize();
 		}
 		//Sボタンのとき

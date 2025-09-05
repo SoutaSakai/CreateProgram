@@ -1,4 +1,7 @@
 #include "score_manager.h"
+#include "..\scene_manager\scene_manager.h"
+#include "..\player_manager\player_manager.h"
+
 const int ScoreManager::m_width = 32;//number一つの幅
 
 const int ScoreManager::m_height = 48;//number一つの高さ
@@ -29,11 +32,6 @@ void ScoreManager::Initialize(void)
 		}
 	}
 
-	m_Rect = { 0,0,450,100 };
-	m_Anchor = { 225,50 };
-	m_Scale = { 1.3,1.3 };
-	m_ButtonPosition = { vivid::WINDOW_WIDTH / 2 - 225,vivid::WINDOW_HEIGHT / 2 };
-
 	//{0.0f + m_height * 5,0.0f},/*Player1スコア*/
 	///*528*/	{(vivid::WINDOW_WIDTH / 2) / 2 + m_height,0.0f},/*Player2スコア*/
 	//{(vivid::WINDOW_WIDTH - (vivid::WINDOW_WIDTH / 2 / 2 + m_height)) ,0.0f},/*Player3スコア*/
@@ -43,30 +41,6 @@ void ScoreManager::Initialize(void)
 
 void ScoreManager::Update(void)
 {
-	namespace keyboard = vivid::keyboard;
-
-	if (Time::GetInstance().GetFlag())
-	{
-		if (Time::GetInstance().GetTimer() > 1)//タイムが０より大きい
-		{
-			if (keyboard::Trigger(keyboard::KEY_ID::W))
-			{
-				m_Score[0] += m_point;
-			}
-			if (keyboard::Trigger(keyboard::KEY_ID::A))
-			{
-				m_Score[1] += m_point;
-			}
-			if (keyboard::Trigger(keyboard::KEY_ID::S))
-			{
-				m_Score[2] += m_point;
-			}
-			if (keyboard::Trigger(keyboard::KEY_ID::D))
-			{
-				m_Score[3] += m_point;
-			}
-		}
-	}
 }
 
 void ScoreManager::Draw(void)
@@ -104,35 +78,33 @@ void ScoreManager::Draw(void)
 
 		} while (m_TempScore[i] > 0);
 	}
-
-
-	if (Time::GetInstance().GetTimer() <= 1)
-	{
-		vivid::DrawTexture("data\\button.png", m_ButtonPosition, 0xffffffff, m_Rect, m_Anchor, m_Scale);
-		vivid::DrawText(25, "リザルト(ENTERボタンを押してね)", vivid::Vector2(m_ButtonPosition.x + 225 - (25 * 8), m_ButtonPosition.y + 50 - 12.5), 0xffffffff);
-
-		//RETURNはエンター
-		if (keyboard::Button(keyboard::KEY_ID::RETURN))
-		{
-			SceneManager::GetInstance().Change_scene(SCENE_ID::RESULT);
-		}
-	}
 }
 
 void ScoreManager::Finalize(void)
 {
 }
 
-int ScoreManager::GetScore(int a)//リザルトのほうにスコアを渡してる
+int ScoreManager::GetScore(int a)//スコア取得
 {
+	int work = 0;
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < m_max_player; j++)
+		{
+			if (m_Score[i] < m_Score[i + 1])
+			{
+				work = m_Score[i + 1];
+				m_Score[i + 1] = m_Score[i];
+				m_Score[i] = work;
+
+			}
+		}
+	}
 	return m_Score[a];
 }
 
-
-
-
-
-
-
-
-
+void ScoreManager::AddScore(int score, vivid::controller::DEVICE_ID num)
+{
+	m_Score[(int)num] += score;
+}

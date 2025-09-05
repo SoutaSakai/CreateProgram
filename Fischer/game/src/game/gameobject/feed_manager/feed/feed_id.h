@@ -7,5 +7,6 @@ enum class FEED_ID
 	WORM,
 	MEET,
 	GOLD,
+
 	MAX,
 };

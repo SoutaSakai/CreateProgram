@@ -3,10 +3,10 @@
 #include"vivid.h"
 
 
-class Time
+class CTimeManager
 {
 public:
-	static Time& GetInstance(void);
+	static CTimeManager& GetInstance(void);
 
 	void Initialize(void);
 
@@ -39,16 +39,11 @@ private:
 	bool m_DrawFlag;
 	bool m_StartFlag;
 
-	Time(void) = default;
+	CTimeManager(void) = default;
 
-	~Time(void) = default;
+	~CTimeManager(void) = default;
 
-	Time(const Time& rhs) = delete;
+	CTimeManager(const CTimeManager& rhs) = delete;
 
-	Time& operator=(const Time& rhs) = delete;
-
-
-
-
-
+	CTimeManager& operator=(const CTimeManager& rhs) = delete;
 };

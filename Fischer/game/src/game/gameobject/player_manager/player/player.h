@@ -2,8 +2,9 @@
 #include"vivid.h"
 #include"../../Character_manager/CharacterID.h"
 #include"../../Character_manager/Character_manager.h"
-
+#include"..\..\feed_manager\feed\feed_id.h"
 #include"../player_manager.h"
+#include "..\..\feed_manager\feed\feed.h"
 
 //スキルインクルード
 #include"../Skil/Tuna/Tuna.h"
@@ -46,13 +47,16 @@ public:
 
 	void Setting(void);
 
+	void SetFeedID(FEED_ID);
+
+	bool CheckHitFeed(Feed*);
+
 private:
 	vivid::controller::DEVICE_ID m_PlayerID;
 
 	CHARACTER_ID UseCharacter[3];
 
 	vivid::Vector2 CharacterPos;	//characterの座標
-
 	float CharaWIDTH;				//characterの横幅
 	float CharaHEIGHT;				//characterの立幅
 	float CharaSpeed;				//characterのスピード
@@ -60,21 +64,21 @@ private:
 	std::string CharaFilePath;		//characterのファイルパス
 	vivid::Vector2 CharaMouthPos;	//characterの口の位置
 	float CharaMouthRadius;			//characterの口の半径
-
-	int	CharaNo;					//今のラウンドのキャラ
-
 	vivid::Vector2 Anchor;			//characterの中心
 	float Angle;					//characterの角度
 	vivid::Vector2 Scale;			//characterの拡大率
 
+	int	CharaNo;					//今のラウンドのキャラ
+
 	bool SkilFlag;				//スキルのフラグ
 	bool ControlFlag;			//プレイヤーが操作できるかどうか
 
-	static const float WaterHEIGHT;
+	int		m_Score;
 
-	//追加コード===>
+	FEED_ID m_FeedID;
+
+	static const float WaterHEIGHT;
 	static const float MouthDis;
-	//<===
 
 	//スキルクラス
 	Tuna* tuna;

@@ -3,26 +3,26 @@
 #include"../score_manager/score_manager.h"
 #include "time_manager.h"
 
-const float Time::m_number_width = 32.0f;		//数字の幅
+const float CTimeManager::m_number_width = 32.0f;		//数字の幅
 
-const float Time::m_number_height = 48.0f;	//数字の高さ m_height = 48;//画像サイズの高さ
+const float CTimeManager::m_number_height = 48.0f;	//数字の高さ m_height = 48;//画像サイズの高さ
 
-const float Time::m_word_width = 30.0f;		//「Time」文字列の幅 m__width = 30;//画像サイズの幅
+const float CTimeManager::m_word_width = 30.0f;		//「Time」文字列の幅 m__width = 30;//画像サイズの幅
 
-const float Time::m_word_height = 50.0f;		//「Time」文字列の高さ m__height = 50;//画像サイズの高さ
+const float CTimeManager::m_word_height = 50.0f;		//「Time」文字列の高さ m__height = 50;//画像サイズの高さ
 
 namespace keyboard = vivid::keyboard;
 
 
 
-Time& Time::GetInstance(void)
+CTimeManager& CTimeManager::GetInstance(void)
 {
-	static Time instance;
+	static CTimeManager instance;
 
 	return instance;
 }
 
-void Time::Initialize(void)
+void CTimeManager::Initialize(void)
 {
 	m_StartPosition = { vivid::WINDOW_WIDTH / 2 - m_number_width / 2,vivid::WINDOW_HEIGHT / 2 - m_number_height };//スタートの描画ポジション
 
@@ -35,7 +35,7 @@ void Time::Initialize(void)
 	m_Timer = 10.0f;
 }
 
-void Time::Update(void)
+void CTimeManager::Update(void)
 {
 	m_StartTimer -= vivid::GetDeltaTime();
 
@@ -61,7 +61,7 @@ void Time::Update(void)
 	}
 }
 
-void Time::Draw(void)
+void CTimeManager::Draw(void)
 {
 	vivid::Vector2 Start_position = m_StartPosition;
 	int start = m_StartTimer;
@@ -149,22 +149,22 @@ void Time::Draw(void)
 	vivid::DrawTexture("data\\time.png", pos2, 0xffffffff);
 }
 
-void Time::Finalize(void)
+void CTimeManager::Finalize(void)
 {
 
 }
 
-float Time::GetTimer(void)
+float CTimeManager::GetTimer(void)
 {
 	return m_Timer;
 }
 
-bool Time::GetFlag(void)
+bool CTimeManager::GetFlag(void)
 {
 	return  m_StartFlag;
 }
 
-bool Time::Finish(void)
+bool CTimeManager::Finish(void)
 {
 	return (m_Timer <= 0);
 }

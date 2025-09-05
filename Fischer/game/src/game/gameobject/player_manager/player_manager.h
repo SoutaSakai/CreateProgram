@@ -3,6 +3,7 @@
 
 #include"Player/Player.h"
 #include"../character_manager/CharacterID.h"
+#include "..\feed_manager\feed\feed.h"
 
 class Player;
 
@@ -21,6 +22,8 @@ public:
 
 	void InRoundCount(int RoundCount) { m_RoundCount = RoundCount; }
 	int  GetRoundCount(void) { return 1/*m_RoundCount*/; }
+
+	bool CheckHitFeed(Feed*);
 
 private:
 

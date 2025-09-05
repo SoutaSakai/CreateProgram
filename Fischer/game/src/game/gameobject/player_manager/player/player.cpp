@@ -2,10 +2,11 @@
 
 #include<DxLib.h>
 #include "..\..\feed_manager\feed_manager.h"
+#include "..\..\feed_manager\feed\feed_id.h"
 #include "..\..\character_manager\character_manager.h"
 #include "..\..\fisher_manager\fisher_manager.h"
 #include "..\..\scene_manager\scene\characterselect\characterselect.h"
-#include "..\..\scene_manager\scene_manager.h"
+#include "..\..\score_manager\score_manager.h"
 
 const float Player::WaterHEIGHT = 165;
 
@@ -13,6 +14,7 @@ const float Player::WaterHEIGHT = 165;
 const float Player::MouthDis = 55.0f;
 //<===
 
+// コンストラクタ
 Player::Player()
 	: CharacterPos(vivid::Vector2(0, 165))
 	, Scale(vivid::Vector2(1.0f, 1.0f))
@@ -20,11 +22,13 @@ Player::Player()
 	, ControlFlag(true)
 	, tuna(nullptr)
 	, Angle(0)
+	, m_Score(0)
 {
 	for (int i = 0; i < 3; i++)
 		UseCharacter[i] = CHARACTER_ID::DUMMY;
 }
 
+// 初期化
 void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 {
 	CharacterPos.x = Xpos;
@@ -42,80 +46,86 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 	this->ChangeRound();
 }
 
+// 更新
 void Player::Update(void)
 {
-	//追加コード===>
-	// キャラの中心位置
-	vivid::Vector2 CharaCenterPos = CharacterPos + vivid::Vector2(CharaWIDTH / 2, CharaHEIGHT / 2);
-
-	float x = 0;
-	float y = 0;
-
-	if (Scale.x >= 0)
+	if (CTimeManager::GetInstance().GetFlag())
 	{
-		x = cos(Angle);
-		y = sin(Angle);
-	}
-	else
-	{
-		x = cos(Angle + 180.0f * 3.14f / 180.0f);
-		y = sin(Angle + 180.0f * 3.14f / 180.0f);
-	}
-
-	CharaMouthPos = CharaCenterPos + vivid::Vector2(x * MouthDis, y * MouthDis);
-	//<===
-
-	if (ControlFlag)
-	{
-		this->Controller();
-
-		this->CharacterStick();
-
-		if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::CHARACTERSELECT)
-			this->KeyboardCharacterSelect();
-		else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
-			this->KeyboardGamemain();
-	}
-
-	this->CheckWall();
-
-	//スキルの更新
-	if (SkilFlag)
-	{
-		switch (UseCharacter[playermanager::GetInstance().GetRoundCount() - 1])
+		if (CTimeManager::GetInstance().GetTimer() > 1)//タイムが０より大きい
 		{
-		case CHARACTER_ID::DUMMY:
-			break;
-		case CHARACTER_ID::ELSCTRICEEL:
-			break;
-		case CHARACTER_ID::PORCUPINEFISH:
-			break;
-		case CHARACTER_ID::SHARK:
-			break;
-		case CHARACTER_ID::LIONFISH:
-			break;
-		case CHARACTER_ID::MIRRORMORAYELL:
-			break;
-		case CHARACTER_ID::TURTLE:
-			break;
-		case CHARACTER_ID::OCTOPUS:
-			break;
-		case CHARACTER_ID::POINTUNA:
-			break;
-		case CHARACTER_ID::TUNA:
-			if(tuna != nullptr)
-				CharacterPos = tuna->Update(CharacterPos, Angle, Scale.x);
-			break;
-		default:
-			break;
+			// キャラの中心位置
+			vivid::Vector2 CharaCenterPos = CharacterPos + vivid::Vector2(CharaWIDTH / 2, CharaHEIGHT / 2);
+
+			float x = 0;
+			float y = 0;
+
+			if (Scale.x >= 0)
+			{
+				x = cos(Angle);
+				y = sin(Angle);
+			}
+			else
+			{
+				x = cos(Angle + 180.0f * 3.14f / 180.0f);
+				y = sin(Angle + 180.0f * 3.14f / 180.0f);
+			}
+
+			CharaMouthPos = CharaCenterPos + vivid::Vector2(x * MouthDis, y * MouthDis);
+			//<===
+
+			if (ControlFlag)
+			{
+				this->Controller();
+
+				this->CharacterStick();
+
+				if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::CHARACTERSELECT)
+					this->KeyboardCharacterSelect();
+				else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
+					this->KeyboardGamemain();
+			}
+
+			this->CheckWall();
+
+			//スキルの更新
+			if (SkilFlag)
+			{
+				switch (UseCharacter[playermanager::GetInstance().GetRoundCount() - 1])
+				{
+				case CHARACTER_ID::DUMMY:
+					break;
+				case CHARACTER_ID::ELSCTRICEEL:
+					break;
+				case CHARACTER_ID::PORCUPINEFISH:
+					break;
+				case CHARACTER_ID::SHARK:
+					break;
+				case CHARACTER_ID::LIONFISH:
+					break;
+				case CHARACTER_ID::MIRRORMORAYELL:
+					break;
+				case CHARACTER_ID::TURTLE:
+					break;
+				case CHARACTER_ID::OCTOPUS:
+					break;
+				case CHARACTER_ID::POINTUNA:
+					break;
+				case CHARACTER_ID::TUNA:
+					if(tuna != nullptr)
+						CharacterPos = tuna->Update(CharacterPos, Angle, Scale.x);
+					break;
+				default:
+					break;
+				}
+			}
+
+			//// 各餌との判定
+			//for (int i = 0; i < 4; ++i)
+			//{
+			//	Hit_feed[i] = FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i);		
+			//}
 		}
 	}
-
-	//// 各餌との判定
-	//for (int i = 0; i < 4; ++i)
-	//{
-	//	Hit_feed[i] = FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i);		
-	//}
 }
 
 void Player::InUseCharacter(CHARACTER_ID first, CHARACTER_ID second, CHARACTER_ID third)
@@ -125,6 +135,7 @@ void Player::InUseCharacter(CHARACTER_ID first, CHARACTER_ID second, CHARACTER_I
 	UseCharacter[2] = third;
 }
 
+// デバッグ用
 void Player::InUseCharacter(CHARACTER_ID first)
 {
 	UseCharacter[0] = first;
@@ -172,7 +183,6 @@ void Player::Controller(void)
 	if (vivid::controller::Button(m_PlayerID, vivid::controller::BUTTON_ID::RIGHT_SHOULDER))
 	{
 		vivid::DrawText(40, "RIGHT_SHOULDER", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
-
 	}
 }
 
@@ -193,8 +203,6 @@ void Player::CharacterStick(void)
 		Scale.x = -1.0f;
 		Angle = atan2(ControllerPos.y * -1, ControllerPos.x * -1);
 	}
-
-
 }
 
 void Player::KeyboardGamemain(void)
@@ -208,12 +216,35 @@ void Player::KeyboardGamemain(void)
 		vivid::DrawText(40, "R", vivid::Vector2(200.0f, 0.0f));
 		for (int i = 0; i < FisherMax; ++i)
 		{
-			if (FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i))
+			if (FeedManager::GetInstance().GetHit(i))
 			{
-				vivid::DrawText(40, std::to_string(i), vivid::Vector2(300.0f, 0.0f));
-
 				// 当たっていた時
+
+#ifdef VIVID_DEBUG
+				vivid::DrawText(40, std::to_string(i), vivid::Vector2(300.0f, 0.0f));
+#endif
+
+				switch (FeedManager::GetInstance().GetFeedID(i))
+				{
+				case FEED_ID::LURE:
+					ScoreManager::GetInstance().AddScore(10, m_PlayerID);
+					break;
+				case FEED_ID::WORM:
+					ScoreManager::GetInstance().AddScore(20, m_PlayerID);
+					break;
+				case FEED_ID::MEET:
+					ScoreManager::GetInstance().AddScore(50, m_PlayerID);
+					break;
+				case FEED_ID::GOLD:
+					ScoreManager::GetInstance().AddScore(100, m_PlayerID);
+					break;
+				default:
+					break;
+				}
+
 				FeedManager::GetInstance().Destroy(i);
+
+				//m_Score += 10;
 			}
 		}
 	}
@@ -289,12 +320,13 @@ void Player::KeyboardGamemain(void)
 			case CHARACTER_ID::POINTUNA:
 				break;
 			case CHARACTER_ID::TUNA:
-			if (tuna == nullptr) { tuna = new Tuna(); }
+				if (tuna == nullptr) { tuna = new Tuna(); }
 
-			SkilFlag = true;
-			ControlFlag = false;
-			tuna->Initialize();
-			tuna->GetPointer(&SkilFlag, &ControlFlag);
+				SkilFlag = true;
+				ControlFlag = false;
+				tuna->Initialize();
+				tuna->GetPointer(&SkilFlag, &ControlFlag);
+
 				break;
 			default:
 				break;
@@ -378,3 +410,18 @@ void Player::Setting(void)
 
 }
 
+void Player::SetFeedID(FEED_ID id)
+{
+	/*m_FeedId = id;*/
+}
+
+bool Player::CheckHitFeed(Feed* feed)
+{
+	// 口が餌の範囲内かの判定
+	bool check = feed->GetRadius() + CharaMouthRadius > sqrt(pow(feed->GetCenterPos().x - CharaMouthPos.x, 2) + pow(feed->GetCenterPos().y - CharaMouthPos.y, 2));
+
+	//if (check)
+	//	feed->InActive(false);
+
+	return check;
+}

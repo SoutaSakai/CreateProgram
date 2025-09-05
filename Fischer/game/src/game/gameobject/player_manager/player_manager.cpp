@@ -40,8 +40,6 @@ void playermanager::Initialize(const int MaxPlayer)
 	player[1]->Setting();
 	player[2]->Setting();
 	player[3]->Setting();
-
-
 }
 
 void playermanager::Update(void)
@@ -68,4 +66,14 @@ void playermanager::Finalize(void)
 	}
 }
 
+bool playermanager::CheckHitFeed(Feed* feed)
+{
+	for (int i = 0; i < MaxPlayer; i++)
+	{
+		if (player[i]->CheckHitFeed(feed))
+			return true;
+	}
+
+	return false;
+}
 

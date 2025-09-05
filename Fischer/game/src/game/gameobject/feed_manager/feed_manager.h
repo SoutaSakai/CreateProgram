@@ -1,6 +1,7 @@
 #pragma once
 #include <list>
 #include "vivid.h"
+#include "feed/feed_id.h"
 
 class Feed;
 
@@ -33,10 +34,16 @@ public:
 	// 位置の設定
 	void SetPosition(vivid::Vector2, int);
 
+	bool GetHit(int);
+
+	FEED_ID GetFeedID(int);
+
 private:
+	static const	vivid::Vector2	m_RangeRand;	// 釣り人から餌までの距離
+	static const	vivid::Vector2	m_RangeSea;
+
 	Feed	*m_Feeds;			// 餌のオブジェクト配列
 	int		m_Max;				// 餌の最大値
-	vivid::Vector2	m_Range;	// 釣り人から餌までの距離
 
 	FeedManager(void);
 	~FeedManager(void) = default;

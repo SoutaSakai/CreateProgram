@@ -102,19 +102,20 @@ void CharacterSelect::SetCullentSelect(int cullent)
 
 void CharacterSelect::Keyboard(void)
 {
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::D) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::RIGHT))
-	{
-		m_CullentSelect++;
-
-		if (m_CullentSelect[0] > 5)
-			m_CullentSelect = 0;
-
-		m_FlamePosition[0] = GetFlamePosition((int)m_CullentSelect[0]);
-	}
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
-	{
-
-	}
+	//if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::D) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::RIGHT))
+	//{
+	//	if (m_CurrentSelect[0] < 5 - 1)
+	//	{
+	//		m_CurrentSelect[0]++;
+	//	}
+	//}
+	//if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
+	//{
+	//	if (m_CurrentSelect[0] > 0)
+	//	{
+	//		m_CurrentSelect[0]--;
+	//	}
+	//}
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::W) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::UP))
 	{
 
@@ -123,6 +124,8 @@ void CharacterSelect::Keyboard(void)
 	{
 
 	}
+
+	m_FlamePosition[0] = GetFlamePosition(m_CullentSelect[0]);
 }
 
 vivid::Vector2 CharacterSelect::GetFlamePosition(int num)

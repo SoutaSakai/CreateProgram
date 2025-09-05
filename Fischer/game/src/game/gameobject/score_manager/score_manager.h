@@ -18,6 +18,8 @@ public:
 
 	int GetScore(int);
 
+	void AddScore(int, vivid::controller::DEVICE_ID);
+
 private:
 	static const int m_width;			//画像サイズの幅
 	static const int m_height;			//画像サイズの高さ
@@ -26,11 +28,6 @@ private:
 
 	int m_Score[m_max_player];			//スコア保持
 	int m_PlayerPosition[m_max_player];	//プレイヤー位置
-
-	vivid::Rect m_Rect;								//ボタンの描画範囲
-	vivid::Vector2 m_Anchor;						//ボタンの基準点
-	vivid::Vector2 m_Scale;							//ボタンの拡大率
-	vivid::Vector2 m_ButtonPosition;				//ボタンの位置
 	vivid::Vector2 m_ScorePosition[m_max_player];	//スコアの位置
 
 	ScoreManager(void) = default;

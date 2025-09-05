@@ -287,6 +287,7 @@ std::string CharacterManager::CharacterFilePath(CHARACTER_ID Character)
 	switch (Character)
 	{
 	case CHARACTER_ID::DUMMY:
+		return nullptr;
 		break;
 
 	case CHARACTER_ID::ELSCTRICEEL:

@@ -36,6 +36,13 @@ public:
 	// 位置を返す
 	float GetPos(void);
 
+	FEED_ID GetId(void);
+
+	bool GetHit(void);
+	void SetHit(bool);
+
+	void Reset(void);
+
 private:
 	static const float	m_width;	// 幅
 	static const float	m_height;	// 高さ
@@ -43,4 +50,5 @@ private:
 	vivid::Vector2	m_Position;		// 位置
 	bool			m_ActiveFlag;	// アクティブフラグ
 	FEED_ID			m_Id;			// 種類
+	bool			m_Hit;			// 判定結果
 };

@@ -1,5 +1,9 @@
 #include "feed_manager.h"
 #include "feed/feed.h"
+#include "..\player_manager\player_manager.h"
+
+const vivid::Vector2	FeedManager::m_RangeRand	= vivid::Vector2(135.0f, 110.0f);
+const vivid::Vector2	FeedManager::m_RangeSea		= vivid::Vector2(115.0f, 465.0f);
 
 FeedManager& FeedManager::GetInstance(void)
 {
@@ -14,8 +18,6 @@ void FeedManager::Initialize(int max)
 	m_Max = max;
 
 	m_Feeds = new Feed[m_Max];
-
-	m_Range = vivid::Vector2(115.0f, 465.0f);
 }
 
 // 更新
@@ -26,10 +28,12 @@ void FeedManager::Update(void)
 	// 各餌オブジェクトの更新
 	for (int i = 0; i < m_Max; i++)
 	{
+		m_Feeds[i].SetHit(playermanager::GetInstance().CheckHitFeed(&m_Feeds[i]));
+
 		// 不活性なデータの初期化
 		if (!m_Feeds[i].IsActive())
 		{
-			m_Feeds[i].Finalize();
+			m_Feeds[i].Reset();
 
 			continue;
 		}
@@ -71,6 +75,9 @@ bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius, 
 {	
 	// 口が餌の範囲内かの判定
 	bool check = m_Feeds[number].GetRadius() + mouth_radius > sqrt(pow(m_Feeds[number].GetCenterPos().x - mouth_center_pos.x, 2) + pow(m_Feeds[number].GetCenterPos().y - mouth_center_pos.y, 2));
+	
+	if (!check)
+		m_Feeds[number].InActive(false);
 
 	return check;
 }
@@ -78,17 +85,17 @@ bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius, 
 // 餌の生成
 void FeedManager::Create(vivid::Vector2 fisher_position, int number)
 {
-	//Feed*	feed = nullptr;
+	Feed*	feed = nullptr;
 
-	//feed = new Feed();
+	feed = new Feed();
 
-	//if (!feed) return;
+	if (!feed) return;
 
-	//vivid::Vector2 Feed_position = { fisher_position.x + m_range.x, fisher_position.y + m_range.y };
+	vivid::Vector2 Feed_position = { fisher_position.x + m_RangeRand.x, fisher_position.y + m_RangeRand.y };
 
-	//feed->Initialize(Feed_position);
+	feed->Initialize(Feed_position);
 
-	//m_Feeds[number] = feed;
+	m_Feeds[number] = feed;
 }
 
 void FeedManager::Destroy(int number)
@@ -98,9 +105,19 @@ void FeedManager::Destroy(int number)
 
 void FeedManager::SetPosition(vivid::Vector2 fisher_position, int number)
 {
-	vivid::Vector2 Feed_position = { fisher_position.x + m_Range.x, fisher_position.y + m_Range.y };
+	vivid::Vector2 Feed_position = { fisher_position.x + m_RangeSea.x, fisher_position.y + m_RangeSea.y };
 
 	m_Feeds[number].Initialize(Feed_position);
+}
+
+bool FeedManager::GetHit(int num)
+{
+	return m_Feeds[num].GetHit();
+}
+
+FEED_ID FeedManager::GetFeedID(int num)
+{
+	return m_Feeds[num].GetId();
 }
 
 FeedManager::FeedManager(void)
