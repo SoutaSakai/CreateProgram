@@ -17,7 +17,7 @@ void Elsctriceel::Update(vivid::Vector2 Pos)
 	Timer += vivid::GetDeltaTime();
 
 	m_CenterPosition = vivid::Vector2(Pos.x + CharacterManager::GetInstance().CharacterWIDTH (CHARACTER_ID::ELSCTRICEEL) / 2,
-									Pos.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::ELSCTRICEEL) / 2);
+									  Pos.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::ELSCTRICEEL) / 2);
 
 	//当たり判定
 	CheckHitSkill();
@@ -44,12 +44,7 @@ void Elsctriceel::CheckHitSkill(void)
 			
 			CollisionDetection(i,0);
 			
-			//ミラーウツボだったら
-			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL &&
-				playermanager::GetInstance().GetSkilFlag(i) == true)
-			{
-				CollisionDetection(i, 1);
-			}
+			
 		}
 	}
 }

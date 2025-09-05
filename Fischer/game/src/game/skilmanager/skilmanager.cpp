@@ -20,7 +20,7 @@ void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Ve
 		porcupinefish[PlayerNumber]->Initialize(PlayerNumber,pos);
 		break;
 	case CHARACTER_ID::SHARK:
-		shark[PlayerNumber]->Initialize(PlayerNumber);
+		shark[PlayerNumber]->Initialize(PlayerNumber, pos);
 		break;
 	case CHARACTER_ID::LIONFISH:
 		lionfish[PlayerNumber]->Intialize(PlayerNumber, pos);
@@ -63,7 +63,7 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 
 	case CHARACTER_ID::SHARK:
-		shark[PlayerNumber]->Update();
+		shark[PlayerNumber]->Update(Pos,Angle);
 		return Pos;
 		break;
 
