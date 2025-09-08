@@ -1,6 +1,7 @@
 #include "characterselect.h"
 #include "..\..\scene_manager.h"
 #include "..\..\..\character_manager\character_manager.h"
+#include "..\..\..\player_manager\player_manager.h"
 
 const int	CharacterSelect::m_flame_width		= 220;	// 選択枠の幅
 const int	CharacterSelect::m_flame_height		= 100;	// 選択枠の高さ
@@ -16,7 +17,7 @@ void CharacterSelect::Initialize(void)
 {
 	m_CharacterPosition = new vivid::Vector2[m_max_character];
 	m_FlamePosition = new vivid::Vector2[m_max_player];
-	m_CullentSelect = new int[m_max_player];
+	m_CurrentSelect = new int[m_max_player];
 
 	for (int i = 0; i < m_max_character; ++i)
 	{
@@ -32,7 +33,7 @@ void CharacterSelect::Initialize(void)
 
 	for (int i = 0; i < m_max_player; ++i)
 	{
-		m_CullentSelect[i] = (int)CHARACTER_ID::DUMMY;
+		m_CurrentSelect[i] = (int)CHARACTER_ID::DUMMY;
 
 		m_FlamePosition[i].x = GetFlamePosition(0).x;
 		m_FlamePosition[i].y = GetFlamePosition(0).y;
@@ -41,9 +42,16 @@ void CharacterSelect::Initialize(void)
 
 void CharacterSelect::Update(void)
 {
+	for (int i = 0; i < m_max_player; i++)
+	{
+		m_CurrentSelect[i] = playermanager::GetInstance().KeyboradCharacterSelect(i, m_CurrentSelect[i]);
+
+		// フレームの座標を更新
+		m_FlamePosition[i] = GetFlamePosition(m_CurrentSelect[i]);
+	}
 
 
-	Keyboard();
+	//Keyboard();
 
 //#ifdef VIVID_DEBUG
 	// Zキーでシーン変更
@@ -95,9 +103,9 @@ void CharacterSelect::Finalize(void)
 {
 }
 
-void CharacterSelect::SetCullentSelect(int cullent)
+void CharacterSelect::SetCullentSelect(int num, int player_id)
 {
-	m_CullentSelect[0] = cullent;
+	m_CurrentSelect[player_id] += num;
 }
 
 void CharacterSelect::Keyboard(void)
@@ -125,13 +133,13 @@ void CharacterSelect::Keyboard(void)
 
 	}
 
-	m_FlamePosition[0] = GetFlamePosition(m_CullentSelect[0]);
+	m_FlamePosition[0] = GetFlamePosition(m_CurrentSelect[0]);
 }
 
 vivid::Vector2 CharacterSelect::GetFlamePosition(int num)
 {
-	float CenterPositionX = m_CharacterPosition[num + 1].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
-	float CenterPositionY = m_CharacterPosition[num + 1].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionX = m_CharacterPosition[num].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionY = m_CharacterPosition[num].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
 
 	float FlamePositionX = CenterPositionX - m_flame_width / 2.0f;
 	float FlamePositionY = CenterPositionY - m_flame_height / 2.0f;

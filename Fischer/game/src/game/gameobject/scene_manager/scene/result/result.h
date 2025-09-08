@@ -1,5 +1,6 @@
 #pragma once
 #include "..\scene.h"
+#include "..\scene_id.h"
 
 class Result : public IScene
 {
@@ -61,5 +62,5 @@ private:
 	//vivid::Vector2	m_FrameAnchor;			// 外枠の基準点
 	//vivid::Vector2	m_FrameScale;			// 外枠の拡大率
 	//vivid::Rect		m_FrameRect;			// 外枠の範囲
-	bool			m_ButtonFlag;				// ボタンの現在
+	SCENE_ID			m_CurrentSelect;		// ボタンの現在
 };

@@ -8,7 +8,6 @@
 //#include "..\scene_id.h"
 //#include "vivid.h"
 
-const int		Gamemain::m_max_player = 1;
 const int		Gamemain::m_max_fish = 3;
 const float		Gamemain::m_water_surface = 165.0f;
 
@@ -18,24 +17,41 @@ Gamemain::Gamemain(void)
 
 void Gamemain::Initialize(void)
 {
-	CHARACTER_ID UseCharacter[m_max_player][m_max_fish]
-	{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
-	//{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
-	//{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
-	//{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}
-	};
+	int MaxPlayer = SceneManager::GetInstance().GetMaxPlayer();
+
+	m_UseCharacter = new UseCharacter[MaxPlayer];
+	for (int i = 0; i < MaxPlayer; i++)
+	{
+		m_UseCharacter[i].Character = new CHARACTER_ID[m_max_fish];
+	}
 
 	FisherManager::GetInstance().Initialize();
 
-	for (int i = 0; i < m_max_player; i++)
+	//CHARACTER_ID UseCharacter[m_max_player][m_max_fish]
+	//{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
+	////{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	////{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	////{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}
+	//};
+
+	
+
+	//for (int i = 0; i < MaxPlayer; i++)
+	//{
+	//	for (int k = 0; k < m_max_fish; k++)
+	//	{
+	//		playermanager::GetInstance().GetUseCharacter(UseCharacter[i][k], i, k);
+	//	}
+	//}
+	for (int i = 0; i < MaxPlayer; i++)
 	{
 		for (int k = 0; k < m_max_fish; k++)
 		{
-			playermanager::GetInstance().GetUseCharacter(UseCharacter[i][k], i, k);
+			playermanager::GetInstance().GetUseCharacter(m_UseCharacter[i].Character[k], i, k);
 		}
 	}
 
-	playermanager::GetInstance().Initialize(m_max_player);
+	playermanager::GetInstance().Initialize(MaxPlayer);
 
 	ScoreManager::GetInstance().Initialize();
 

@@ -25,6 +25,8 @@ public:
 
 	bool CheckHitFeed(Feed*);
 
+	int	KeyboradCharacterSelect(int, int);
+
 private:
 
 	playermanager(void) = default;

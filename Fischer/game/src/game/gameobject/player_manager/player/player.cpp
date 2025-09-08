@@ -79,9 +79,10 @@ void Player::Update(void)
 
 				this->CharacterStick();
 
-				if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::CHARACTERSELECT)
-					this->KeyboardCharacterSelect();
-				else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
+				//if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::CHARACTERSELECT)
+				//	this->KeyboardCharacterSelect();
+				//else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
+				if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
 					this->KeyboardGamemain();
 			}
 
@@ -336,29 +337,34 @@ void Player::KeyboardGamemain(void)
 	//<===
 }
 
-void Player::KeyboardCharacterSelect(void)
+int Player::KeyboardCharacterSelect(int current)
 {
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::D) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::RIGHT))
 	{
-		//m_CullentSelect++;
-
-
-		//if (m_CullentSelect[0] > 5)
-		//	m_CullentSelect = 0;
-
+		if (current >= 9 - 1)
+			return 0;
+		else
+			return current + 1;
 	}
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
+	else if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::A) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::LEFT))
 	{
-
+		if (current <= 0)
+			return 9 - 1;
+		else
+			return current - 1;
 	}
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::W) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::UP))
+	else if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::W) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::UP))
 	{
-
+		if (current > 5 - 1)
+			return current - 5;
 	}
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::S) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::DOWN))
+	else if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::S) || vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::DOWN))
 	{
-
+		if (current < 5 - 1)
+			return current + 5;
 	}
+
+	return current;
 }
 
 void Player::CheckWall(void)

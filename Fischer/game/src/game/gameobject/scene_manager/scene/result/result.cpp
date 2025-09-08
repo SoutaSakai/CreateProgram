@@ -1,5 +1,4 @@
 #include "..\..\scene_manager.h"
-#include "..\scene_id.h"
 #include "..\..\..\score_manager\score_manager.h"
 #include "result.h"
 #include "vivid.h"
@@ -27,7 +26,7 @@ const int	Result::m_max_button				= 2;		// ボタンの個数
 const float	Result::m_distance					= 20.0f;	// 表示間隔
 
 Result::Result(void)
-	: m_ButtonFlag(true)
+	: m_CurrentSelect(SCENE_ID::DUMMY)
 	, m_CharacterSelectBaseScale(vivid::Vector2(1.2f, 1.2f))
 	, m_ExitBaseScale(vivid::Vector2(0.8f, 0.8f))
 	, m_CharacterSelectMaxScale(vivid::Vector2(1.4f, 1.4f))
@@ -109,7 +108,7 @@ void Result::Update(void)
 	{
 		m_CharacterSelectScale = m_CharacterSelectMaxScale;		//キャラクターセレクトを選択しているときの大きさ
 		m_ExitScale = m_ExitBaseScale;							//やめるのボタンの拡大率を戻す時の大きさ
-		m_ButtonFlag = true;
+		m_CurrentSelect = SCENE_ID::CHARACTERSELECT;
 	}
 
 	//やめるボタン
@@ -117,7 +116,7 @@ void Result::Update(void)
 	{
 		m_CharacterSelectScale = m_CharacterSelectBaseScale;	//キャラクターセレクトの拡大率を戻すときの大きさ
 		m_ExitScale = m_ExitMaxScale;							//やめるのボタンを選択している時の大きさ
-		m_ButtonFlag = false;
+		m_CurrentSelect = SCENE_ID::TITLE;
 	}
 
 	//<===
@@ -125,16 +124,23 @@ void Result::Update(void)
 	//ENTERを押した時の処理
 	if (keyboard::Trigger(keyboard::KEY_ID::RETURN))
 	{
-		//Wボタンのとき
-		if (m_ButtonFlag)
+		switch (m_CurrentSelect)
 		{
+		case SCENE_ID::DUMMY:
+			break;
+		case SCENE_ID::TITLE:
+			SceneManager::GetInstance().Change_scene(SCENE_ID::TITLE);
+			break;
+		case SCENE_ID::CHARACTERSELECT:
 			SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
 			ScoreManager::GetInstance().Initialize();
-		}
-		//Sボタンのとき
-		else
-		{
-			SceneManager::GetInstance().Change_scene(SCENE_ID::TITLE);
+			break;
+		case SCENE_ID::GAMEMAIN:
+			break;
+		case SCENE_ID::RESULT:
+			break;
+		default:
+			break;
 		}
 	}
 

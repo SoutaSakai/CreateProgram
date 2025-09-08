@@ -14,8 +14,20 @@ public:
 
 private:
 
+	enum class ButtonNumber
+	{
+		DUMMY,
+		TWO,
+		THREE,
+		FOUR
+	};
+
 	// 仮にボタンの座標とサイズを設定（例: x=100, y=300, width=200, height=50）
-	static const vivid::Vector2		button_position;
-	static const float				button_width;
-	static const float				button_height;
+	static const float	m_button_width;
+	static const float	m_button_height;
+	static const float	m_button_distance;
+	static const int	m_max_button;
+
+	ButtonNumber		m_CurrentSelect;
+	vivid::Vector2*		m_ButtonPosition;
 };

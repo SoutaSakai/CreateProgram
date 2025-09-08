@@ -77,3 +77,8 @@ bool playermanager::CheckHitFeed(Feed* feed)
 	return false;
 }
 
+int playermanager::KeyboradCharacterSelect(int num, int current)
+{
+	return player[num]->KeyboardCharacterSelect(current);
+}
+

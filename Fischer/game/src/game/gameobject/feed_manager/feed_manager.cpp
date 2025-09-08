@@ -95,7 +95,7 @@ void FeedManager::Create(vivid::Vector2 fisher_position, int number)
 
 	feed->Initialize(Feed_position);
 
-	m_Feeds[number] = feed;
+	m_Feeds[number] = *feed;
 }
 
 void FeedManager::Destroy(int number)

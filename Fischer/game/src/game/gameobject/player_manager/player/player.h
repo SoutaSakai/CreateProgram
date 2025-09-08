@@ -36,7 +36,7 @@ public:
 	void KeyboardGamemain(void);
 
 	//キャラクター選択画面のキーボード入力処理
-	void KeyboardCharacterSelect(void);
+	int KeyboardCharacterSelect(int);
 
 	//画面外に出ないように
 	void CheckWall(void);
@@ -76,6 +76,8 @@ private:
 	int		m_Score;
 
 	FEED_ID m_FeedID;
+
+
 
 	static const float WaterHEIGHT;
 	static const float MouthDis;
