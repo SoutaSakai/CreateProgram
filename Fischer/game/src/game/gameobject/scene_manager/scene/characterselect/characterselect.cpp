@@ -6,7 +6,9 @@
 const int	CharacterSelect::m_flame_width		= 220;	// 選択枠の幅
 const int	CharacterSelect::m_flame_height		= 100;	// 選択枠の高さ
 const int	CharacterSelect::m_max_character	= (int)CHARACTER_ID::MAX - 1;
-const int	CharacterSelect::m_max_player		= 4;	// プレイヤーの最大数
+const int	CharacterSelect::m_two_player		= 2;	// 2人プレイ時の最大人数
+const int	CharacterSelect::m_three_player		= 3;	// 3人プレイ時の最大人数
+const int	CharacterSelect::m_four_player		= 4;	// 4人プレイ時の最大人数
 const int	CharacterSelect::m_distance			= 20;	// 表示間隔
 
 CharacterSelect::CharacterSelect(void)
@@ -15,10 +17,6 @@ CharacterSelect::CharacterSelect(void)
 
 void CharacterSelect::Initialize(void)
 {
-	m_CharacterPosition = new vivid::Vector2[m_max_character];
-	m_FlamePosition = new vivid::Vector2[m_max_player];
-	m_CurrentSelect = new int[m_max_player];
-
 	for (int i = 0; i < m_max_character; ++i)
 	{
 		if (i < 5)
@@ -31,18 +29,71 @@ void CharacterSelect::Initialize(void)
 		}
 	}
 
-	for (int i = 0; i < m_max_player; ++i)
+	if (SceneManager::GetInstance().GetMaxPlayer() == 2)
 	{
+		m_FlamePosition = new vivid::Vector2[m_two_player];
+		m_CurrentSelect = new int[m_two_player];
+
+		m_MaxPlayer = m_two_player;
+	}
+	else if (SceneManager::GetInstance().GetMaxPlayer() == 3)
+	{
+		m_FlamePosition = new vivid::Vector2[m_three_player];
+		m_CurrentSelect = new int[m_three_player];
+
+		m_MaxPlayer = m_three_player;
+	}
+	else if (SceneManager::GetInstance().GetMaxPlayer() == 4)
+	{
+		m_FlamePosition = new vivid::Vector2[m_four_player];
+		m_CurrentSelect = new int[m_four_player];
+
+		m_MaxPlayer = m_four_player;
+	}
+
+	m_CharacterPosition = new vivid::Vector2[m_max_character];
+
+	//CHARACTER_ID UseCharacter[MaxPlayer][m_max_character]
+	//{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
+	//	//{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	//	//{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
+	//	//{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}
+	//};
+
+
+	for (int i = 0; i < m_MaxPlayer; ++i)
+	{
+		CHARACTER_ID* character = nullptr;
+
+		if (!character)	return;
+
+		*character = CHARACTER_ID::DUMMY;
+
+		koko
+
+		m_UseCharacter.push_back(character);
+
 		m_CurrentSelect[i] = (int)CHARACTER_ID::DUMMY;
 
 		m_FlamePosition[i].x = GetFlamePosition(0).x;
 		m_FlamePosition[i].y = GetFlamePosition(0).y;
 	}
+
+	USECHARACTERLIST::iterator it = m_UseCharacter.begin();
+
+	while (it != m_UseCharacter.end())
+	{
+		CHARACTER_ID i = (CHARACTER_ID)m_UseCharacter.back();
+
+		playermanager::GetInstance().GetUseCharacter(, i, k);
+
+		++it;
+	}
 }
 
 void CharacterSelect::Update(void)
 {
-	for (int i = 0; i < m_max_player; i++)
+	for (int i = 0; i < m_MaxPlayer; i++)
 	{
 		m_CurrentSelect[i] = playermanager::GetInstance().KeyboradCharacterSelect(i, m_CurrentSelect[i]);
 
@@ -68,7 +119,7 @@ void CharacterSelect::Draw(void)
 	/* 人数分の選択したキャラクターの枠の描画 */
 	vivid::Rect rect = { 0.0f, 0.0f, 250.0f, 300.0f };
 
-	for (int i = 0; i < m_max_player; ++i)
+	for (int i = 0; i < m_MaxPlayer; ++i)
 	{
 		vivid::Vector2 scale = { 1.0f,  1.0f };
 

@@ -22,6 +22,17 @@ void Title::Update(void)
 {
 	namespace keyboard = vivid::keyboard;
 
+	if (keyboard::Trigger(keyboard::KEY_ID::A) || keyboard::Trigger(keyboard::KEY_ID::LEFT))
+	{
+		if ((int)m_CurrentSelect > 1)
+			m_CurrentSelect = ButtonNumber((int)m_CurrentSelect - 1);
+	}
+	if (keyboard::Trigger(keyboard::KEY_ID::D) || keyboard::Trigger(keyboard::KEY_ID::RIGHT))
+	{
+		if ((int)m_CurrentSelect < 3)
+			m_CurrentSelect = ButtonNumber((int)m_CurrentSelect + 1);
+	}
+
 	if (keyboard::Trigger(keyboard::KEY_ID::RETURN))
 	{
 		if (m_CurrentSelect != ButtonNumber::DUMMY)
