@@ -63,7 +63,7 @@ vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, viv
 		break;
 
 	case CHARACTER_ID::SHARK:
-		shark[PlayerNumber]->Update(Pos,Angle);
+		shark[PlayerNumber]->Update(Pos,Angle,ScaleX);
 		return Pos;
 		break;
 

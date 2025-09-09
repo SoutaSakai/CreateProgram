@@ -60,7 +60,16 @@ void CLionFish::CheckHitSkill(void)
 	{
 		if (i != m_PlayerNumber)
 		{
-			CollisionDetection(i, 0);
+			//カメ && スキル使用中だったら
+			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
+				playermanager::GetInstance().GetSkilFlag(i) == true)
+			{
+				return;
+			}
+			else
+			{
+				CollisionDetection(i, 0);
+			}
 
 			//ミラーウツボだったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL &&

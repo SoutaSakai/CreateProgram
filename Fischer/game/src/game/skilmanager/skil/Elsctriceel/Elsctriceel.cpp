@@ -42,9 +42,23 @@ void Elsctriceel::CheckHitSkill(void)
 		if (i != m_PlayerNumber)
 		{
 			
-			CollisionDetection(i,0);
+			//カメ && スキル使用中だったら
+			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
+				playermanager::GetInstance().GetSkilFlag(i) == true)
+			{
+				return;
+			}
+			else
+			{
+				CollisionDetection(i, 0);
+			}
 			
-			
+			//ミラーウツボだったら
+			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::MIRRORMORAYELL &&
+				playermanager::GetInstance().GetSkilFlag(i) == true)
+			{
+				CollisionDetection(i, 1);
+			}
 		}
 	}
 }
@@ -94,8 +108,8 @@ void Elsctriceel::CollisionDetection(int number, int pattern)
 		vertex[j].x = cos((targetangle + 135 + 90 * j) * 3.14 / 180) * diagonal + targetcenterpos.x;
 		vertex[j].y = sin((targetangle + 135 + 90 * j) * 3.14 / 180) * diagonal + targetcenterpos.y;
 
-		float px = m_CenterPosition.x - vertex[j].x;
-		float py = m_CenterPosition.y - vertex[j].y;
+		float px = vertex[j].x - m_CenterPosition.x;
+		float py = vertex[j].y - m_CenterPosition.y;
 
 		//頂点と円の中心の距離と角度
 		float distance = sqrt(pow(px, 2) + pow(py, 2));
@@ -111,6 +125,9 @@ void Elsctriceel::CollisionDetection(int number, int pattern)
 		vertex[j].y = py + m_CenterPosition.y;
 
 	}
+
+
+	DxLib::DrawBox(vertex[1].x, vertex[1].y, vertex[3].x, vertex[3].y, 0xffff0000, true);
 
 	//四角形の辺の最大値・最小値
 	float xmax = fmax(fmax(vertex[0].x, vertex[1].x), fmax(vertex[2].x, vertex[3].x));
