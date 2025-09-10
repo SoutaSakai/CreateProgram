@@ -62,6 +62,7 @@ const vivid::Rect CharacterManager::OctopusRect = { 0,0,OctopusWIDTH ,OctopusHEI
 const std::string CharacterManager::OctopusFilePath = "data\\Octopus.png";
 const vivid::Vector2 CharacterManager::OctopusMouthPos = { 0,0 };
 const float CharacterManager::OctopusMouthRadius = 0;
+const float CharacterManager::SlowSpeed = OctopusSpeed * 0.3;
 
 //Pointuna			ポインツナ
 const float CharacterManager::PointunaWIDTH = 150;

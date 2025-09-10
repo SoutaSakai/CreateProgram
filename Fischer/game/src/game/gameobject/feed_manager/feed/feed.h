@@ -22,10 +22,10 @@ public:
 	void Finalize(void);
 
 	// アクティブフラグを返す
-	bool IsActive(void);
+	bool GetActive(void);
 
 	// アクティブフラグに代入
-	void InActive(bool);
+	void SetActive(bool);
 
 	// 半径を返す
 	float GetRadius(void);
@@ -34,7 +34,7 @@ public:
 	vivid::Vector2 GetCenterPos(void);
 
 	// 位置を返す
-	float GetPos(void);
+	vivid::Vector2 GetPosition(void);
 
 	FEED_ID GetId(void);
 

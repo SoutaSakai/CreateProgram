@@ -25,19 +25,17 @@ public:
 	// 釣り人の人数を返す
 	int GetMax(void);
 
-	// 釣り人の幅を返す
-	float GetWidth(void);
-
-	// 釣り人の高さを返す
-	float GetHeight(void);
-
+	bool GetMoveFlag(int);
+	void SetMoveFlag(int, bool);
 private:
-	static const float	m_width;		// 釣り人の幅
-	static const float	m_height;		// 釣り人の高さ
 	static const float	m_change_time;	// 釣り人の状態更新時間
+	static const float	m_move_time;	// 釣り人の動作更新時間
+	static const int	m_width;
+	static const int	m_height;
 
 	int				m_Max;				// 釣り人の人数
-	float			m_Timer;			// 釣り人の状態更新タイマー
+	float			m_StateTimer;		// 釣り人の状態更新タイマー
+	float			m_MoveTimer;		// 釣り人の状態更新タイマー
 	float			m_Distance;			// 釣り人の間隔
 
 	Fisher			*m_Fishers;			// 釣り人のオブジェクト配列

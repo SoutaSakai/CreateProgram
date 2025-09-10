@@ -35,5 +35,5 @@ private:
 	vivid::Vector2*				m_FlamePosition;		// 選択枠の座標
 	int*						m_CurrentSelect;		// 選択中キャラクターのID
 	USECHARACTERLIST			m_UseCharacter;
-	int							m_MaxPlayer;
+	//int							m_MaxPlayer;
 };

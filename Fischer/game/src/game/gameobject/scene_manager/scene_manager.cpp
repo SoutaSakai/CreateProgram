@@ -61,16 +61,6 @@ SCENE_ID SceneManager::GetCullentSceneId()
 	return m_CurrentSceneId;
 }
 
-void SceneManager::SetMaxPlayer(int max)
-{
-	m_MaxPlayer = max;
-}
-
-int SceneManager::GetMaxPlayer(void)
-{
-	return m_MaxPlayer;
-}
-
 // シーンの切り替え（実際の動作）
 void SceneManager::Change(void)
 {

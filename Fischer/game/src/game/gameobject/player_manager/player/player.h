@@ -6,10 +6,12 @@
 #include"../player_manager.h"
 #include "..\..\feed_manager\feed\feed.h"
 
-//スキルインクルード
-#include"../Skil/Tuna/Tuna.h"
-#include"../Skil/Elsctriceel/Elsctriceel.h"
-#include"../Skil/Turtle/Turtle.h"
+#include"../../skil_manager/skil_manager.h"
+
+////スキルインクルード
+//#include"../Skil/Tuna/Tuna.h"
+//#include"../Skil/Elsctriceel/Elsctriceel.h"
+//#include"../Skil/Turtle/Turtle.h"
 
 
 class Player
@@ -45,7 +47,17 @@ public:
 
 	void Finalize(void);
 
-	void Setting(void);
+	void Setting(vivid::Vector2 pos, float scale, float angle, bool skilflag);
+
+	//今のラウンドの使ってるキャラクターIDを渡す
+	CHARACTER_ID GetUseCharacter(void) const { return UseCharacter[CharaNo]; }
+	//プレイヤーの座標を渡す
+	vivid::Vector2 GetPlayerPosition(void) const { return CharacterPos; }
+	//プレイヤーの角度を渡す
+	float GetPlayerAngle(void) const { return Angle; }
+	//プレイヤーの横幅と立幅を渡す
+	float GetPlayerWidth(void) const { return CharaWIDTH; }
+	float GetPlayerHeight(void) const { return CharaHEIGHT; }
 
 	void SetFeedID(FEED_ID);
 
@@ -70,8 +82,8 @@ private:
 
 	int	CharaNo;					//今のラウンドのキャラ
 
-	bool SkilFlag;				//スキルのフラグ
-	bool ControlFlag;			//プレイヤーが操作できるかどうか
+	//bool SkilFlag;				//スキルのフラグ
+	//bool ControlFlag;			//プレイヤーが操作できるかどうか
 
 	int		m_Score;
 
@@ -82,7 +94,7 @@ private:
 	static const float WaterHEIGHT;
 	static const float MouthDis;
 
-	//スキルクラス
-	Tuna* tuna;
+	////スキルクラス
+	//Tuna* tuna;
 };
 

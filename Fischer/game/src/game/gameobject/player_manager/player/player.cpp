@@ -18,9 +18,9 @@ const float Player::MouthDis = 55.0f;
 Player::Player()
 	: CharacterPos(vivid::Vector2(0, 165))
 	, Scale(vivid::Vector2(1.0f, 1.0f))
-	, SkilFlag(false)
-	, ControlFlag(true)
-	, tuna(nullptr)
+	//, SkilFlag(false)
+	//, ControlFlag(true)
+	//, tuna(nullptr)
 	, Angle(0)
 	, m_Score(0)
 {
@@ -73,7 +73,7 @@ void Player::Update(void)
 			CharaMouthPos = CharaCenterPos + vivid::Vector2(x * MouthDis, y * MouthDis);
 			//<===
 
-			if (ControlFlag)
+			if (playermanager::GetInstance().GetControlFlag((int)m_PlayerID))
 			{
 				this->Controller();
 
@@ -82,16 +82,19 @@ void Player::Update(void)
 				//if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::CHARACTERSELECT)
 				//	this->KeyboardCharacterSelect();
 				//else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
-				if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
-					this->KeyboardGamemain();
+				//if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
+					if ((int)m_PlayerID == 0)
+						this->KeyboardGamemain();
 			}
 
 			this->CheckWall();
 
 			//スキルの更新
-			if (SkilFlag)
+			if (playermanager::GetInstance().GetSkilFlag((int)m_PlayerID))
 			{
-				switch (UseCharacter[playermanager::GetInstance().GetRoundCount() - 1])
+				CharacterPos = SkilManager::Getinstance().Update((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Angle, Scale.x);
+
+				/*switch (UseCharacter[playermanager::GetInstance().GetRoundCount() - 1])
 				{
 				case CHARACTER_ID::DUMMY:
 					break;
@@ -117,7 +120,7 @@ void Player::Update(void)
 					break;
 				default:
 					break;
-				}
+				}*/
 			}
 
 			//// 各餌との判定
@@ -155,15 +158,18 @@ void Player::ChangeRound(void)
 
 	CharaWIDTH = CharacterManager::GetInstance().CharacterWIDTH(UseCharacter[CharaNo]);
 	CharaHEIGHT = CharacterManager::GetInstance().CharacterHEIGHT(UseCharacter[CharaNo]);
-	//座標挿入
-	CharacterPos.x -= CharaWIDTH / 2;
-	CharacterPos.y = vivid::WINDOW_HEIGHT - CharaHEIGHT;
 	CharaSpeed = CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]);
 	CharaRect = CharacterManager::GetInstance().CharacterRect(UseCharacter[CharaNo]);
 	CharaFilePath = CharacterManager::GetInstance().CharacterFilePath(UseCharacter[CharaNo]);
 	CharaMouthPos = CharacterManager::GetInstance().CharacterMouthPos(UseCharacter[CharaNo]);
 	CharaMouthRadius = CharacterManager::GetInstance().CharacterMouthRadius(UseCharacter[CharaNo]);
 
+	//スキルのオブジェクト
+	SkilManager::Getinstance().CreateObj(CharaNo, UseCharacter[CharaNo]);
+
+	//座標挿入
+	CharacterPos.x -= CharaWIDTH / 2;
+	CharacterPos.y = vivid::WINDOW_HEIGHT - CharaHEIGHT;
 
 	Anchor = vivid::Vector2(CharaWIDTH / 2, CharaHEIGHT / 2);
 }
@@ -184,6 +190,25 @@ void Player::Controller(void)
 	if (vivid::controller::Button(m_PlayerID, vivid::controller::BUTTON_ID::RIGHT_SHOULDER))
 	{
 		vivid::DrawText(40, "RIGHT_SHOULDER", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
+
+		if (!playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
+
+			//SkilFlagをtrueにする
+			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
+
+			//ControlFlagをfalseにする	==> 一部キャラだけ
+			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
+			{
+				playermanager::GetInstance().ChangeControlFlagFalse((int)m_PlayerID);
+			}
+
+			//オブジェクトを作る
+			SkilManager::Getinstance().CreateObj((int)m_PlayerID, UseCharacter[CharaNo]);
+
+			//初期化する
+			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Scale);
+
+		}
 	}
 }
 
@@ -208,6 +233,17 @@ void Player::CharacterStick(void)
 
 void Player::KeyboardGamemain(void)
 {
+	float speed;
+
+	if (playermanager::GetInstance().GetOctopusSlowFlag((int)m_PlayerID))
+	{
+		speed = CharaSpeed - CharacterManager::GetInstance().GetSlowSpeed();
+	}
+	else
+	{
+		speed = CharaSpeed;
+	}
+
 	//追加コード===>
 	int FisherMax = FisherManager::GetInstance().GetMax();
 
@@ -224,6 +260,8 @@ void Player::KeyboardGamemain(void)
 #ifdef VIVID_DEBUG
 				vivid::DrawText(40, std::to_string(i), vivid::Vector2(300.0f, 0.0f));
 #endif
+
+				FisherManager::GetInstance().SetMoveFlag(i, true);
 
 				switch (FeedManager::GetInstance().GetFeedID(i))
 				{
@@ -254,25 +292,25 @@ void Player::KeyboardGamemain(void)
 	//確認コード===>
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::D))
 	{
-		CharacterPos.x += CharaSpeed;
+		CharacterPos.x += speed;
 		Scale.x = 1.0f;
 		Angle = 0;
 	}
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::A))
 	{
-		CharacterPos.x -= CharaSpeed;
+		CharacterPos.x -= speed;
 		Scale.x = -1.0f;
 		Angle = 0;
 	}
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::W))
 	{
-		CharacterPos.y -= CharaSpeed;
+		CharacterPos.y -= speed;
 		if (Scale.x >= 0)Angle = 270 * (3.14 / 180);
 		else Angle = 90 * (3.14 / 180);
 	}
 	if (vivid::keyboard::Button(vivid::keyboard::KEY_ID::S))
 	{
-		CharacterPos.y += CharaSpeed;
+		CharacterPos.y += speed;
 		if (Scale.x <= 0)Angle = 270 * (3.14 / 180);
 		else Angle = 90 * (3.14 / 180);
 	}
@@ -298,40 +336,23 @@ void Player::KeyboardGamemain(void)
 	{
 		vivid::DrawText(40, "Space", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
 
-		if (!SkilFlag) {
+		if (!playermanager::GetInstance().GetSkilFlag((int)m_PlayerID)) {
 
-			switch (UseCharacter[CharaNo])
+			//SkilFlagをtrueにする
+			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
+
+			//ControlFlagをfalseにする	==> 一部キャラだけ
+			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
 			{
-			case CHARACTER_ID::DUMMY:
-				break;
-			case CHARACTER_ID::ELSCTRICEEL:
-				break;
-			case CHARACTER_ID::PORCUPINEFISH:
-				break;
-			case CHARACTER_ID::SHARK:
-				break;
-			case CHARACTER_ID::LIONFISH:
-				break;
-			case CHARACTER_ID::MIRRORMORAYELL:
-				break;
-			case CHARACTER_ID::TURTLE:
-				break;
-			case CHARACTER_ID::OCTOPUS:
-				break;
-			case CHARACTER_ID::POINTUNA:
-				break;
-			case CHARACTER_ID::TUNA:
-				if (tuna == nullptr) { tuna = new Tuna(); }
-
-				SkilFlag = true;
-				ControlFlag = false;
-				tuna->Initialize();
-				tuna->GetPointer(&SkilFlag, &ControlFlag);
-
-				break;
-			default:
-				break;
+				playermanager::GetInstance().ChangeControlFlagFalse((int)m_PlayerID);
 			}
+
+			//オブジェクトを作る
+			SkilManager::Getinstance().CreateObj((int)m_PlayerID, UseCharacter[CharaNo]);
+
+			//初期化する
+			SkilManager::Getinstance().Initialize((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Scale);
+
 		}
 	}
 	//<===
@@ -394,12 +415,12 @@ void Player::Draw()
 
 #ifdef VIVID_DEBUG
 	//確認コード===>
-	vivid::DrawText(40, std::to_string(ControlFlag), vivid::Vector2(0.0f, 0.0f));
-	vivid::DrawText(40, std::to_string(CharacterPos.y), vivid::Vector2(0.0f, 40.0f));
-	vivid::DrawText(40, std::to_string(CharaMouthPos.x), vivid::Vector2(0.0f, 80.0f));
-	vivid::DrawText(40, std::to_string(CharaMouthPos.y), vivid::Vector2(1000.0f, 80.0f));
+	//vivid::DrawText(40, std::to_string(ControlFlag), vivid::Vector2(0.0f, 0.0f));
+	//vivid::DrawText(40, std::to_string(CharacterPos.y), vivid::Vector2(0.0f, 40.0f));
+	//vivid::DrawText(40, std::to_string(CharaMouthPos.x), vivid::Vector2(0.0f, 80.0f));
+	//vivid::DrawText(40, std::to_string(CharaMouthPos.y), vivid::Vector2(1000.0f, 80.0f));
 
-	DxLib::DrawLine(0, 165, vivid::WINDOW_WIDTH, 165, 0xffff000000);
+	//DxLib::DrawLine(0, 165, vivid::WINDOW_WIDTH, 165, 0xffff000000);
 
 	//<===
 #endif
@@ -411,9 +432,11 @@ void Player::Finalize(void)
 	UseCharacter[CharaNo] = CHARACTER_ID::DUMMY;
 }
 
-void Player::Setting(void)
+void Player::Setting(vivid::Vector2 pos, float scale, float angle, bool skilflag)
 {
-
+	CharacterPos = pos;
+	Scale.x = scale;
+	Angle = angle * (3.14 / 180);
 }
 
 void Player::SetFeedID(FEED_ID id)

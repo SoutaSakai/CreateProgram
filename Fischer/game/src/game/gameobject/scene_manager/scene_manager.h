@@ -22,9 +22,6 @@ public:
 
 	SCENE_ID GetCullentSceneId();
 
-	void SetMaxPlayer(int);
-	int GetMaxPlayer(void);
-
 private:
 
 	void Change(void);
@@ -38,6 +35,5 @@ private:
 	IScene*		Iscene;
 	SCENE_ID	m_CurrentSceneId;
 	SCENE_ID	m_NextSceneId;
-	int			m_MaxPlayer;
 };
 

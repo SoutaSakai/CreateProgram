@@ -16,6 +16,8 @@ public:
 	vivid::Vector2	CharacterMouthPos(CHARACTER_ID Character);		//キャラクターの口の位置を返す
 	float			CharacterMouthRadius(CHARACTER_ID Character);	//キャラクターの口の半径を返す
 
+	//スキル効果
+	float GetSlowSpeed(void) const { return SlowSpeed; }
 
 	void Finalize(void);
 
@@ -83,6 +85,7 @@ private:
 	static const std::string OctopusFilePath;		//タコのファイルパス
 	static const vivid::Vector2 OctopusMouthPos;	//タコの口の位置
 	static const float OctopusMouthRadius;			//タコの口の半径
+	static const float SlowSpeed;					//タコの鈍足効果
 
 	//Pointuna			ポインツナ
 	static const float PointunaWIDTH;				//ポインツナの横幅

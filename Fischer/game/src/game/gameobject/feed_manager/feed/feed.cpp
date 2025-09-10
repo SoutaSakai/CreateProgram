@@ -48,13 +48,13 @@ void Feed::Finalize(void)
 }
 
 // アクティブフラグを返す
-bool Feed::IsActive(void)
+bool Feed::GetActive(void)
 {
 	return m_ActiveFlag;
 }
 
 // アクティブフラグに代入
-void Feed::InActive(bool active)
+void Feed::SetActive(bool active)
 {
 	m_ActiveFlag = active;
 }
@@ -72,9 +72,9 @@ vivid::Vector2 Feed::GetCenterPos(void)
 }
 
 // 位置を返す
-float Feed::GetPos(void)
+vivid::Vector2 Feed::GetPosition(void)
 {
-	return m_Position.y;
+	return m_Position;
 }
 
 FEED_ID Feed::GetId(void)

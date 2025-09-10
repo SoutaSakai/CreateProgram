@@ -33,13 +33,20 @@ void playermanager::Initialize(const int MaxPlayer)
 		player[i]->InUseCharacter(UseCharacter[i][0], UseCharacter[i][1], UseCharacter[i][2]);
 
 		player[i]->Initialize(DeviceID[i], distance * (i + 1));
+
+		//Flagの初期化
+		m_SkilFlag[i] = false;
+		m_ControlFlag[i] = true;
+
+		m_Octopus_Slow[i] = false;
 	}
 
+
 	//仮
-	player[0]->Setting();
-	player[1]->Setting();
-	player[2]->Setting();
-	player[3]->Setting();
+	/*player[0]->Setting(vivid::Vector2(160,400),-1,-30,false);
+	player[1]->Setting(vivid::Vector2(270, 580), -1, 40, true);
+	player[2]->Setting(vivid::Vector2(900, 390), -1, 30, false);
+	player[3]->Setting(vivid::Vector2(790, 270), -1, 0, true);*/
 }
 
 void playermanager::Update(void)
@@ -56,6 +63,17 @@ void playermanager::Draw(void)
 	{
 		player[i]->Draw();
 	}
+
+	//確認コード ==>
+
+	vivid::DrawText(40, std::to_string(m_SkilFlag[0]), vivid::Vector2(0.0f, 0.0f), 0xffffffff);
+	vivid::DrawText(40, std::to_string(m_ControlFlag[0]), vivid::Vector2(0.0f, 40.0f), 0xffffffff);
+
+	//<==
+}
+
+void playermanager::CheckHitSkil(void)
+{
 }
 
 void playermanager::Finalize(void)
@@ -81,4 +99,11 @@ int playermanager::KeyboradCharacterSelect(int num, int current)
 {
 	return player[num]->KeyboardCharacterSelect(current);
 }
+
+vivid::Vector2 playermanager::GetPosition(int playernumber) { return player[playernumber]->GetPlayerPosition(); }
+
+float playermanager::GetAngle(int playernumber) { return player[playernumber]->GetPlayerAngle(); }
+
+CHARACTER_ID playermanager::GetCharacter(int playernumber) { return player[playernumber]->GetUseCharacter(); }
+
 

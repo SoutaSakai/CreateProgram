@@ -1,0 +1,174 @@
+#include "skil_manager.h"
+
+SkilManager& SkilManager::Getinstance(void)
+{
+	static SkilManager Instance;
+
+	return Instance;
+}
+
+void SkilManager::Initialize(int PlayerNumber, CHARACTER_ID Character, vivid::Vector2 pos, vivid::Vector2 scale)
+{
+	switch (Character)
+	{
+	case CHARACTER_ID::DUMMY:
+		break;
+	case CHARACTER_ID::ELSCTRICEEL:
+		elsctriceel[PlayerNumber]->Initialize(PlayerNumber);
+		break;
+	case CHARACTER_ID::PORCUPINEFISH:
+		porcupinefish[PlayerNumber]->Initialize(PlayerNumber, pos);
+		break;
+	case CHARACTER_ID::SHARK:
+		shark[PlayerNumber]->Initialize(PlayerNumber, pos);
+		break;
+	case CHARACTER_ID::LIONFISH:
+		lionfish[PlayerNumber]->Intialize(PlayerNumber, pos);
+		break;
+	case CHARACTER_ID::MIRRORMORAYELL:
+		mirrormoray[PlayerNumber]->Initialize(PlayerNumber);
+		break;
+	case CHARACTER_ID::TURTLE:
+		turtle[PlayerNumber]->Initialize(PlayerNumber);
+		break;
+	case CHARACTER_ID::OCTOPUS:
+		octopus[PlayerNumber]->Initialize(PlayerNumber, pos, scale);
+		break;
+	case CHARACTER_ID::POINTUNA:
+		pointuna[PlayerNumber]->Initialize(PlayerNumber);
+		break;
+	case CHARACTER_ID::TUNA:
+		tuna[PlayerNumber]->Initialize(PlayerNumber);
+		break;
+	default:
+		break;
+	}
+}
+
+vivid::Vector2 SkilManager::Update(int PlayerNumber, CHARACTER_ID Character, vivid::Vector2 Pos, float Angle, float ScaleX)
+{
+	switch (Character)
+	{
+	case CHARACTER_ID::DUMMY:
+		break;
+
+	case CHARACTER_ID::ELSCTRICEEL:
+		elsctriceel[PlayerNumber]->Update(Pos);
+		return Pos;
+		break;
+
+	case CHARACTER_ID::PORCUPINEFISH:
+		porcupinefish[PlayerNumber]->Update();
+		return Pos;
+		break;
+
+	case CHARACTER_ID::SHARK:
+		shark[PlayerNumber]->Update(Pos, Angle, ScaleX);
+		return Pos;
+		break;
+
+	case CHARACTER_ID::LIONFISH:
+		lionfish[PlayerNumber]->Update();
+		return Pos;
+		break;
+
+	case CHARACTER_ID::MIRRORMORAYELL:
+		mirrormoray[PlayerNumber]->Update(Pos, Angle, ScaleX);
+		return Pos;
+		break;
+
+	case CHARACTER_ID::TURTLE:
+		turtle[PlayerNumber]->Update(Pos);
+		return Pos;
+		break;
+
+	case CHARACTER_ID::OCTOPUS:
+		octopus[PlayerNumber]->Update();
+		return Pos;
+		break;
+
+	case CHARACTER_ID::POINTUNA:
+		pointuna[PlayerNumber]->Update();
+		return Pos;
+		break;
+
+	case CHARACTER_ID::TUNA:
+		return tuna[PlayerNumber]->Update(Pos, Angle, ScaleX);
+		break;
+
+	default:
+		break;
+	}
+}
+
+void SkilManager::Draw(void)
+{
+}
+
+void SkilManager::Finalize(void)
+{
+}
+
+void SkilManager::CreateObj(int PlayerNumber, CHARACTER_ID Character)
+{
+	switch (Character)
+	{
+	case CHARACTER_ID::DUMMY:
+		break;
+	case CHARACTER_ID::ELSCTRICEEL:
+		if (elsctriceel[PlayerNumber] == nullptr)elsctriceel[PlayerNumber] = new Elsctriceel();
+		break;
+	case CHARACTER_ID::PORCUPINEFISH:
+		if (porcupinefish[PlayerNumber] == nullptr)porcupinefish[PlayerNumber] = new Porcupinefish();
+		break;
+	case CHARACTER_ID::SHARK:
+		if (shark[PlayerNumber] == nullptr)shark[PlayerNumber] = new CShark();
+		break;
+	case CHARACTER_ID::LIONFISH:
+		if (lionfish[PlayerNumber] == nullptr)lionfish[PlayerNumber] = new CLionFish();
+		break;
+	case CHARACTER_ID::MIRRORMORAYELL:
+		if (mirrormoray[PlayerNumber] == nullptr)mirrormoray[PlayerNumber] = new CMirrormoray();
+		break;
+	case CHARACTER_ID::TURTLE:
+		if (turtle[PlayerNumber] == nullptr)turtle[PlayerNumber] = new Turtle();
+		break;
+	case CHARACTER_ID::OCTOPUS:
+		if (octopus[PlayerNumber] == nullptr)octopus[PlayerNumber] = new COctopus();
+		break;
+	case CHARACTER_ID::POINTUNA:
+		if (pointuna[PlayerNumber] == nullptr)pointuna[PlayerNumber] = new CPointuna();
+		break;
+	case CHARACTER_ID::TUNA:
+		if (tuna[PlayerNumber] == nullptr)tuna[PlayerNumber] = new Tuna();
+		break;
+	default:
+		break;
+	}
+}
+
+void SkilManager::DeleteObj(void)
+{
+	/*for (int i = 0; i < MAXPlayer; i++)
+	{
+		if (elsctriceel[i] != nullptr)	delete elsctriceel[i];
+		if (turtle[i] != nullptr)		delete turtle[i];
+		if (tuna[i] != nullptr)			delete tuna[i];
+	}*/
+}
+
+vivid::Vector2 SkilManager::GetMirrormorayDecoyPos(int playernumber)
+{
+	if (mirrormoray[playernumber] != nullptr)
+		return mirrormoray[playernumber]->GetDecoyPos();
+	else
+		return vivid::Vector2::ZERO;
+}
+
+float SkilManager::GetMirrormorayDecoyAngle(int playernumber)
+{
+	if (mirrormoray[playernumber] != nullptr)
+		return mirrormoray[playernumber]->GetDecoyAngle();
+	else
+		return 0.0f;
+}

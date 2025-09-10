@@ -34,9 +34,13 @@ public:
 	// ˆÊ’u‚Ìİ’è
 	void SetPosition(vivid::Vector2, int);
 
+	vivid::Vector2 GetPosition(int);
+
 	bool GetHit(int);
 
 	FEED_ID GetFeedID(int);
+
+	bool GetActive(int);
 
 private:
 	static const	vivid::Vector2	m_RangeRand;	// ’Ş‚èl‚©‚ç‰a‚Ü‚Å‚Ì‹——£

@@ -132,7 +132,7 @@ void Result::Update(void)
 			SceneManager::GetInstance().Change_scene(SCENE_ID::TITLE);
 			break;
 		case SCENE_ID::CHARACTERSELECT:
-			SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
+			SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN/*CHARACTERSELECT*/);
 			ScoreManager::GetInstance().Initialize();
 			break;
 		case SCENE_ID::GAMEMAIN:

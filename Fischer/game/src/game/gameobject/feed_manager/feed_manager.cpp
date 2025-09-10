@@ -2,8 +2,10 @@
 #include "feed/feed.h"
 #include "..\player_manager\player_manager.h"
 
-const vivid::Vector2	FeedManager::m_RangeRand	= vivid::Vector2(135.0f, 110.0f);
+const vivid::Vector2	FeedManager::m_RangeRand	= vivid::Vector2(75.0f, 75.0f);
 const vivid::Vector2	FeedManager::m_RangeSea		= vivid::Vector2(115.0f, 465.0f);
+
+RangeFishing = 105.0f, 75.0f;
 
 FeedManager& FeedManager::GetInstance(void)
 {
@@ -31,7 +33,7 @@ void FeedManager::Update(void)
 		m_Feeds[i].SetHit(playermanager::GetInstance().CheckHitFeed(&m_Feeds[i]));
 
 		// 不活性なデータの初期化
-		if (!m_Feeds[i].IsActive())
+		if (!m_Feeds[i].GetActive())
 		{
 			m_Feeds[i].Reset();
 
@@ -51,7 +53,7 @@ void FeedManager::Draw(void)
 	// 各餌オブジェクトの描画
 	for (int i = 0; i < m_Max; i++)
 	{
-		if (m_Feeds[i].IsActive())
+		if (m_Feeds[i].GetActive())
 			m_Feeds[i].Draw();
 	}
 }
@@ -77,7 +79,7 @@ bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius, 
 	bool check = m_Feeds[number].GetRadius() + mouth_radius > sqrt(pow(m_Feeds[number].GetCenterPos().x - mouth_center_pos.x, 2) + pow(m_Feeds[number].GetCenterPos().y - mouth_center_pos.y, 2));
 	
 	if (!check)
-		m_Feeds[number].InActive(false);
+		m_Feeds[number].SetActive(false);
 
 	return check;
 }
@@ -100,7 +102,7 @@ void FeedManager::Create(vivid::Vector2 fisher_position, int number)
 
 void FeedManager::Destroy(int number)
 {
-	m_Feeds[number].InActive(false);
+	m_Feeds[number].SetActive(false);
 }
 
 void FeedManager::SetPosition(vivid::Vector2 fisher_position, int number)
@@ -108,6 +110,11 @@ void FeedManager::SetPosition(vivid::Vector2 fisher_position, int number)
 	vivid::Vector2 Feed_position = { fisher_position.x + m_RangeSea.x, fisher_position.y + m_RangeSea.y };
 
 	m_Feeds[number].Initialize(Feed_position);
+}
+
+vivid::Vector2 FeedManager::GetPosition(int num)
+{
+	return m_Feeds[num].GetPosition();
 }
 
 bool FeedManager::GetHit(int num)
@@ -118,6 +125,11 @@ bool FeedManager::GetHit(int num)
 FEED_ID FeedManager::GetFeedID(int num)
 {
 	return m_Feeds[num].GetId();
+}
+
+bool FeedManager::GetActive(int num)
+{
+	return m_Feeds[num].GetActive();
 }
 
 FeedManager::FeedManager(void)

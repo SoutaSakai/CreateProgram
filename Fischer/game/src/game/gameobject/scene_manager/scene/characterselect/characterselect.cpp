@@ -17,6 +17,8 @@ CharacterSelect::CharacterSelect(void)
 
 void CharacterSelect::Initialize(void)
 {
+	m_CharacterPosition = new vivid::Vector2[m_max_character];
+
 	for (int i = 0; i < m_max_character; ++i)
 	{
 		if (i < 5)
@@ -29,29 +31,31 @@ void CharacterSelect::Initialize(void)
 		}
 	}
 
-	if (SceneManager::GetInstance().GetMaxPlayer() == 2)
-	{
-		m_FlamePosition = new vivid::Vector2[m_two_player];
-		m_CurrentSelect = new int[m_two_player];
+	m_FlamePosition = new vivid::Vector2[(int)vivid::controller::DEVICE_ID::MAX];
+	m_CurrentSelect = new int[(int)vivid::controller::DEVICE_ID::MAX];
 
-		m_MaxPlayer = m_two_player;
-	}
-	else if (SceneManager::GetInstance().GetMaxPlayer() == 3)
-	{
-		m_FlamePosition = new vivid::Vector2[m_three_player];
-		m_CurrentSelect = new int[m_three_player];
+	//if (SceneManager::GetInstance().GetMaxPlayer() == 2)
+	//{
+	//	m_FlamePosition = new vivid::Vector2[m_two_player];
+	//	m_CurrentSelect = new int[m_two_player];
 
-		m_MaxPlayer = m_three_player;
-	}
-	else if (SceneManager::GetInstance().GetMaxPlayer() == 4)
-	{
-		m_FlamePosition = new vivid::Vector2[m_four_player];
-		m_CurrentSelect = new int[m_four_player];
+	//	m_MaxPlayer = m_two_player;
+	//}
+	//else if (SceneManager::GetInstance().GetMaxPlayer() == 3)
+	//{
+	//	m_FlamePosition = new vivid::Vector2[m_three_player];
+	//	m_CurrentSelect = new int[m_three_player];
 
-		m_MaxPlayer = m_four_player;
-	}
+	//	m_MaxPlayer = m_three_player;
+	//}
+	//else if (SceneManager::GetInstance().GetMaxPlayer() == 4)
+	//{
+	//	m_FlamePosition = new vivid::Vector2[m_four_player];
+	//	m_CurrentSelect = new int[m_four_player];
 
-	m_CharacterPosition = new vivid::Vector2[m_max_character];
+	//	m_MaxPlayer = m_four_player;
+	//}
+
 
 	//CHARACTER_ID UseCharacter[MaxPlayer][m_max_character]
 	//{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
@@ -61,7 +65,7 @@ void CharacterSelect::Initialize(void)
 	//};
 
 
-	for (int i = 0; i < m_MaxPlayer; ++i)
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; ++i)
 	{
 		CHARACTER_ID* character = nullptr;
 
@@ -69,9 +73,9 @@ void CharacterSelect::Initialize(void)
 
 		*character = CHARACTER_ID::DUMMY;
 
-		koko
+		//koko
 
-		m_UseCharacter.push_back(character);
+		//m_UseCharacter.push_back(character);
 
 		m_CurrentSelect[i] = (int)CHARACTER_ID::DUMMY;
 
@@ -81,19 +85,19 @@ void CharacterSelect::Initialize(void)
 
 	USECHARACTERLIST::iterator it = m_UseCharacter.begin();
 
-	while (it != m_UseCharacter.end())
-	{
-		CHARACTER_ID i = (CHARACTER_ID)m_UseCharacter.back();
+	//while (it != m_UseCharacter.end())
+	//{
+	//	CHARACTER_ID i = (CHARACTER_ID)m_UseCharacter.back();
 
-		playermanager::GetInstance().GetUseCharacter(, i, k);
+	//	playermanager::GetInstance().GetUseCharacter(, i, k);
 
-		++it;
-	}
+	//	++it;
+	//}
 }
 
 void CharacterSelect::Update(void)
 {
-	for (int i = 0; i < m_MaxPlayer; i++)
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
 	{
 		m_CurrentSelect[i] = playermanager::GetInstance().KeyboradCharacterSelect(i, m_CurrentSelect[i]);
 
@@ -119,7 +123,7 @@ void CharacterSelect::Draw(void)
 	/* 人数分の選択したキャラクターの枠の描画 */
 	vivid::Rect rect = { 0.0f, 0.0f, 250.0f, 300.0f };
 
-	for (int i = 0; i < m_MaxPlayer; ++i)
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; ++i)
 	{
 		vivid::Vector2 scale = { 1.0f,  1.0f };
 
@@ -189,8 +193,8 @@ void CharacterSelect::Keyboard(void)
 
 vivid::Vector2 CharacterSelect::GetFlamePosition(int num)
 {
-	float CenterPositionX = m_CharacterPosition[num].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
-	float CenterPositionY = m_CharacterPosition[num].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionX = m_CharacterPosition[num - 1].x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::TUNA) / 2.0f;
+	float CenterPositionY = m_CharacterPosition[num - 1].y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::TUNA) / 2.0f;
 
 	float FlamePositionX = CenterPositionX - m_flame_width / 2.0f;
 	float FlamePositionY = CenterPositionY - m_flame_height / 2.0f;
