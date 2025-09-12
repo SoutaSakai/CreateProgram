@@ -4,16 +4,12 @@
 #include "time_manager.h"
 
 const float CTimeManager::m_number_width = 32.0f;		//数字の幅
-
 const float CTimeManager::m_number_height = 48.0f;	//数字の高さ m_height = 48;//画像サイズの高さ
-
 const float CTimeManager::m_word_width = 30.0f;		//「Time」文字列の幅 m__width = 30;//画像サイズの幅
-
 const float CTimeManager::m_word_height = 50.0f;		//「Time」文字列の高さ m__height = 50;//画像サイズの高さ
+const float CTimeManager::m_round_time = 60.0f;		// １ラウンド分の時間
 
 namespace keyboard = vivid::keyboard;
-
-
 
 CTimeManager& CTimeManager::GetInstance(void)
 {
@@ -32,7 +28,7 @@ void CTimeManager::Initialize(void)
 
 	m_StartFlag = false;//スタートフラグがfalseの間はtimerが更新されないtrueの時はtimerが減る
 
-	m_Timer = 10.0f;
+	m_Timer = m_round_time;
 }
 
 void CTimeManager::Update(void)
@@ -157,6 +153,11 @@ void CTimeManager::Finalize(void)
 float CTimeManager::GetTimer(void)
 {
 	return m_Timer;
+}
+
+void CTimeManager::SetTimer(void)
+{
+	m_Timer = m_round_time;
 }
 
 bool CTimeManager::GetFlag(void)

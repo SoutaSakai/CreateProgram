@@ -7,11 +7,13 @@
 #include "..\..\fisher_manager\fisher_manager.h"
 #include "..\..\scene_manager\scene\characterselect\characterselect.h"
 #include "..\..\score_manager\score_manager.h"
+#include "..\..\player_manager\player_manager.h"
 
 const float Player::WaterHEIGHT = 165;
 
 //追加コード===>
 const float Player::MouthDis = 55.0f;
+const float Player::m_eat_time = 4;
 //<===
 
 // コンストラクタ
@@ -31,7 +33,13 @@ Player::Player()
 // 初期化
 void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 {
+	m_EatTimer = 0;
+
+	m_Color = 0xffffffff;
+
 	CharacterPos.x = Xpos;
+
+	m_FishedFlag = false;
 
 	//追加コード===>
 	//for (int i = 0; i < 4; ++i)
@@ -83,11 +91,12 @@ void Player::Update(void)
 				//	this->KeyboardCharacterSelect();
 				//else if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
 				//if (SceneManager::GetInstance().GetCullentSceneId() == SCENE_ID::GAMEMAIN)
-					if ((int)m_PlayerID == 0)
-						this->KeyboardGamemain();
+				if ((int)m_PlayerID == 0)
+					this->KeyboardGamemain();
 			}
 
-			this->CheckWall();
+			if (!m_FishedFlag)
+				this->CheckWall();
 
 			//スキルの更新
 			if (playermanager::GetInstance().GetSkilFlag((int)m_PlayerID))
@@ -123,11 +132,6 @@ void Player::Update(void)
 				}*/
 			}
 
-			//// 各餌との判定
-			//for (int i = 0; i < 4; ++i)
-			//{
-			//	Hit_feed[i] = FeedManager::GetInstance().CheckHit(CharaMouthPos, CharaMouthRadius, i);		
-			//}
 		}
 	}
 }
@@ -248,7 +252,7 @@ void Player::KeyboardGamemain(void)
 	int FisherMax = FisherManager::GetInstance().GetMax();
 
 	// 餌を食べる
-	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::R))
+	if (m_EatTimer <= 0.0f && vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::R))
 	{
 		vivid::DrawText(40, "R", vivid::Vector2(200.0f, 0.0f));
 		for (int i = 0; i < FisherMax; ++i)
@@ -263,27 +267,34 @@ void Player::KeyboardGamemain(void)
 
 				FisherManager::GetInstance().SetMoveFlag(i, true);
 
-				switch (FeedManager::GetInstance().GetFeedID(i))
+				if (FisherManager::GetInstance().GetState(i) == FISHER_STATE::RELUX)
 				{
-				case FEED_ID::LURE:
-					ScoreManager::GetInstance().AddScore(10, m_PlayerID);
-					break;
-				case FEED_ID::WORM:
-					ScoreManager::GetInstance().AddScore(20, m_PlayerID);
-					break;
-				case FEED_ID::MEET:
-					ScoreManager::GetInstance().AddScore(50, m_PlayerID);
-					break;
-				case FEED_ID::GOLD:
-					ScoreManager::GetInstance().AddScore(100, m_PlayerID);
-					break;
-				default:
-					break;
+					switch (FeedManager::GetInstance().GetFeedID(i))
+					{
+					case FEED_ID::LURE:
+						ScoreManager::GetInstance().AddScore(10, m_PlayerID);
+						break;
+					case FEED_ID::WORM:
+						ScoreManager::GetInstance().AddScore(20, m_PlayerID);
+						break;
+					case FEED_ID::MEET:
+						ScoreManager::GetInstance().AddScore(50, m_PlayerID);
+						break;
+					case FEED_ID::GOLD:
+						ScoreManager::GetInstance().AddScore(100, m_PlayerID);
+						break;
+					default:
+						break;
+					}
+				}
+				else if (FisherManager::GetInstance().GetState(i) == FISHER_STATE::CAUTION)
+				{
+					ScoreManager::GetInstance().AddScore(-20, m_PlayerID);
+
+					m_FishedFlag = true;
 				}
 
 				FeedManager::GetInstance().Destroy(i);
-
-				//m_Score += 10;
 			}
 		}
 	}
@@ -356,6 +367,9 @@ void Player::KeyboardGamemain(void)
 		}
 	}
 	//<===
+
+	if (m_EatTimer > 0.0f)
+		m_EatTimer -= vivid::GetDeltaTime();
 }
 
 int Player::KeyboardCharacterSelect(int current)
@@ -453,4 +467,14 @@ bool Player::CheckHitFeed(Feed* feed)
 	//	feed->InActive(false);
 
 	return check;
+}
+
+void Player::SetMovePosition(vivid::Vector2 fisher_position, FISHER_MOVE move)
+{
+	if (move == FISHER_MOVE::WAIT)
+		m_EatTimer = m_eat_time;
+
+	vivid::Vector2 range = FeedManager::GetInstance().GetRange(move);
+
+	CharacterPos = fisher_position + range - vivid::Vector2(CharaWIDTH / 2.0f, CharaHEIGHT / 2.0f);
 }

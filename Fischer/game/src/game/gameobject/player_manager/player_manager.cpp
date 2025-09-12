@@ -100,10 +100,33 @@ int playermanager::KeyboradCharacterSelect(int num, int current)
 	return player[num]->KeyboardCharacterSelect(current);
 }
 
+void playermanager::SetMovePosition(vivid::Vector2 fisher_position, FISHER_MOVE move, int player_num)
+{
+	if (move == FISHER_MOVE::WAIT)
+		ControlFlag[player_num] = true;
+
+	player[player_num]->SetMovePosition(fisher_position, move);
+}
+
+void playermanager::SetControlFlag(bool flag, int num)
+{
+	ControlFlag[num] = flag;
+}
+
 vivid::Vector2 playermanager::GetPosition(int playernumber) { return player[playernumber]->GetPlayerPosition(); }
 
 float playermanager::GetAngle(int playernumber) { return player[playernumber]->GetPlayerAngle(); }
 
 CHARACTER_ID playermanager::GetCharacter(int playernumber) { return player[playernumber]->GetUseCharacter(); }
+
+bool playermanager::GetFishedFlag(int playernumber)
+{
+	return player[playernumber]->GetFishedFlag();
+}
+
+int playermanager::GetMaxPlayer(void)
+{
+	return MaxPlayer;
+}
 
 

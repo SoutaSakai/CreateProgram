@@ -14,13 +14,19 @@ public:
 	void Finalize(void) override;
 
 private:
+
+	void ChangeRound(void);
+
 	static const int		m_max_fish;
 	static const int		m_max_player;
+	static const int		m_max_round;
 	static const float		m_water_surface;
-	//static const int		MaxPlayer;
 
 	vivid::Rect				m_Rect;				// ボタンの描画範囲
 	vivid::Vector2			m_Anchor;			// ボタンの基準点
 	vivid::Vector2			m_Scale;			// ボタンの拡大率
 	vivid::Vector2			m_ButtonPosition;	// ボタンの位置
+	int						m_CurrentRound;		// 現在のラウンド番号
+	bool					m_BlackFlag;		// 暗転フラグ
+	unsigned int			m_BlackColor;		// 暗転時の色
 };

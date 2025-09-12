@@ -57,7 +57,9 @@ void ScoreManager::Draw(void)
 	{
 		vivid::Vector2 position = m_ScorePosition[i];
 
-		m_TempScore[i] = m_Score[i];
+		m_TempScore[i] = abs(m_Score[i]);
+
+		vivid::Vector2 m_MinusPosition = { 0.0f,0.0f };
 
 		do
 		{
@@ -69,14 +71,22 @@ void ScoreManager::Draw(void)
 			rect.top = 0;
 			rect.bottom = m_height;
 
-
 			m_TempScore[i] /= 10;
 
 			position.x -= m_width;
 
+			if (m_TempScore[i] <= 0)
+				m_MinusPosition = position;
+			
 			vivid::DrawTexture("data\\number.png", position, 0xffffffff, rect);//プレイヤーのスコア表示
 
 		} while (m_TempScore[i] > 0);
+
+		if (m_Score[i] < 0)
+		{
+			m_MinusPosition = { m_MinusPosition.x - 40.0f, m_MinusPosition.y };
+			vivid::DrawTexture("data\\minus.png", m_MinusPosition);
+		}
 	}
 }
 

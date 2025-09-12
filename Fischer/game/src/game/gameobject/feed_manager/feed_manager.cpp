@@ -2,10 +2,9 @@
 #include "feed/feed.h"
 #include "..\player_manager\player_manager.h"
 
-const vivid::Vector2	FeedManager::m_RangeRand	= vivid::Vector2(75.0f, 75.0f);
-const vivid::Vector2	FeedManager::m_RangeSea		= vivid::Vector2(115.0f, 465.0f);
-
-RangeFishing = 105.0f, 75.0f;
+const vivid::Vector2	FeedManager::m_RangeAttach = { 75.0f, 75.0f };
+const vivid::Vector2	FeedManager::m_RangeSea = { 115.0f, 465.0f };
+const vivid::Vector2	FeedManager::m_RangeFishing = { 105.0f, 75.0f };
 
 FeedManager& FeedManager::GetInstance(void)
 {
@@ -32,13 +31,13 @@ void FeedManager::Update(void)
 	{
 		m_Feeds[i].SetHit(playermanager::GetInstance().CheckHitFeed(&m_Feeds[i]));
 
-		// 不活性なデータの初期化
-		if (!m_Feeds[i].GetActive())
-		{
-			m_Feeds[i].Reset();
+		//// 不活性なデータの初期化
+		//if (!m_Feeds[i].GetActive())
+		//{
+		//	m_Feeds[i].Reset();
 
-			continue;
-		}
+		//	continue;
+		//}
 
 		// 餌の更新
 		m_Feeds[i].Update();
@@ -53,8 +52,7 @@ void FeedManager::Draw(void)
 	// 各餌オブジェクトの描画
 	for (int i = 0; i < m_Max; i++)
 	{
-		if (m_Feeds[i].GetActive())
-			m_Feeds[i].Draw();
+		m_Feeds[i].Draw();
 	}
 }
 
@@ -85,7 +83,7 @@ bool FeedManager::CheckHit(vivid::Vector2 mouth_center_pos, float mouth_radius, 
 }
 
 // 餌の生成
-void FeedManager::Create(vivid::Vector2 fisher_position, int number)
+void FeedManager::Create(vivid::Vector2 fisher_position, FISHER_LEVEL level,int number)
 {
 	Feed*	feed = nullptr;
 
@@ -93,9 +91,9 @@ void FeedManager::Create(vivid::Vector2 fisher_position, int number)
 
 	if (!feed) return;
 
-	vivid::Vector2 Feed_position = { fisher_position.x + m_RangeRand.x, fisher_position.y + m_RangeRand.y };
+	vivid::Vector2 Feed_position = { fisher_position.x + m_RangeAttach.x, fisher_position.y + m_RangeAttach.y };
 
-	feed->Initialize(Feed_position);
+	feed->Initialize(Feed_position, level);
 
 	m_Feeds[number] = *feed;
 }
@@ -105,11 +103,26 @@ void FeedManager::Destroy(int number)
 	m_Feeds[number].SetActive(false);
 }
 
-void FeedManager::SetPosition(vivid::Vector2 fisher_position, int number)
+void FeedManager::SetPosition(vivid::Vector2 fisher_position, FISHER_MOVE move, int number)
 {
-	vivid::Vector2 Feed_position = { fisher_position.x + m_RangeSea.x, fisher_position.y + m_RangeSea.y };
+	vivid::Vector2 Feed_position = { 0.0f,0.0f};
 
-	m_Feeds[number].Initialize(Feed_position);
+	switch (move)
+	{
+	case FISHER_MOVE::WAIT:
+		Feed_position = { fisher_position.x + m_RangeSea.x, fisher_position.y + m_RangeSea.y };
+		break;
+	case FISHER_MOVE::FISHING:
+		Feed_position = { fisher_position.x + m_RangeSea.x, fisher_position.y + m_RangeSea.y };
+		break;
+	case FISHER_MOVE::ATTACH:
+		Feed_position = { fisher_position.x + m_RangeFishing.x, fisher_position.y + m_RangeFishing.y };
+		break;
+	default:
+		break;
+	}
+	
+	m_Feeds[number].SetPosition(Feed_position);
 }
 
 vivid::Vector2 FeedManager::GetPosition(int num)
@@ -130,6 +143,24 @@ FEED_ID FeedManager::GetFeedID(int num)
 bool FeedManager::GetActive(int num)
 {
 	return m_Feeds[num].GetActive();
+}
+
+vivid::Vector2 FeedManager::GetRange(FISHER_MOVE current)
+{
+	switch (current)
+	{
+	case FISHER_MOVE::WAIT:
+		return m_RangeSea;
+		break;
+	case FISHER_MOVE::FISHING:
+		return m_RangeFishing;
+		break;
+	case FISHER_MOVE::ATTACH:
+		return m_RangeAttach;
+		break;
+	default:
+		break;
+	}
 }
 
 FeedManager::FeedManager(void)

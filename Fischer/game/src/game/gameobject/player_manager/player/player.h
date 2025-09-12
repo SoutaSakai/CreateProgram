@@ -5,7 +5,7 @@
 #include"..\..\feed_manager\feed\feed_id.h"
 #include"../player_manager.h"
 #include "..\..\feed_manager\feed\feed.h"
-
+#include "..\..\fisher_manager\fisherstate.h"
 #include"../../skil_manager/skil_manager.h"
 
 ////スキルインクルード
@@ -59,7 +59,12 @@ public:
 	float GetPlayerWidth(void) const { return CharaWIDTH; }
 	float GetPlayerHeight(void) const { return CharaHEIGHT; }
 
+	bool GetFishedFlag(void) const { return m_FishedFlag; }
+
+
 	void SetFeedID(FEED_ID);
+
+	void SetMovePosition(vivid::Vector2, FISHER_MOVE);
 
 	bool CheckHitFeed(Feed*);
 
@@ -89,10 +94,15 @@ private:
 
 	FEED_ID m_FeedID;
 
+	bool m_FishedFlag;
 
+	float m_EatTimer;
+
+	unsigned int m_Color;
 
 	static const float WaterHEIGHT;
 	static const float MouthDis;
+	static const float m_eat_time;
 
 	////スキルクラス
 	//Tuna* tuna;

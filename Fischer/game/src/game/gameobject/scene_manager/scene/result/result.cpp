@@ -176,9 +176,11 @@ void Result::Draw(void)
 			}
 		}
 
-		int TempScore = ScoreManager::GetInstance().GetScore(i);
+		int TempScore = abs(ScoreManager::GetInstance().GetScore(i));
 
 		vivid::Vector2 m_point_pos = m_ScorePosition[i];
+
+		vivid::Vector2 m_MinusPosition = { 0.0f,0.0f };
 
 		//ポイント表示の計算
 		do
@@ -192,11 +194,20 @@ void Result::Draw(void)
 
 			TempScore /= 10;
 
+			if (TempScore <= 0)
+				m_MinusPosition = m_point_pos;
+
 			vivid::DrawTexture("data\\number.png", m_point_pos, 0xffffffff, rect);
 
 			m_point_pos.x -= m_number_width;
 
 		} while (TempScore > 0);
+
+		if (ScoreManager::GetInstance().GetScore(i) < 0)
+		{
+			m_MinusPosition = { m_MinusPosition.x - 40.0f, m_MinusPosition.y };
+			vivid::DrawTexture("data\\minus.png", m_MinusPosition);
+		}
 
 		vivid::DrawTexture("data\\score_text.png", m_ScoreTextPosition[i]);
 	}
@@ -210,18 +221,6 @@ void Result::Draw(void)
 
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "result", vivid::Vector2(0.0f, 0.0f));
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y - 30.0f), 0xffffffff);
-
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y - 30.0f), 0xffffffff);
-
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y), 0xffffffff);
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 30.0f + 360.0f), 0xffffffff);
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x/* - 15.0f*/, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(m_RankTextPosition[0].x/* - 15.0f*/, m_RankTextPosition[0].y - 30.0f + 360.0f), 0xffffffff);
-
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 30.0f + 360.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y - 30.0f + 360.0f), 0xffffffff);
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f, m_RankTextPosition[0].y - 30.0f + 330.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y - 30.0f + 330.0f), 0xffffffff);
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 860.0f, m_RankTextPosition[0].y - 30.0f + 360.0f), 0xffffffff);
-	//vivid::DrawLine(vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 830.0f, m_RankTextPosition[0].y - 30.0f), vivid::Vector2(m_RankTextPosition[0].x - 30.0f + 830.0f, m_RankTextPosition[0].y - 30.0f + 360.0f), 0xffffffff);
 #endif
 }
 

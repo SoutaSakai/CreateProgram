@@ -1,5 +1,13 @@
 #pragma once
 
+enum class FISHER_LEVEL
+{
+	LOW,
+	MIDDLE,
+	HIGH,
+	HIGHEST
+};
+
 enum class FISHER_STATE
 {
 	RELUX,		// ƒŠƒ‰ƒbƒNƒXó‘Ô

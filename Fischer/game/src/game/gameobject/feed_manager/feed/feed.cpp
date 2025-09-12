@@ -13,16 +13,16 @@ Feed::Feed(void)
 }
 
 // èâä˙âª
-void Feed::Initialize(const vivid::Vector2& current_pos)
+void Feed::Initialize(const vivid::Vector2& current_pos, FISHER_LEVEL level)
 {
 	m_Position.x = current_pos.x;
 	m_Position.y = current_pos.y;
 
 	m_ActiveFlag = true;
 
-	m_Id = (FEED_ID)(rand() % (int)FEED_ID::MAX);
-
 	m_Hit = false;
+
+	SetId(level);
 }
 
 // çXêV
@@ -33,12 +33,15 @@ void Feed::Update(void)
 // ï`âÊ
 void Feed::Draw(void)
 {
-	switch (m_Id)
+	if (m_ActiveFlag)
 	{
-	case FEED_ID::LURE:		vivid::DrawTexture("data\\feed_lure.png", m_Position);
-	case FEED_ID::WORM:		vivid::DrawTexture("data\\feed_worm.png", m_Position);
-	case FEED_ID::MEET:		vivid::DrawTexture("data\\feed_meet.png", m_Position);
-	case FEED_ID::GOLD:		vivid::DrawTexture("data\\feed_gold.png", m_Position);
+		switch (m_Id)
+		{
+		case FEED_ID::LURE:		vivid::DrawTexture("data\\feed_lure.png", m_Position);	break;
+		case FEED_ID::WORM:		vivid::DrawTexture("data\\feed_worm.png", m_Position);	break;
+		case FEED_ID::MEET:		vivid::DrawTexture("data\\feed_meet.png", m_Position);	break;
+		case FEED_ID::GOLD:		vivid::DrawTexture("data\\feed_gold.png", m_Position);	break;
+		}
 	}
 }
 
@@ -77,6 +80,11 @@ vivid::Vector2 Feed::GetPosition(void)
 	return m_Position;
 }
 
+void Feed::SetPosition(vivid::Vector2 position)
+{
+	m_Position = position;
+}
+
 FEED_ID Feed::GetId(void)
 {
 	return m_Id;
@@ -92,9 +100,79 @@ void Feed::SetHit(bool hit)
 	m_Hit = hit;
 }
 
-void Feed::Reset(void)
+void Feed::SetId(FISHER_LEVEL level)
 {
-	m_Position = vivid::Vector2(0.0f, -m_height);
+	int ran = rand() % ((int)FEED_ID::MAX * 25);
 
-	m_Hit = false;
+	switch (level)
+	{
+	case FISHER_LEVEL::LOW:
+		if (ran < 40)
+		{
+			m_Id = FEED_ID::LURE;
+		}
+		else if (ran < 75)
+		{
+			m_Id = FEED_ID::WORM;
+		}
+		else if (ran < 98)
+		{
+			m_Id = FEED_ID::MEET;
+		}
+		else
+		{
+			m_Id = FEED_ID::GOLD;
+		}
+		break;
+	case FISHER_LEVEL::MIDDLE:
+		if (ran < 35)
+		{
+			m_Id = FEED_ID::LURE;
+		}
+		else if (ran < 75)
+		{
+			m_Id = FEED_ID::WORM;
+		}
+		else if (ran < 90)
+		{
+			m_Id = FEED_ID::MEET;
+		}
+		else
+		{
+			m_Id = FEED_ID::GOLD;
+		}
+		break;
+	case FISHER_LEVEL::HIGH:
+		if (ran < 38)
+		{
+			m_Id = FEED_ID::WORM;
+		}
+		else if (ran < 75)
+		{
+			m_Id = FEED_ID::MEET;
+		}
+		else
+		{
+			m_Id = FEED_ID::GOLD;
+		}
+		break;
+	case FISHER_LEVEL::HIGHEST:
+		if (ran < 10)
+		{
+			m_Id = FEED_ID::WORM;
+		}
+		else if (ran < 60)
+		{
+			m_Id = FEED_ID::MEET;
+		}
+		else
+		{
+			m_Id = FEED_ID::GOLD;
+		}
+		break;
+	default:
+		break;
+	}
+
+
 }

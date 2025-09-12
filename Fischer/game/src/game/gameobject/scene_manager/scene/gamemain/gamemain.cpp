@@ -12,6 +12,7 @@
 
 const int		Gamemain::m_max_fish = 3;
 const float		Gamemain::m_water_surface = 165.0f;
+const int		Gamemain::m_max_round = 3;
 //‰¼
 static const int MaxPlayer = 2;
 
@@ -27,22 +28,12 @@ Gamemain::Gamemain(void)
 }
 
 void Gamemain::Initialize(void)
-{/*
-	const int	MaxPlayer = SceneManager::GetInstance().GetMaxPlayer();*/
-	//m_UseCharacter = new UseCharacter[m_max_player];
-	//for (int i = 0; i < m_max_player; i++)
-	//{
-	//	m_UseCharacter[i].Character = new CHARACTER_ID[m_max_fish];
-	//}
+{
+	m_CurrentRound = 1;
+	m_BlackFlag = false;
+	m_BlackColor = 0x00000000;
 
 	FisherManager::GetInstance().Initialize();
-
-	//CHARACTER_ID UseCharacter[MaxPlayer][m_max_fish]
-	//{ {CHARACTER_ID::TUNA,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}/*,*/
-	////{CHARACTER_ID::ELSCTRICEEL,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
-	////{CHARACTER_ID::SHARK,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY},
-	////{CHARACTER_ID::TURTLE,CHARACTER_ID::DUMMY,CHARACTER_ID::DUMMY}
-	//};
 
 	for (int i = 0; i < MaxPlayer; i++)
 	{
@@ -51,14 +42,6 @@ void Gamemain::Initialize(void)
 			playermanager::GetInstance().GetUseCharacter(UseCharacter[i][k], i, k);
 		}
 	}
-	
-	//for (int i = 0; i < MaxPlayer; i++)
-	//{
-	//	for (int k = 0; k < m_max_fish; k++)
-	//	{
-	//		playermanager::GetInstance().GetUseCharacter(m_UseCharacter[i].Character[k], i, k);
-	//	}
-	//}
 
 	playermanager::GetInstance().Initialize(MaxPlayer);
 
@@ -83,7 +66,7 @@ void Gamemain::Update(void)
 	ScoreManager::GetInstance().Update();
 
 	FisherManager::GetInstance().Update();
-	
+
 	playermanager::GetInstance().Update();
 
 	if (CTimeManager::GetInstance().GetTimer() <= 1)
@@ -91,8 +74,15 @@ void Gamemain::Update(void)
 		//RETURN‚ÍƒGƒ“ƒ^[
 		if (keyboard::Button(keyboard::KEY_ID::RETURN))
 		{
+			m_BlackFlag = true;
+
 			SceneManager::GetInstance().Change_scene(SCENE_ID::RESULT);
 		}
+	}
+
+	if (m_BlackFlag)
+	{
+		ChangeRound();
 	}
 
 //#ifdef VIVID_DEBUG
@@ -119,6 +109,8 @@ void Gamemain::Draw(void)
 		vivid::DrawTexture("data\\result_button.png", m_ButtonPosition, 0xffffffff, m_Rect, m_Anchor, m_Scale);
 	}
 
+	vivid::DrawTexture("data\\black.png", vivid::Vector2::ZERO, m_BlackColor);
+
 #ifdef VIVID_DEBUG
 	vivid::DrawText(24, "gamemain", vivid::Vector2(0.0f, 0.0f));
 #endif
@@ -126,4 +118,9 @@ void Gamemain::Draw(void)
 
 void Gamemain::Finalize(void)
 {
+}
+
+void Gamemain::ChangeRound(void)
+{
+	m_BlackColor += 0x01000000;
 }

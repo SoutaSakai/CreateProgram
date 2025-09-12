@@ -34,19 +34,25 @@ public:
 	// 釣り人の高さを返す
 	int GetHeight(void);
 
-	FISHER_MOVE GetMoveState(void);
+	FISHER_STATE GetState(void);
 
+	FISHER_MOVE GetMoveState(void);
 	void SetMoveState(FISHER_MOVE);
 
 	bool GetMoveFlag(void);
 	void SetMoveFlag(bool);
 
+	FISHER_LEVEL GetLevel(void);
+
 	void ChangeMove(void);
 
 private:
+	void ChangeState(int);
+
 	static const int	m_width;		// 釣り人の幅
 	static const int	m_height;		// 釣り人の高さ
 
+	FISHER_LEVEL	m_Level;			// 強さ
 	FISHER_STATE	m_State;			// 釣り人の状態
 	FISHER_MOVE		m_Move;				// 釣り人の動き
 	bool			m_MoveFlag;			// 動きのアクティブフラグ

@@ -4,6 +4,7 @@
 #include"Player/Player.h"
 #include"../character_manager/CharacterID.h"
 #include "..\feed_manager\feed\feed.h"
+#include "..\fisher_manager\fisherstate.h"
 
 class Player;
 
@@ -42,6 +43,9 @@ public:
 	void ChangeSkilFlagFalse(int playernumber) { m_SkilFlag[playernumber] = false; }
 	void ChangeControlFlagFalse(int playernumber) { m_ControlFlag[playernumber] = false; }
 
+	void SetMovePosition(vivid::Vector2, FISHER_MOVE, int);
+	void SetControlFlag(bool, int);
+
 	//プレイヤーの座標を渡す
 	vivid::Vector2 GetPosition(int playernumber);
 	//プレイヤーの角度を渡す
@@ -49,9 +53,11 @@ public:
 	//プレイヤーが使っているキャラクターを渡す
 	CHARACTER_ID GetCharacter(int playernumber);
 
+	bool GetFishedFlag(int playernumber);
 	bool GetOctopusSlowFlag(int playernumber) const { return m_Octopus_Slow[playernumber]; }
 	void ChangeOctopusSlowFlag(int playernumber, bool flag) { m_Octopus_Slow[playernumber] = flag; }
 
+	int GetMaxPlayer(void);
 private:
 
 	playermanager(void) = default;

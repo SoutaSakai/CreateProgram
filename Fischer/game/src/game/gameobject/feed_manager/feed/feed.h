@@ -2,6 +2,7 @@
 
 #include "vivid.h"
 #include "feed_id.h"
+#include "..\..\fisher_manager\fisherstate.h"
 
 class Feed
 {
@@ -10,7 +11,7 @@ public:
 	~Feed(void) = default;
 
 	// ‰Šú‰»
-	void Initialize(const vivid::Vector2&);
+	void Initialize(const vivid::Vector2&, FISHER_LEVEL);
 
 	// XV
 	void Update(void);
@@ -36,14 +37,16 @@ public:
 	// ˆÊ’u‚ğ•Ô‚·
 	vivid::Vector2 GetPosition(void);
 
+	void SetPosition(vivid::Vector2);
+
 	FEED_ID GetId(void);
 
 	bool GetHit(void);
 	void SetHit(bool);
 
-	void Reset(void);
-
 private:
+	void SetId(FISHER_LEVEL);
+
 	static const float	m_width;	// •
 	static const float	m_height;	// ‚‚³
 

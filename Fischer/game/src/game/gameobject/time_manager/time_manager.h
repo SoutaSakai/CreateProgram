@@ -18,6 +18,8 @@ public:
 
 	float GetTimer(void);//timerを返す関数
 
+	void SetTimer(void);
+
 	bool GetFlag(void);//start_flagを返す関数
 
 	bool Finish(void);
@@ -28,7 +30,7 @@ private:
 	static const float m_number_height;		//数字の高さ
 	static const float m_word_width;		//「Time」文字列の幅
 	static const float m_word_height;		//「Time」文字列の高さ
-
+	static const float m_round_time;		// 1ラウンド分の時間
 
 	float m_StartTimer;
 	float m_Timer;
