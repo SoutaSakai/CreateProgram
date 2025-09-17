@@ -1,9 +1,12 @@
 #include "Octopus.h"
 
+#include"../../../maxplayer_manager/maxplayer_manager.h"
+
 const float			COctopus::m_AbilityTime = 1.5f;
 const std::string	COctopus::m_FilePath = "data\\ink.png";
 const float			COctopus::m_ScaleSpeed = 0.03f;
 const unsigned int	COctopus::m_TransparencySpeed = 0x01000000;
+const int			COctopus::m_skil_time = 180;
 
 const int			COctopus::m_InkWidth = 300/*vivid::GetTextureWidth(m_FilePath)*/;
 const int			COctopus::m_InkHeight = 300/*vivid::GetTextureHeight(m_FilePath)*/;
@@ -15,6 +18,7 @@ COctopus::COctopus(void)
 
 void COctopus::Initialize(int playernumber, vivid::Vector2 positon, vivid::Vector2 scale)
 {
+	m_MaxPlayer = CMaxPlayerManager::GetInstance().GetMaxPlayer();
 	m_PlayerNumber = playernumber;
 
 	m_Position.x = positon.x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::OCTOPUS) / 2 - m_InkWidth / 2;
@@ -27,6 +31,10 @@ void COctopus::Initialize(int playernumber, vivid::Vector2 positon, vivid::Vecto
 	m_Scale = vivid::Vector2::ZERO;
 
 	m_Timer = 0;
+
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+		m_Flag[i] = true;
+
 }
 
 void COctopus::Update(void)
@@ -62,15 +70,15 @@ void COctopus::Finalize(void)
 
 void COctopus::CheckHitSkill(void)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < m_MaxPlayer; i++)
 	{
-		if (i != m_PlayerNumber)
+		//自分以外 && スキルが一回も当たってない場合
+		if (i != m_PlayerNumber && m_Flag[i])
 		{
 			//カメ && スキル使用中だったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
 				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				return;
 			}
 			else
 			{
@@ -125,16 +133,8 @@ void COctopus::CollisionDetection(int number, int pattern)
 			(m_Position.y <= position.x + height && position.y + height <= m_Position.y + m_InkHeight))
 		{
 			//当たっている時の処理
-			playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, true);
-			vivid::DrawText(40, "attateru", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+			playermanager::GetInstance().SetSlow(number, m_skil_time);
+			m_Flag[number] = false;
 		}
-		else
-		{
-			playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
-		}
-	}
-	else
-	{
-		playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
 	}
 }

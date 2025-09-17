@@ -1,15 +1,23 @@
 #include "Elsctriceel.h"
 
+#include"../../../maxplayer_manager/maxplayer_manager.h"
+#include"../../../score_manager/score_manager.h"
 
 const float Elsctriceel::SkillSize = 300;
 const float Elsctriceel::AbilityTime = 5;
-
+const int	Elsctriceel::m_stan_time = 90;
+const int	Elsctriceel::m_score = 20;
 
 void Elsctriceel::Initialize(int playernumber)
 {
+	m_MaxPlayer = CMaxPlayerManager::GetInstance().GetMaxPlayer();
+
 	Timer = 0;
 	m_CenterPosition = vivid::Vector2(0, 0);
 	m_PlayerNumber = playernumber;
+
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+		m_Flag[i] = true;
 }
 
 void Elsctriceel::Update(vivid::Vector2 Pos)
@@ -37,16 +45,15 @@ void Elsctriceel::Update(vivid::Vector2 Pos)
 
 void Elsctriceel::CheckHitSkill(void)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < m_MaxPlayer; i++)
 	{
-		if (i != m_PlayerNumber)
+		//自分以外 && スキルが一回も当たってない場合
+		if (i != m_PlayerNumber && m_Flag[i])
 		{
-
 			//カメ && スキル使用中だったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
 				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				return;
 			}
 			else
 			{
@@ -153,6 +160,11 @@ void Elsctriceel::CollisionDetection(int number, int pattern)
 	//比較
 	if (difference < SkillSize / 2)
 	{
-		vivid::DrawText(40, "attateru", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+		//スタンさせる
+		playermanager::GetInstance().SetStanTime(number, m_stan_time);
+		//ポイント付与
+		ScoreManager::GetInstance().AddScore(m_score, m_PlayerNumber);
+		//フラグをfalseにする
+		m_Flag[number] = false;
 	}
 }

@@ -15,6 +15,7 @@ public:
 	std::string		CharacterFilePath(CHARACTER_ID Character);		//キャラクターのファイルパスを返す
 	vivid::Vector2	CharacterMouthPos(CHARACTER_ID Character);		//キャラクターの口の位置を返す
 	float			CharacterMouthRadius(CHARACTER_ID Character);	//キャラクターの口の半径を返す
+	int				CharacterUsagelimit(CHARACTER_ID Character);	//キャラクターのスキル使用回数を返す
 
 	//スキル効果
 	float GetSlowSpeed(void) const { return SlowSpeed; }
@@ -31,6 +32,7 @@ private:
 	static const std::string ElsctriceelFilePath;		//電気うなぎのファイルパス
 	static const vivid::Vector2 ElsctriceelMouthPos;	//電気ウナギの口の位置
 	static const float ElsctriceelMouthRadius;			//電気うなぎの口の半径
+	static const int ElsctriceelUsagelimit;				//電気うなぎのスキルの回数制限
 
 	//Porcupinefish		ハリセンボン
 	static const float PorcupinefishWIDTH;				//ハリセンボンの横幅
@@ -40,6 +42,7 @@ private:
 	static const std::string PorcupinefishFilePath;		//ハリセンボンのファイルパス
 	static const vivid::Vector2 PorcupinefishMouthPos;	//ハリセンボンの口の位置
 	static const float PorcupinefishMouthRadius;		//ハリセンボンの口の半径
+	static const int PorcupinefishUsagelimit;			//ハリセンボンのスキルの回数制限
 
 	//Shark				サメ
 	static const float SharkWIDTH;					//サメの横幅
@@ -49,6 +52,7 @@ private:
 	static const std::string SharkFilePath;			//サメのファイルパス
 	static const vivid::Vector2 SharkMouthPos;		//サメの口の位置
 	static const float SharkMouthRadius;			//サメの口の半径
+	static const int SharkUsagelimit;				//サメのスキルの回数制限
 
 	//Lionfish			ミノカサゴ
 	static const float LionfishWIDTH;				//ミノカサゴの横幅
@@ -58,6 +62,7 @@ private:
 	static const std::string LionfishFilePath;		//ミノカサゴのファイルパス
 	static const vivid::Vector2 LionfishMouthPos;	//ミノカサゴの口の位置
 	static const float LionfishMouthRadius;			//ミノカサゴの口の半径
+	static const int LionfishUsagelimit;			//ミノカサゴのスキルの回数制限
 
 	//Mirrormorayell		ミラーウツボ
 	static const float MirrormorayellWIDTH;				//ミラーウツボの横幅
@@ -67,6 +72,7 @@ private:
 	static const std::string MirrormorayellFilePath;	//ミラーウツボのファイルパス
 	static const vivid::Vector2 MirrormorayellMouthPos;	//ミラーウツボの口の位置
 	static const float MirrormorayellMouthRadius;		//ミラーウツボの口の半径
+	static const int MirrormorayellUsagelimit;			//ミラーウツボのスキルの回数制限
 
 	//Turtle			カメ
 	static const float TurtleWIDTH;					//カメの横幅
@@ -76,6 +82,7 @@ private:
 	static const std::string TurtleFilePath;		//カメのファイルパス
 	static const vivid::Vector2 TurtleMouthPos;		//カメの口の位置
 	static const float TurtleMouthRadius;			//カメの口の半径
+	static const int TurtleUsagelimit;				//カメのスキルの回数制限
 
 	//Octopus			タコ
 	static const float OctopusWIDTH;				//タコの横幅
@@ -86,6 +93,7 @@ private:
 	static const vivid::Vector2 OctopusMouthPos;	//タコの口の位置
 	static const float OctopusMouthRadius;			//タコの口の半径
 	static const float SlowSpeed;					//タコの鈍足効果
+	static const int OctopusUsagelimit;				//タコのスキルの回数制限
 
 	//Pointuna			ポインツナ
 	static const float PointunaWIDTH;				//ポインツナの横幅
@@ -95,6 +103,7 @@ private:
 	static const std::string PointunaFilePath;		//ポインツナのファイルパス
 	static const vivid::Vector2 PointunaMouthPos;	//ポインツナの口の位置
 	static const float PointunaMouthRadius;			//ポインツナの口の半径
+	static const int PointunaUsagelimit;			//ポインツナのスキルの回数制限
 
 	//Tuna				マグロ
 	static const float TunaWIDTH;					//マグロの横幅
@@ -104,6 +113,7 @@ private:
 	static const std::string TunaFilePath;			//マグロのファイルパス
 	static const vivid::Vector2 TunaMouthPos;		//マグロの口の位置
 	static const float TunaMouthRadius;				//マグロの口の半径
+	static const int TunaUsagelimit;				//マグロのスキルの回数制限
 
 };
 

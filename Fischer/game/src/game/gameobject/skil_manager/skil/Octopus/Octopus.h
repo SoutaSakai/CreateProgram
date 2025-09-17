@@ -31,6 +31,7 @@ private:
 	static const std::string	m_FilePath;		//ファイルパス
 	static const float			m_ScaleSpeed;	//スケールスピード
 	static const unsigned int	m_TransparencySpeed;		//透過スピード
+	static const int			m_skil_time;		//スキルの効果時間
 
 	static const int			m_InkWidth;		//インクの横幅
 	static const int			m_InkHeight;	//インクの立幅
@@ -41,7 +42,9 @@ private:
 	vivid::Vector2				m_Anchor;		//基準点
 	vivid::Vector2				m_Scale;		//拡大率
 
+	bool						m_Flag[(int)vivid::controller::DEVICE_ID::MAX];
+
 	float						m_Timer;		//タイマー
 	int							m_PlayerNumber;	//プレイヤー識別番号
-
+	int							m_MaxPlayer;	//最大人数
 };

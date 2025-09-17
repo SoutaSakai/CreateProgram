@@ -1,4 +1,6 @@
 #include "Lionfish.h"
+#include"../../../score_manager/score_manager.h"
+#include"../../../maxplayer_manager/maxplayer_manager.h"
 
 const std::string		CLionFish::m_filepath = "data\\smoke.png";
 const int				CLionFish::m_width = 200;
@@ -7,11 +9,15 @@ const int				CLionFish::m_height = 200;
 const vivid::Rect		CLionFish::m_rect = { 0,0,m_width,m_height };
 const vivid::Vector2	CLionFish::m_anchor = vivid::Vector2(m_width / 2, m_height / 2);
 
-const float				CLionFish::m_abilityTime = 180;
+const float				CLionFish::m_abilityTime = 60;
 const vivid::Vector2	CLionFish::m_scalespeed = vivid::Vector2(0.1f, 0.1f);
+
+const int				CLionFish::m_score = -20;
 
 void CLionFish::Intialize(int playernumber, vivid::Vector2 position)
 {
+	m_MaxPlayer = CMaxPlayerManager::GetInstance().GetMaxPlayer();
+
 	m_Position.x = position.x + CharacterManager::GetInstance().CharacterWIDTH(CHARACTER_ID::LIONFISH) / 2 - m_width / 2;
 	m_Position.y = position.y + CharacterManager::GetInstance().CharacterHEIGHT(CHARACTER_ID::LIONFISH) / 2 - m_height / 2;
 	m_Scale = vivid::Vector2(0.0f, 0.0f);
@@ -19,6 +25,9 @@ void CLionFish::Intialize(int playernumber, vivid::Vector2 position)
 	m_PlayerNumber = playernumber;
 	m_Color = 0xffffffff;
 	m_timer = 0;
+
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+		m_Flag[i] = true;
 }
 
 void CLionFish::Update(void)
@@ -56,15 +65,15 @@ void CLionFish::Finalize(void)
 
 void CLionFish::CheckHitSkill(void)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < m_MaxPlayer; i++)
 	{
-		if (i != m_PlayerNumber)
+		//自分以外 && スキルが一回も当たってない場合
+		if (i != m_PlayerNumber && m_Flag[i])
 		{
 			//カメ && スキル使用中だったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
 				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				return;
 			}
 			else
 			{
@@ -119,16 +128,11 @@ void CLionFish::CollisionDetection(int number, int pattern)
 			(m_Position.y <= position.x + height && position.y + height <= m_Position.y + m_height))
 		{
 			//当たっている時の処理
-			playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, true);
-			vivid::DrawText(40, "attateru", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+			ScoreManager::GetInstance().AddScore(m_score, number);
+			//フラグをfalseにする
+			m_Flag[number] = false;
+
 		}
-		else
-		{
-			playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
-		}
-	}
-	else
-	{
-		playermanager::GetInstance().ChangeOctopusSlowFlag(m_PlayerNumber, false);
+
 	}
 }

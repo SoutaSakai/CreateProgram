@@ -14,7 +14,7 @@ public:
 
 	static playermanager& GetInstance(void);
 
-	void GetUseCharacter(CHARACTER_ID Character, int PlayerNo, int CharacterNo);
+	void SetUseCharacter(CHARACTER_ID Character, int PlayerNo, int CharacterNo);
 
 	void Initialize(const int MaxPlayer);
 	void Update(void);
@@ -53,9 +53,15 @@ public:
 	//プレイヤーが使っているキャラクターを渡す
 	CHARACTER_ID GetCharacter(int playernumber);
 
+	//キャラクターをスタンさせる
+	void SetStanTime(int playernumber, int time);
+
+	//キャラクターにスロウを与える
+	void SetSlow(int playernumber, int time);
+
 	bool GetFishedFlag(int playernumber);
-	bool GetOctopusSlowFlag(int playernumber) const { return m_Octopus_Slow[playernumber]; }
-	void ChangeOctopusSlowFlag(int playernumber, bool flag) { m_Octopus_Slow[playernumber] = flag; }
+	//bool GetOctopusSlowFlag(int playernumber) const { return m_Octopus_Slow[playernumber]; }
+	//void ChangeOctopusSlowFlag(int playernumber, bool flag) { m_Octopus_Slow[playernumber] = flag; }
 
 	int GetMaxPlayer(void);
 private:
@@ -68,6 +74,7 @@ private:
 
 	bool SkilFlag[(int)vivid::controller::DEVICE_ID::MAX];				//スキルのフラグ
 	bool ControlFlag[(int)vivid::controller::DEVICE_ID::MAX];			//プレイヤーが操作できるかどうか
+	int	 m_Stantime[(int)vivid::controller::DEVICE_ID::MAX];			//スタンタイマー
 
 	Player* player[(int)vivid::controller::DEVICE_ID::MAX];							//プレイヤーのオブジェクト生成
 	CHARACTER_ID UseCharacter[(int)vivid::controller::DEVICE_ID::MAX][3];			//プレイヤーの使うキャラクター
@@ -80,6 +87,6 @@ private:
 	bool m_SkilFlag[(int)vivid::controller::DEVICE_ID::MAX];
 	bool m_ControlFlag[(int)vivid::controller::DEVICE_ID::MAX];
 
-	//バフ・デバフのフラグ
-	bool m_Octopus_Slow[(int)vivid::controller::DEVICE_ID::MAX];
+	////バフ・デバフのフラグ
+	//bool m_Octopus_Slow[(int)vivid::controller::DEVICE_ID::MAX];
 };

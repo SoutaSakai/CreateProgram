@@ -16,7 +16,9 @@ public:
 
 private:
 
-	static const int		m_time;		//効果時間
+	static const int		m_time;			//効果時間
+	static const int		m_stan_time;	//スタン時間
+	static const int		m_score;		//増えるスコア
 
 	vivid::Vector2		m_RMouthPos;	//口の位置(ローカル)
 	vivid::Vector2		m_WMouthPos;	//口の位置(ワールド)
@@ -30,7 +32,10 @@ private:
 	float				m_Height;
 	float				m_Diagonal;			//中心点から口までの距離
 
+	bool				m_ScoreFlag[(int)vivid::controller::DEVICE_ID::MAX];		//スコアを渡す回数を一回にする
+
 	int	m_Timer;
 	int m_PlayerNumber;						//プレイヤー識別番号
+	int	m_MaxPlayer;
 
 };

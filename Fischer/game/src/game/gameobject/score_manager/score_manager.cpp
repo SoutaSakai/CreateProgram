@@ -94,6 +94,11 @@ void ScoreManager::Finalize(void)
 {
 }
 
+int ScoreManager::GetRoundScore(int number)
+{
+	return m_Score[number];
+}
+
 int ScoreManager::GetScore(int a)//スコア取得
 {
 	int work = 0;
@@ -114,7 +119,74 @@ int ScoreManager::GetScore(int a)//スコア取得
 	return m_Score[a];
 }
 
-void ScoreManager::AddScore(int score, vivid::controller::DEVICE_ID num)
+int ScoreManager::GetPlayer(int a)
 {
-	m_Score[(int)num] += score;
+
+	int rank[4] = { 0,1,2,3 };
+	int work = 0;
+	int box[4];
+
+	for (int i = 0; i < m_max_player; i++)
+		box[i] = m_Score[i];
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3 - i; j++)
+		{
+			if (box[j] < box[j + 1])
+			{
+				work = box[j];
+				box[j] = box[j + 1];
+				box[j + 1] = work;
+
+				work = rank[j];
+				rank[j] = rank[j + 1];
+				rank[j + 1] = work;
+
+			}
+		}
+	}
+
+	return rank[a];
+
+}
+
+int ScoreManager::GetRank(int a)
+{
+	int rank[4] = { 0,1,2,3 };
+	int work = 0;
+	int box[4];
+
+	for (int i = 0; i < m_max_player; i++)
+	{
+		box[i] = m_Score[i];
+	}
+
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3 - i; j++)
+		{
+			if (box[j] < box[j + 1])
+			{
+				work = box[j];
+				box[j] = box[j + 1];
+				box[j + 1] = work;
+			}
+		}
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (box[i] == box[i + 1])
+		{
+			rank[i + 1] = rank[i];
+		}
+	}
+	return rank[a];
+
+}
+
+void ScoreManager::AddScore(int score, int num)
+{
+	m_Score[num] += score;
 }

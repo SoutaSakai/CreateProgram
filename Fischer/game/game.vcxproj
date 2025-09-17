@@ -164,12 +164,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\gameobject\bubble_manager\bubble\bubble.cpp" />
+    <ClCompile Include="src\game\gameobject\bubble_manager\bubble_manager.cpp" />
     <ClCompile Include="src\game\gameobject\character_manager\character_manager.cpp" />
     <ClCompile Include="src\game\gameobject\fisher_manager\fisher\fisher.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\game\gameobject\feed_manager\feed_manager.cpp" />
     <ClCompile Include="src\game\gameobject\feed_manager\feed\feed.cpp" />
     <ClCompile Include="src\game\gameobject\fisher_manager\fisher_manager.cpp" />
+    <ClCompile Include="src\game\gameobject\maxplayer_manager\maxplayer_manager.cpp" />
     <ClCompile Include="src\game\gameobject\player_manager\player_manager.cpp" />
     <ClCompile Include="src\game\gameobject\player_manager\player\player.cpp" />
     <ClCompile Include="src\game\gameobject\skil_manager\skil\Elsctriceel\Elsctriceel.cpp" />
@@ -198,6 +201,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\gameobject\bubble_manager\bubble\bubble.h" />
+    <ClInclude Include="src\game\gameobject\bubble_manager\bubble_manager.h" />
     <ClInclude Include="src\game\gameobject\character_manager\characterID.h" />
     <ClInclude Include="src\game\gameobject\character_manager\character_manager.h" />
     <ClInclude Include="src\game\gameobject\feed_manager\feed\feed_id.h" />
@@ -208,6 +213,7 @@
     <ClInclude Include="src\game\gameobject\fisher_manager\fisher_manager.h" />
     <ClInclude Include="src\game\gameobject\fisher_manager\fisherstate.h" />
     <ClInclude Include="src\game\gameobject\game_object.h" />
+    <ClInclude Include="src\game\gameobject\maxplayer_manager\maxplayer_manager.h" />
     <ClInclude Include="src\game\gameobject\player_manager\player_manager.h" />
     <ClInclude Include="src\game\gameobject\player_manager\player\player.h" />
     <ClInclude Include="src\game\gameobject\skil_manager\skil\Elsctriceel\Elsctriceel.h" />

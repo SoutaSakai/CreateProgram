@@ -26,6 +26,8 @@ private:
 
 	void Keyboard(void);
 
+	void controller(void);
+
 	// 仮にボタンの座標とサイズを設定（例: x=100, y=300, width=200, height=50）
 	static const int				m_button_width;
 	static const int				m_button_height;
@@ -36,12 +38,13 @@ private:
 	static const vivid::Rect		m_rect;
 	static const vivid::Vector2		m_anchor;
 	static const vivid::Vector2		m_logo_position;
-	static const int				m_two_player;
-	static const int				m_three_player;
-	static const int				m_four_player;
+
+	static const vivid::controller::DEVICE_ID m_DeviceID[(int)vivid::controller::DEVICE_ID::MAX];
 
 	ButtonNumber		m_CurrentSelect;
 	vivid::Vector2*		m_ButtonPosition;
 	vivid::Vector2*		m_ButtonScale;
 	int					m_MaxPlayer;
+
+	int					m_ControllerTime;
 };

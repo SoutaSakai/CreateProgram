@@ -7,7 +7,7 @@ const float CTimeManager::m_number_width = 32.0f;		//数字の幅
 const float CTimeManager::m_number_height = 48.0f;	//数字の高さ m_height = 48;//画像サイズの高さ
 const float CTimeManager::m_word_width = 30.0f;		//「Time」文字列の幅 m__width = 30;//画像サイズの幅
 const float CTimeManager::m_word_height = 50.0f;		//「Time」文字列の高さ m__height = 50;//画像サイズの高さ
-const float CTimeManager::m_round_time = 60.0f;		// １ラウンド分の時間
+const float CTimeManager::m_round_time = 10.0f;		// １ラウンド分の時間
 
 namespace keyboard = vivid::keyboard;
 
@@ -31,19 +31,17 @@ void CTimeManager::Initialize(void)
 	m_Timer = m_round_time;
 }
 
-void CTimeManager::Update(void)
+void CTimeManager::Update(bool brack)
 {
-	m_StartTimer -= vivid::GetDeltaTime();
+	if (!brack)
+		m_StartTimer -= vivid::GetDeltaTime();
 
 	if (m_DrawFlag)
 	{
-
 		if (m_StartTimer <= 0)//スタートタイマーが０秒以上になったらDraw_flagをfalseにする
 		{
 			m_DrawFlag = false;
-
 		}
-
 	}
 
 	if (m_StartFlag == true)//スタートが機能したら
@@ -68,8 +66,6 @@ void CTimeManager::Draw(void)
 		{
 			vivid::DrawText(40, "スタート！！", vivid::Vector2(vivid::WINDOW_WIDTH / 2 - 100, vivid::WINDOW_HEIGHT / 2 - 20));
 		}
-
-
 	}
 	else if (m_DrawFlag == false)
 	{

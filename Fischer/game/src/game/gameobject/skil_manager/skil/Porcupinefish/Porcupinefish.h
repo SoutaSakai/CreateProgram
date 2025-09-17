@@ -27,11 +27,15 @@ private:
 	static const float	m_SpineSpeed;	//針のスピード
 	static const float	m_SpineAngle;	//針の間隔
 
+	static const int	m_score;		//スコア
+
 	vivid::Vector2		m_SpinePos[6];	//針の座標
 	vivid::Rect			m_SpineRect;	//針のRect
 	bool				m_SpineFlag[6];	//針のon/off
 	float				m_Angle[6];		//角度
 	vivid::Vector2		m_Anchor;		//基準点
+
+	bool				m_Flag[(int)vivid::controller::DEVICE_ID::MAX];
 
 	//針の3つの頂点格納変数
 	vivid::Vector2 SpineVertex[6][3];
@@ -39,4 +43,5 @@ private:
 	float Spinediagonal;
 
 	int m_PlayerNumber;					//プレイヤー識別番号
+	int m_MaxPlayer;
 };

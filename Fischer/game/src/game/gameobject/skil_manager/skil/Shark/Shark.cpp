@@ -1,9 +1,15 @@
 #include "Shark.h"
+#include"../../../score_manager/score_manager.h"
+#include"../../../maxplayer_manager/maxplayer_manager.h"
 
 const int CShark::m_time = 5;
+const int CShark::m_stan_time = 90;
+const int CShark::m_score = 30;
 
 void CShark::Initialize(int playernumber, vivid::Vector2 position)
 {
+	m_MaxPlayer = CMaxPlayerManager::GetInstance().GetMaxPlayer();
+
 	m_PlayerNumber = playernumber;
 	m_Position = position;
 
@@ -20,6 +26,9 @@ void CShark::Initialize(int playernumber, vivid::Vector2 position)
 	m_MouthAngle = atan2(test.y, test.x);
 
 	m_Diagonal = sqrt(pow(test.x, 2) + pow(test.y, 2));
+
+	for (int i = 0; i < 4; i++)
+		m_ScoreFlag[i] = true;
 
 	m_Timer = 0;
 }
@@ -53,15 +62,15 @@ void CShark::CheckHitSkill(void)
 {
 	DxLib::DrawCircle(m_WMouthPos.x, m_WMouthPos.y, m_MouthRadius, 0xffff0000, true);
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < m_MaxPlayer; i++)
 	{
-		if (i != m_PlayerNumber)
+		//自分以外 && スキルが一回も当たってない場合
+		if (i != m_PlayerNumber && m_ScoreFlag[i])
 		{
 			//カメ && スキル使用中だったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
 				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				return;
 			}
 			else
 			{
@@ -80,6 +89,8 @@ void CShark::CheckHitSkill(void)
 
 void CShark::CollisionDetection(int number, int pattern)
 {
+
+
 	//回転した状態の四角形の頂点の座標
 	vivid::Vector2 vertex[4];
 
@@ -170,7 +181,11 @@ void CShark::CollisionDetection(int number, int pattern)
 	//比較
 	if (difference < m_MouthRadius)
 	{
-		vivid::DrawText(40, "attateru", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+		//スタンさせる
+		playermanager::GetInstance().SetStanTime(number, m_stan_time);
+		//スコアを減らす
+		ScoreManager::GetInstance().AddScore(m_score, m_PlayerNumber);
+		//flagをfalseにする
+		m_ScoreFlag[number] = false;
 	}
-
 }

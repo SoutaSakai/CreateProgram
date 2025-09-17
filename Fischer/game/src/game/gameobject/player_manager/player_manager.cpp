@@ -9,7 +9,7 @@ playermanager& playermanager::GetInstance(void)
 	return instance;
 }
 
-void playermanager::GetUseCharacter(CHARACTER_ID Character, int PlayerNo, int CharacterNo)
+void playermanager::SetUseCharacter(CHARACTER_ID Character, int PlayerNo, int CharacterNo)
 {
 	UseCharacter[PlayerNo][CharacterNo] = Character;
 }
@@ -38,7 +38,8 @@ void playermanager::Initialize(const int MaxPlayer)
 		m_SkilFlag[i] = false;
 		m_ControlFlag[i] = true;
 
-		m_Octopus_Slow[i] = false;
+		//スタンタイマー初期化
+		m_Stantime[i] = 0;
 	}
 
 
@@ -53,7 +54,8 @@ void playermanager::Update(void)
 {
 	for (int i = 0; i < MaxPlayer; i++)
 	{
-		player[i]->Update();
+		if (--m_Stantime[i] <= 0)
+			player[i]->Update();
 	}
 }
 
@@ -129,4 +131,12 @@ int playermanager::GetMaxPlayer(void)
 	return MaxPlayer;
 }
 
+void playermanager::SetStanTime(int playernumber, int time)
+{
+	m_Stantime[playernumber] = time;
+}
 
+void playermanager::SetSlow(int playernumber, int time)
+{
+	player[playernumber]->Slow(time);
+}

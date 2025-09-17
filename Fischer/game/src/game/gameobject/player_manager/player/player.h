@@ -8,11 +8,6 @@
 #include "..\..\fisher_manager\fisherstate.h"
 #include"../../skil_manager/skil_manager.h"
 
-////スキルインクルード
-//#include"../Skil/Tuna/Tuna.h"
-//#include"../Skil/Elsctriceel/Elsctriceel.h"
-//#include"../Skil/Turtle/Turtle.h"
-
 
 class Player
 {
@@ -61,6 +56,8 @@ public:
 
 	bool GetFishedFlag(void) const { return m_FishedFlag; }
 
+	//スロウを与える
+	void Slow(int time);
 
 	void SetFeedID(FEED_ID);
 
@@ -87,9 +84,6 @@ private:
 
 	int	CharaNo;					//今のラウンドのキャラ
 
-	//bool SkilFlag;				//スキルのフラグ
-	//bool ControlFlag;			//プレイヤーが操作できるかどうか
-
 	int		m_Score;
 
 	FEED_ID m_FeedID;
@@ -100,11 +94,12 @@ private:
 
 	unsigned int m_Color;
 
+	int m_UsageLimit;				//スキルの回数
+
+	int	m_SlowTime;					//スロウ効果時間
+
 	static const float WaterHEIGHT;
 	static const float MouthDis;
 	static const float m_eat_time;
-
-	////スキルクラス
-	//Tuna* tuna;
 };
 

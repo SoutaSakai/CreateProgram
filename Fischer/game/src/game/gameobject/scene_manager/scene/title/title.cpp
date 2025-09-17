@@ -3,6 +3,7 @@
 #include "title.h"
 #include "vivid.h"
 #include "..\..\..\player_manager\player_manager.h"
+#include "..\..\..\maxplayer_manager\maxplayer_manager.h"
 
 const int				Title::m_button_width		= 310;
 const int				Title::m_button_height		= 80;
@@ -13,9 +14,14 @@ const vivid::Vector2	Title::m_max_scale			= { 1.3f, 1.3f };
 const vivid::Rect		Title::m_rect				= { 0,0,m_button_width, m_button_height };
 const vivid::Vector2	Title::m_anchor				= { m_button_width / 2,m_button_height / 2 };
 const vivid::Vector2	Title::m_logo_position		= { vivid::WINDOW_WIDTH / 2.0f - 370.0f, vivid::WINDOW_HEIGHT / 5.0f };
-const int				Title::m_two_player			= 2;
-const int				Title::m_three_player		= 3;
-const int				Title::m_four_player		= 4;
+
+const vivid::controller::DEVICE_ID Title::m_DeviceID[] =
+{
+	vivid::controller::DEVICE_ID::PLAYER1,
+	vivid::controller::DEVICE_ID::PLAYER2,
+	vivid::controller::DEVICE_ID::PLAYER3,
+	vivid::controller::DEVICE_ID::PLAYER4,
+};
 
 Title::Title(void)
 {
@@ -36,16 +42,19 @@ void Title::Initialize(void)
 	}
 
 	m_MaxPlayer = 0;
+	m_ControllerTime = 0;
 }
 
 void Title::Update(void)
 {
 	Keyboard();
 
+	controller();
+
 //#ifdef VIVID_DEBUG
 	// Zキーでシーン変更
 	if (vivid::keyboard::Trigger(vivid::keyboard::KEY_ID::Z))
-		SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN/*CHARACTERSELECT*/);
+		SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
 //#endif
 }
 
@@ -68,14 +77,7 @@ void Title::Finalize(void)
 
 int Title::GetMaxPlayer(void)
 {
-	if (m_MaxPlayer == 2)
-		return	m_two_player;
-	if (m_MaxPlayer == 3)
-		return	m_three_player;
-	if (m_MaxPlayer == 4)
-		return	m_four_player;
-
-	return	0;
+	return	m_MaxPlayer;
 }
 
 void Title::Keyboard(void)
@@ -141,7 +143,94 @@ void Title::Keyboard(void)
 				break;
 			}
 
-			SceneManager::GetInstance().Change_scene(SCENE_ID::GAMEMAIN/*CHARACTERSELECT*/);
+			CMaxPlayerManager::GetInstance().SetMaxPlayer(m_MaxPlayer);
+			SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
 		}
 	}
+}
+
+void Title::controller(void)
+{
+	vivid::Vector2 controllerpos = { 0,0 };
+
+	//タイマー更新
+	++m_ControllerTime;
+
+	for (int i = 0; i < (int)vivid::controller::DEVICE_ID::MAX; i++)
+	{
+		controllerpos = vivid::controller::GetAnalogStickLeft(m_DeviceID[i]);
+
+		//タイマー比較
+		if (m_ControllerTime >= 10)
+		{
+			if (controllerpos.x <= -0.3)
+			{
+				if ((int)m_CurrentSelect == 0)
+					m_CurrentSelect = ButtonNumber::TWO;
+				else if ((int)m_CurrentSelect > 1)
+					m_CurrentSelect = ButtonNumber((int)m_CurrentSelect - 1);
+			}
+			if (controllerpos.x >= 0.3)
+			{
+				if ((int)m_CurrentSelect == 0)
+					m_CurrentSelect = ButtonNumber::FOUR;
+				else if ((int)m_CurrentSelect < 3)
+					m_CurrentSelect = ButtonNumber((int)m_CurrentSelect + 1);
+			}
+		}
+
+		if (vivid::controller::Trigger(m_DeviceID[i], vivid::controller::BUTTON_ID::A))
+		{
+			if (m_CurrentSelect != ButtonNumber::DUMMY)
+			{
+				switch (m_CurrentSelect)
+				{
+				case ButtonNumber::TWO:
+					m_MaxPlayer = 2;
+
+					break;
+				case ButtonNumber::THREE:
+					m_MaxPlayer = 3;
+					break;
+				case ButtonNumber::FOUR:
+					m_MaxPlayer = 4;
+
+					break;
+				default:
+					break;
+				}
+
+				CMaxPlayerManager::GetInstance().SetMaxPlayer(m_MaxPlayer);
+				SceneManager::GetInstance().Change_scene(SCENE_ID::CHARACTERSELECT);
+			}
+		}
+	}
+
+	if (m_CurrentSelect != ButtonNumber::DUMMY)
+	{
+		switch (m_CurrentSelect)
+		{
+		case ButtonNumber::TWO:
+			m_ButtonScale[0] = m_max_scale;
+			m_ButtonScale[1] = m_default_scale;
+			m_ButtonScale[2] = m_default_scale;
+			break;
+		case ButtonNumber::THREE:
+			m_ButtonScale[0] = m_default_scale;
+			m_ButtonScale[1] = m_max_scale;
+			m_ButtonScale[2] = m_default_scale;
+			break;
+		case ButtonNumber::FOUR:
+			m_ButtonScale[0] = m_default_scale;
+			m_ButtonScale[1] = m_default_scale;
+			m_ButtonScale[2] = m_max_scale;
+			break;
+		default:
+			break;
+		}
+	}
+
+	//タイマー比較
+	if (m_ControllerTime >= 10)
+		m_ControllerTime = 0;
 }

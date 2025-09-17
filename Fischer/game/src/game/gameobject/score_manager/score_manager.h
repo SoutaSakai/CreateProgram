@@ -16,9 +16,15 @@ public:
 
 	void Finalize(void);
 
+	int GetRoundScore(int number);
+
 	int GetScore(int);
 
-	void AddScore(int, vivid::controller::DEVICE_ID);
+	int GetPlayer(int);
+
+	int GetRank(int);
+
+	void AddScore(int, int);
 
 private:
 	static const int m_width;			//‰æ‘œƒTƒCƒY‚Ì•

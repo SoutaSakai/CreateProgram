@@ -31,14 +31,6 @@ void FeedManager::Update(void)
 	{
 		m_Feeds[i].SetHit(playermanager::GetInstance().CheckHitFeed(&m_Feeds[i]));
 
-		//// 不活性なデータの初期化
-		//if (!m_Feeds[i].GetActive())
-		//{
-		//	m_Feeds[i].Reset();
-
-		//	continue;
-		//}
-
 		// 餌の更新
 		m_Feeds[i].Update();
 	}

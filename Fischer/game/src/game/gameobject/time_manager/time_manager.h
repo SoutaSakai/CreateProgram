@@ -10,7 +10,7 @@ public:
 
 	void Initialize(void);
 
-	void Update(void);
+	void Update(bool);
 
 	void Draw(void);
 

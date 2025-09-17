@@ -1,4 +1,6 @@
 #include "Porcupinefish.h"
+#include"../../../score_manager/score_manager.h"
+#include"../../../maxplayer_manager/maxplayer_manager.h"
 
 const int		Porcupinefish::m_MaxSpine = 6;
 const float		Porcupinefish::m_SpineSpeed = 8;
@@ -7,8 +9,11 @@ const float		Porcupinefish::m_SpineAngle = 15;
 const int		Porcupinefish::m_Spinewidth = 45;
 const int		Porcupinefish::m_Spineheight = 30;
 
+const int		Porcupinefish::m_score = 20;
+
 void Porcupinefish::Initialize(int playernumber, vivid::Vector2 pos)
 {
+	m_MaxPlayer = CMaxPlayerManager::GetInstance().GetMaxPlayer();
 	m_PlayerNumber = playernumber;
 
 	m_SpineRect.left = 0;
@@ -17,6 +22,9 @@ void Porcupinefish::Initialize(int playernumber, vivid::Vector2 pos)
 	m_SpineRect.bottom = m_SpineRect.top + m_Spineheight;
 
 	m_Anchor = vivid::Vector2(m_Spinewidth / 2, m_Spineheight / 2);
+
+	for (int i = 0; i < 4; i++)
+		m_Flag[i] = true;
 
 	for (int i = 0; i < m_MaxSpine; i++)
 	{
@@ -46,10 +54,10 @@ void Porcupinefish::Update()
 		//flagがtrueの針だけ動かす
 		if (m_SpineFlag[i])
 		{
-			m_SpinePos[i].x = cos(m_Angle[i] * 3.14f / 180.0f) * m_SpineSpeed + m_SpinePos[i].x;
-			m_SpinePos[i].y = sin(m_Angle[i] * 3.14f / 180.0f) * m_SpineSpeed + m_SpinePos[i].y;
+			m_SpinePos[i].x = cos(m_Angle[i] * 3.14 / 180.0f) * m_SpineSpeed + m_SpinePos[i].x;
+			m_SpinePos[i].y = sin(m_Angle[i] * 3.14 / 180.0f) * m_SpineSpeed + m_SpinePos[i].y;
 
-			vivid::DrawTexture("data\\Spine.png", m_SpinePos[i], 0xffffffff, m_SpineRect, m_Anchor, m_Angle[i] * 3.14f / 180.0f);
+			vivid::DrawTexture("data\\Spine.png", m_SpinePos[i], 0xffffffff, m_SpineRect, m_Anchor, m_Angle[i] * 3.14 / 180.0f);
 		}
 
 		//画面外判定
@@ -74,33 +82,33 @@ void Porcupinefish::Update()
 void Porcupinefish::CheckHitSkill(void)
 {
 	//針の対角線の長さを求める
-	Spinediagonal = sqrt(pow(0 - m_Spinewidth / 2.0f, 2.0f) + pow(0 - m_Spineheight / 2.0f, 2.0f));
+	Spinediagonal = sqrt(pow(0 - m_Spinewidth / 2, 2) + pow(0 - m_Spineheight / 2, 2));
 
 	for (int i = 0; i < m_MaxSpine; i++)
 	{
 		//針の中心点
 		vivid::Vector2 SpineCenterPos = m_SpinePos[i] + vivid::Vector2(m_Spinewidth / 2, m_Spineheight / 2);
 
-		SpineVertex[i][0].x = SpineCenterPos.x + cos((m_Angle[i] + 225.0f) * 3.14f / 180.0f) * Spinediagonal;
-		SpineVertex[i][0].y = SpineCenterPos.y + sin((m_Angle[i] + 225.0f) * 3.14f / 180.0f) * Spinediagonal;
+		SpineVertex[i][0].x = SpineCenterPos.x + cos((m_Angle[i] + 225) * 3.14 / 180.0f) * Spinediagonal;
+		SpineVertex[i][0].y = SpineCenterPos.y + sin((m_Angle[i] + 225) * 3.14 / 180.0f) * Spinediagonal;
 
-		SpineVertex[i][1].x = SpineCenterPos.x + m_Spinewidth / 2.0f;
-		SpineVertex[i][1].y = SpineCenterPos.y + m_Spineheight / 2.0f;
+		SpineVertex[i][1].x = SpineCenterPos.x + m_Spinewidth / 2;
+		SpineVertex[i][1].y = SpineCenterPos.y + m_Spineheight / 2;
 
-		SpineVertex[i][2].x = SpineCenterPos.x + cos((m_Angle[i] + 135.0f) * 3.14f / 180.0f) * Spinediagonal;
-		SpineVertex[i][2].y = SpineCenterPos.y + sin((m_Angle[i] + 135.0f) * 3.14f / 180.0f) * Spinediagonal;
+		SpineVertex[i][2].x = SpineCenterPos.x + cos((m_Angle[i] + 135) * 3.14 / 180.0f) * Spinediagonal;
+		SpineVertex[i][2].y = SpineCenterPos.y + sin((m_Angle[i] + 135) * 3.14 / 180.0f) * Spinediagonal;
 
 	}
 
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < m_MaxPlayer; i++)
 	{
-		if (i != m_PlayerNumber)
+		//自分以外 && スキルが一回も当たってない場合
+		if (i != m_PlayerNumber && m_Flag[i])
 		{
 			//カメ && スキル使用中だったら
 			if (playermanager::GetInstance().GetCharacter(i) == CHARACTER_ID::TURTLE &&
 				playermanager::GetInstance().GetSkilFlag(i) == true)
 			{
-				return;
 			}
 			else
 			{
@@ -175,13 +183,13 @@ void Porcupinefish::CollisionDetection(int number, int pattern)
 	//対象の中心点
 	targetcenterpos = vivid::Vector2(targetposition.x + width / 2, targetposition.y + height / 2);
 	//対象の対角線の長さを求める
-	diagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2.0f) + pow(targetposition.y - targetcenterpos.y, 2.0f));
+	diagonal = sqrt(pow(targetposition.x - targetcenterpos.x, 2) + pow(targetposition.y - targetcenterpos.y, 2));
 
 	for (int j = 0; j < 4; j++)
 	{
 		//回転した状態の頂点の座標を求める
-		vertex[j].x = cos((targetangle + 135.0f + 90.0f * j) * 3.14f / 180.0f) * diagonal + targetcenterpos.x;
-		vertex[j].y = sin((targetangle + 135.0f + 90.0f * j) * 3.14f / 180.0f) * diagonal + targetcenterpos.y;
+		vertex[j].x = cos((targetangle + 135 + 90 * j) * 3.14 / 180) * diagonal + targetcenterpos.x;
+		vertex[j].y = sin((targetangle + 135 + 90 * j) * 3.14 / 180) * diagonal + targetcenterpos.y;
 	}
 
 	//針の辺(AB)とcharacterの辺(CD)が交差してるか調べる
@@ -212,7 +220,9 @@ void Porcupinefish::CollisionDetection(int number, int pattern)
 					{
 						//フラグをfalseにする
 						m_SpineFlag[p] = false;
-						vivid::DrawText(40, "HIT", vivid::Vector2(640.0f, 0.0f), 0xffffffff);
+						m_Flag[number] = false;
+						//スコア付与
+						ScoreManager::GetInstance().AddScore(m_score, m_PlayerNumber);
 					}
 				}
 			}

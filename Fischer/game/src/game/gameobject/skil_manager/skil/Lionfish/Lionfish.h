@@ -30,11 +30,17 @@ private:
 	static const float				m_abilityTime;		//効果時間
 	static const vivid::Vector2		m_scalespeed;		//スケールスピード
 
+	static const int				m_score;		//スキルが当たった時のスコアの増減値
+
 	vivid::Vector2					m_Position;			//座標
 	vivid::Vector2					m_Scale;			//拡大率
 
+	bool							m_Flag[(int)vivid::controller::DEVICE_ID::MAX];
+
 	unsigned int					m_Color;			//色
-	int								m_PlayerNumber;		//プレイヤーID
 	float							m_timer;			//タイマー
+
+	int								m_PlayerNumber;		//プレイヤーID
+	int								m_MaxPlayer;		//最大人数
 
 };

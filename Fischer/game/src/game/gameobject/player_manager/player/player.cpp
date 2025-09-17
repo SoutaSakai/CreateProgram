@@ -51,6 +51,8 @@ void Player::Initialize(vivid::controller::DEVICE_ID Player_ID, float Xpos)
 	//デバイスIDを入れる
 	m_PlayerID = Player_ID;
 
+	m_SlowTime = 0;
+
 	this->ChangeRound();
 }
 
@@ -63,6 +65,17 @@ void Player::Update(void)
 		{
 			// キャラの中心位置
 			vivid::Vector2 CharaCenterPos = CharacterPos + vivid::Vector2(CharaWIDTH / 2, CharaHEIGHT / 2);
+
+			//ポインツナのパッシブ
+			if (UseCharacter[CharaNo] == CHARACTER_ID::POINTUNA)
+			{
+				//スコア取得
+				int score = ScoreManager::GetInstance().GetRoundScore((int)m_PlayerID);
+				//比較
+				int sumspeed = score / 50;
+				//スピードに加算する
+				CharaSpeed = CharacterManager::GetInstance().CharacterSpeed(UseCharacter[CharaNo]) + sumspeed;
+			}
 
 			float x = 0;
 			float y = 0;
@@ -102,36 +115,7 @@ void Player::Update(void)
 			if (playermanager::GetInstance().GetSkilFlag((int)m_PlayerID))
 			{
 				CharacterPos = SkilManager::Getinstance().Update((int)m_PlayerID, UseCharacter[CharaNo], CharacterPos, Angle, Scale.x);
-
-				/*switch (UseCharacter[playermanager::GetInstance().GetRoundCount() - 1])
-				{
-				case CHARACTER_ID::DUMMY:
-					break;
-				case CHARACTER_ID::ELSCTRICEEL:
-					break;
-				case CHARACTER_ID::PORCUPINEFISH:
-					break;
-				case CHARACTER_ID::SHARK:
-					break;
-				case CHARACTER_ID::LIONFISH:
-					break;
-				case CHARACTER_ID::MIRRORMORAYELL:
-					break;
-				case CHARACTER_ID::TURTLE:
-					break;
-				case CHARACTER_ID::OCTOPUS:
-					break;
-				case CHARACTER_ID::POINTUNA:
-					break;
-				case CHARACTER_ID::TUNA:
-					if(tuna != nullptr)
-						CharacterPos = tuna->Update(CharacterPos, Angle, Scale.x);
-					break;
-				default:
-					break;
-				}*/
 			}
-
 		}
 	}
 }
@@ -185,10 +169,54 @@ void Player::Controller(void)
 	{
 		vivid::DrawText(40, "A", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
 	}
+
+	int FisherMax = FisherManager::GetInstance().GetMax();
 	//Bが押されたとき	食べる
-	if (vivid::controller::Button(m_PlayerID, vivid::controller::BUTTON_ID::B))
+	if (m_EatTimer <= 0.0f && vivid::controller::Button(m_PlayerID, vivid::controller::BUTTON_ID::B))
 	{
-		vivid::DrawText(40, "B", vivid::Vector2(vivid::WINDOW_WIDTH / 2, 0.0f), 0xffffffff);
+		vivid::DrawText(40, "R", vivid::Vector2(200.0f, 0.0f));
+		for (int i = 0; i < FisherMax; ++i)
+		{
+			if (FeedManager::GetInstance().GetHit(i))
+			{
+				// 当たっていた時
+
+#ifdef VIVID_DEBUG
+				vivid::DrawText(40, std::to_string(i), vivid::Vector2(300.0f, 0.0f));
+#endif
+
+				FisherManager::GetInstance().SetMoveFlag(i, true);
+
+				if (FisherManager::GetInstance().GetState(i) == FISHER_STATE::RELUX)
+				{
+					switch (FeedManager::GetInstance().GetFeedID(i))
+					{
+					case FEED_ID::LURE:
+						ScoreManager::GetInstance().AddScore(10, (int)m_PlayerID);
+						break;
+					case FEED_ID::WORM:
+						ScoreManager::GetInstance().AddScore(20, (int)m_PlayerID);
+						break;
+					case FEED_ID::MEET:
+						ScoreManager::GetInstance().AddScore(50, (int)m_PlayerID);
+						break;
+					case FEED_ID::GOLD:
+						ScoreManager::GetInstance().AddScore(100, (int)m_PlayerID);
+						break;
+					default:
+						break;
+					}
+				}
+				else if (FisherManager::GetInstance().GetState(i) == FISHER_STATE::CAUTION)
+				{
+					ScoreManager::GetInstance().AddScore(-20, (int)m_PlayerID);
+
+					m_FishedFlag = true;
+				}
+
+				FeedManager::GetInstance().Destroy(i);
+			}
+		}
 	}
 	//RBが押されたとき	スキル
 	if (vivid::controller::Button(m_PlayerID, vivid::controller::BUTTON_ID::RIGHT_SHOULDER))
@@ -199,6 +227,9 @@ void Player::Controller(void)
 
 			//SkilFlagをtrueにする
 			playermanager::GetInstance().ChangeSkilFlagTrue((int)m_PlayerID);
+
+			//スキルの使用回数を1減らす
+			m_UsageLimit -= 1;
 
 			//ControlFlagをfalseにする	==> 一部キャラだけ
 			if (UseCharacter[CharaNo] == CHARACTER_ID::TUNA)
@@ -239,13 +270,13 @@ void Player::KeyboardGamemain(void)
 {
 	float speed;
 
-	if (playermanager::GetInstance().GetOctopusSlowFlag((int)m_PlayerID))
+	if (--m_SlowTime <= 0)
 	{
-		speed = CharaSpeed - CharacterManager::GetInstance().GetSlowSpeed();
+		speed = CharaSpeed;
 	}
 	else
 	{
-		speed = CharaSpeed;
+		speed = CharaSpeed * CharacterManager::GetInstance().GetSlowSpeed();
 	}
 
 	//追加コード===>
@@ -272,16 +303,16 @@ void Player::KeyboardGamemain(void)
 					switch (FeedManager::GetInstance().GetFeedID(i))
 					{
 					case FEED_ID::LURE:
-						ScoreManager::GetInstance().AddScore(10, m_PlayerID);
+						ScoreManager::GetInstance().AddScore(10, (int)m_PlayerID);
 						break;
 					case FEED_ID::WORM:
-						ScoreManager::GetInstance().AddScore(20, m_PlayerID);
+						ScoreManager::GetInstance().AddScore(20, (int)m_PlayerID);
 						break;
 					case FEED_ID::MEET:
-						ScoreManager::GetInstance().AddScore(50, m_PlayerID);
+						ScoreManager::GetInstance().AddScore(50, (int)m_PlayerID);
 						break;
 					case FEED_ID::GOLD:
-						ScoreManager::GetInstance().AddScore(100, m_PlayerID);
+						ScoreManager::GetInstance().AddScore(100, (int)m_PlayerID);
 						break;
 					default:
 						break;
@@ -289,7 +320,7 @@ void Player::KeyboardGamemain(void)
 				}
 				else if (FisherManager::GetInstance().GetState(i) == FISHER_STATE::CAUTION)
 				{
-					ScoreManager::GetInstance().AddScore(-20, m_PlayerID);
+					ScoreManager::GetInstance().AddScore(-20, (int)m_PlayerID);
 
 					m_FishedFlag = true;
 				}
@@ -453,6 +484,11 @@ void Player::Setting(vivid::Vector2 pos, float scale, float angle, bool skilflag
 	Angle = angle * (3.14 / 180);
 }
 
+void Player::Slow(int time)
+{
+	m_SlowTime = time;
+}
+
 void Player::SetFeedID(FEED_ID id)
 {
 	/*m_FeedId = id;*/
@@ -462,9 +498,6 @@ bool Player::CheckHitFeed(Feed* feed)
 {
 	// 口が餌の範囲内かの判定
 	bool check = feed->GetRadius() + CharaMouthRadius > sqrt(pow(feed->GetCenterPos().x - CharaMouthPos.x, 2) + pow(feed->GetCenterPos().y - CharaMouthPos.y, 2));
-
-	//if (check)
-	//	feed->InActive(false);
 
 	return check;
 }
